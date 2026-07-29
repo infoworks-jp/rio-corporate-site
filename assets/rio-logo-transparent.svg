@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 422" role="img" aria-labelledby="title desc">
+<title id="title">株式会社吏央 ロゴ</title><desc id="desc">既存サイトのロゴ画像から灰色背景を透明化した表示</desc>
+<defs>
+  <filter id="removeGray" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" result="luma"/>
+    <feComponentTransfer in="luma" result="mask"><feFuncA type="table" tableValues="1 1 0 0 0 0 1 1 1 1"/></feComponentTransfer>
+    <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+  </filter>
+</defs>
+<image width="980" height="422" preserveAspectRatio="xMidYMid meet" filter="url(#removeGray)" href="https://static.wixstatic.com/media/4d13fe_dc5da2804ba346efad8bb6ac9edc32f1~mv2.jpg/v1/fill/w_980,h_422,al_c,q_90/4d13fe_dc5da2804ba346efad8bb6ac9edc32f1~mv2.jpg"/>
+</svg>
