@@ -1,0 +1,31 @@
+name: Import original credential files
+on:
+  push:
+    paths:
+      - '.github/workflows/import-originals.yml'
+permissions:
+  contents: write
+jobs:
+  import-originals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original PDFs and seal
+        run: |
+          set -euo pipefail
+          mkdir -p assets/certificates/original
+          curl -fL 'https://at.adobe.com/EpbQdLeAYIuZh4qB' -o assets/certificates/original/kaitai-register.pdf
+          curl -fL 'https://at.adobe.com/V8jgCVyArBL5tiMp' -o assets/certificates/original/civil-engineer.pdf
+          curl -fL 'https://at.adobe.com/CENs9nmPqhFr31xc' -o assets/certificates/original/qualification-set.pdf
+          curl -fL 'https://at.adobe.com/RnUVPQ6WSsQQZG2M' -o assets/certificates/original/social-letter.pdf
+          curl -fL 'https://at.adobe.com/zQOXDfaYWYUtAFZj' -o assets/certificates/original/kaitai-exam.pdf
+          curl -fL 'https://at.adobe.com/sdehGShWFJh165I3' -o assets/rio-seal-original.jpg
+          file assets/certificates/original/* assets/rio-seal-original.jpg
+      - name: Commit originals
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/certificates/original assets/rio-seal-original.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'Import original credential PDFs and seal image'
+          git push
