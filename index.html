@@ -1,115 +1,22 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#050505">
-  <meta name="description" content="株式会社吏央は札幌・横浜を拠点に、解体工事・土工事を行う建設会社です。">
-  <title>株式会社吏央 | 札幌・横浜の解体工事・土工事</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505">
+<title>株式会社 吏央 — 人と人をつなぐ</title><meta name="description" content="株式会社吏央。札幌・横浜を拠点に解体・土工・とび工事を展開。"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <canvas id="fluid-canvas" aria-hidden="true"></canvas>
-  <div class="grain" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="株式会社吏央 トップへ"><img src="assets/rio-logo-transparent.svg" alt="株式会社吏央 RIO Construction company"></a>
-    <nav class="desktop-nav" aria-label="メインナビゲーション">
-      <a href="https://www.rio-works.com/company">会社案内</a><a href="https://www.rio-works.com/recruit">リクルート</a><a href="https://www.rio-works.com/service">サービス</a><a href="https://www.rio-works.com/works">工事実績</a><a href="https://www.rio-works.com/contact">お問い合わせ</a>
-    </nav>
-  </header>
-  <main id="top">
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">SAPPORO · YOKOHAMA / CONSTRUCTION COMPANY</p>
-        <img class="hero-logo" src="assets/rio-logo-transparent.svg" alt="株式会社吏央">
-        <h1>人と人をつなぐ<br><span>私たちの未来</span></h1>
-        <p class="lead">札幌と横浜を拠点に、解体工事・土工事を通して街の未来をつくる。</p>
-        <p class="interaction">DRAG TO POUR — TAP TO BURST<br><span>指やマウスで墨を流してください</span></p>
-      </div><a class="scroll" href="#about">SCROLL TO DESCEND <span>↓</span></a>
-    </section>
-    <section id="about" class="panel-section"><div class="section-number">01</div><div class="content-panel"><p class="kicker">ABOUT RIO</p><h2>安全と信頼を、<br>一つひとつ積み重ねる。</h2><p>株式会社吏央は、札幌と横浜で主に解体業と土工業を展開しています。安全で効率的な作業を心掛け、信頼されるパートナーとして、お客様のニーズに応えるサービスを提供できるよう努めてまいります。</p><a class="text-link" href="https://www.rio-works.com/about">私たちについて <span>↗</span></a></div></section>
-    <section class="services-section"><div class="section-heading"><p class="kicker">OUR SERVICE</p><h2>壊すだけではない。<br>次の建設へつなぐ仕事。</h2></div><div class="service-grid"><article><span>01</span><h3>解体工事</h3><p>周辺環境と安全に配慮し、確実で効率的な施工を行います。</p></article><article><span>02</span><h3>土工事</h3><p>現場の基礎を支える土工事を、経験と機動力で遂行します。</p></article><article><span>03</span><h3>施工管理</h3><p>品質・工程・安全を一体で管理し、信頼される現場をつくります。</p></article></div><a class="outline-button" href="https://www.rio-works.com/service">サービスを見る</a></section>
-
-    <section id="credentials" class="credentials-section" aria-labelledby="credentials-title">
-      <div class="credentials-head">
-        <p class="kicker">CREDENTIALS</p>
-        <h2 id="credentials-title">技術と信頼の証。</h2>
-        <p class="credentials-intro">施工の技術、法令への理解、そして地域社会との信頼。株式会社吏央が積み重ねてきた資格・講習・社会貢献の一部をご紹介します。</p>
-      </div>
-
-      <div class="credentials-block">
-        <div class="credentials-label"><span>01</span><p>COMPANY LICENSE</p></div>
-        <div class="credential-row credential-row-static">
-          <div>
-            <p class="credential-type">CONSTRUCTION BUSINESS LICENSE</p>
-            <h3>建設業許可</h3>
-            <p>知事許可（般-25）石第21656号</p>
-          </div>
-          <span class="credential-status">LICENSED</span>
-        </div>
-      </div>
-
-      <div class="credentials-block">
-        <div class="credentials-label"><span>02</span><p>TECHNICAL QUALIFICATIONS</p></div>
-        <button class="credential-row certificate-trigger" type="button"
-          data-cert-title="解体工事施工技士"
-          data-cert-meta="TECHNICAL QUALIFICATION"
-          data-cert-kind="kaitai">
-          <div>
-            <p class="credential-type">TECHNICAL QUALIFICATION</p>
-            <h3>解体工事施工技士</h3>
-            <p>全国解体工事業団体連合会 登録</p>
-          </div>
-          <span class="view-certificate">VIEW CERTIFICATE <b>↗</b></span>
-        </button>
-
-        <button class="credential-row certificate-trigger" type="button"
-          data-cert-title="産業廃棄物処理業 許可申請講習"
-          data-cert-meta="TRAINING / COMPLIANCE"
-          data-cert-kind="waste">
-          <div>
-            <p class="credential-type">TRAINING / COMPLIANCE</p>
-            <h3>産業廃棄物処理業 許可申請講習</h3>
-            <p>新規・収集運搬課程 修了</p>
-          </div>
-          <span class="view-certificate">VIEW CERTIFICATE <b>↗</b></span>
-        </button>
-      </div>
-
-      <div class="social-contribution">
-        <div class="social-copy">
-          <p class="kicker">SOCIAL CONTRIBUTION</p>
-          <h2>人を育てることも、<br>私たちの仕事です。</h2>
-          <p>更生保護事業への理解と、非行少年の就職・改善更生への協力に対し、札幌保護観察所より感謝状を拝受しました。</p>
-          <button class="letter-trigger certificate-trigger" type="button"
-            data-cert-title="札幌保護観察所 感謝状"
-            data-cert-meta="SOCIAL CONTRIBUTION"
-            data-cert-kind="social">VIEW LETTER <span>↗</span></button>
-        </div>
-        <div class="social-mark" aria-hidden="true"><span>TRUST</span><b>03</b></div>
-      </div>
-    </section>
-
-    <section class="office-section"><div class="office-card"><p class="kicker">SAPPORO HEAD OFFICE</p><h2>札幌本社</h2><address>〒001-0923<br>札幌市北区新川3条5丁目8-8<br>TEL 011-374-8012<br>FAX 011-374-8013</address><a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">MAP ↗</a></div><div class="office-card"><p class="kicker">YOKOHAMA BRANCH</p><h2>横浜支店</h2><address>〒224-0053<br>横浜市都筑区池辺町4618<br>TEL 045-930-3366<br>FAX 045-930-3367</address><a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">MAP ↗</a></div></section>
-    <section class="recruit-section"><p class="kicker">RECRUIT</p><h2>未来をつくる仲間を、<br>募集しています。</h2><a class="solid-button" href="https://www.rio-works.com/recruit">採用情報を見る</a></section>
-  </main>
-  <footer><img src="assets/rio-logo-transparent.svg" alt="株式会社吏央"><p>© RIO CO., LTD.</p><a href="https://www.rio-works.com/contact">CONTACT ↗</a></footer>
-
-  <div id="certificate-modal" class="certificate-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="certificate-title">
-    <div class="certificate-modal-backdrop" data-modal-close></div>
-    <div class="certificate-modal-shell">
-      <div class="certificate-modal-head">
-        <div><p id="certificate-meta"></p><h2 id="certificate-title"></h2></div>
-        <button class="certificate-close" type="button" data-modal-close aria-label="証書を閉じる">CLOSE <span>×</span></button>
-      </div>
-      <div class="certificate-stage">
-        <div id="certificate-sheet" class="certificate-sheet" aria-live="polite"></div>
-      </div>
-      <p class="certificate-note">個人情報保護のため、一部情報を非表示にしています。</p>
-    </div>
-  </div>
-
-  <div class="controls" aria-label="WebGL設定"><button id="show-params" type="button">PARAMETERS <span>表示</span></button><button id="hide-params" type="button">CLOSE <span>閉じる</span></button></div>
-  <div class="promo" hidden><button class="promo-close">×</button><a id="apple_link"></a><a id="google_link"></a></div><div id="webgl-fallback" role="status">この端末ではWebGL流体表現を利用できません。通常表示でご覧いただけます。</div>
-  <script>window.ga=window.ga||function(){};</script><script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/PavelDoGreat/WebGL-Fluid-Simulation@master/script.js"></script><script src="site.js"></script>
+<canvas id="fluid-canvas" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
+<header class="site-header"><a class="wordmark" href="#top"><b>株式会社 吏央</b><span>RIO CO., LTD. ●</span></a><div class="place">SAPPORO · YOKOHAMA<br>CONSTRUCTION WORKS</div><nav><a href="#future">私たち</a><a href="#services">事業内容</a><a href="#company">会社概要</a><a href="#works">施工実績</a><a href="#recruit">採用情報</a><a href="#contact">お問い合わせ</a></nav></header>
+<main id="top">
+<section class="hero"><p class="micro">INK IN MOTION</p><p class="scroll-label">SCROLL TO EXPLORE</p><div class="hero-copy"><h1>人と人を、つなぐ。</h1><p>RIO — TO CONNECT PEOPLE</p><img src="https://rio-construction-final-0731.y-kaku590232.chatgpt.site/rio-hero-logo.png" alt="株式会社吏央 RIO Construction Company"><h2>壊すことから、未来をつくる。</h2><p>DEMOLITION · EARTHWORK<br>SCAFFOLDING / SINCE 2020</p><a href="#future">私たちの未来を読む — DISCOVER</a></div></section>
+<section id="future" class="chapter dark"><p class="num">01 — OUR FUTURE</p><h2>終わりを、<br>はじまりへ。</h2><p class="formula">People × Skill × Trust = The next landscape</p><p class="lead">解体は、単なる終わりではない。<br>その場所に新しい可能性をひらく仕事です。</p><p>私たち株式会社吏央は、札幌と横浜を拠点に、解体・土工・とび職を展開しています。建物を解き、土地を整え、足場を組む。異なる仕事のすべてに通うのは、人と人をつなぐというひとつの意志。安全で効率的な作業を積み重ね、信頼されるパートナーとして次の景色を支えます。</p></section>
+<section id="services" class="chapter paper"><p class="num">02 — SERVICES / 技</p><h2>現場を支える、三つの技。</h2><div class="service-grid"><article><span>01 / DISMANTLE</span><h3>解体</h3><p>住宅・ビル・工場、内装や構造物まで。厳格な安全管理と適正な分別・リサイクルで、新しい建築の開始点をつくります。</p><b>壊す — そして、ひらく。</b></article><article><span>02 / GROUND</span><h3>土工</h3><p>土地の整地、根切り、基礎・コンクリート工事。精密な作業と最適な機材で、建築物の安定と安全を足元から支えます。</p><b>掘る — そして、整える。</b></article><article><span>03 / CONNECT</span><h3>とび</h3><p>足場の設置・解体、高所作業、資材搬入、仮設工事。仲間の命を預かる責任と確かな技術で、現場の骨格を組み上げます。</p><b>組む — そして、つなぐ。</b></article></div></section>
+<section class="chapter principle"><p class="num">03 — PRINCIPLE / 志</p><h2>形は変わる。<br>つながりは、残る。</h2><p>時代が移り変わっても、仕事は進化し続ける。けれど、人の心をつなぐという本質は変わりません。安全を守ること。技術を磨くこと。互いを信頼すること。その一つひとつが、まだ見ぬ未来の輪郭になります。</p><div class="kanji">吏</div></section>
+<section id="company" class="chapter company"><p class="num">04 — COMPANY / 素</p><h2>まっすぐに、<br>現場と向き合う。</h2><p class="lead">技術だけでは、いい仕事はできない。挨拶、約束、気配り。人として当たり前のことを、どの現場でも丁寧に積み重ねます。</p><dl class="facts"><dt>会社名</dt><dd>株式会社 吏央</dd><dt>事業内容</dt><dd>解体工事・土工工事・とび工事・仮設工事</dd><dt>代表者</dt><dd>大渕 吏央</dd><dt>設立年月日</dt><dd>2013年（平成25年）7月11日</dd><dt>従業員数</dt><dd>68名（2025年1月現在）</dd><dt>建設業許可</dt><dd>知事許可（般-25）石第21656号</dd><dt>売上実績</dt><dd>392,935,635円（令和6年4月期 決算実績）</dd><dt>本社所在地</dt><dd>札幌市北区新川3条5丁目8-8（自社ビル／寮併設）</dd><dt>代表電話</dt><dd>011-374-8012</dd></dl><div class="offices"><article><img src="https://rio-construction-final-0731.y-kaku590232.chatgpt.site/sapporo-office.jpg" alt="株式会社吏央 札幌本社"><h3>札幌本社</h3><p>〒001-0923<br>札幌市北区新川3条5丁目8-8<br>TEL 011-374-8012　FAX 011-374-8013</p></article><article><img src="https://rio-construction-final-0731.y-kaku590232.chatgpt.site/yokohama-office.jpg" alt="株式会社吏央 横浜支店"><h3>横浜支店</h3><p>〒224-0053<br>横浜市都筑区池辺町4618<br>TEL 045-930-3366　FAX 045-930-3367</p></article><article><img src="https://rio-construction-final-0731.y-kaku590232.chatgpt.site/tsubasa.jpg" alt="飲食事業部 味一番つばさ"><h3>飲食事業部<br>味一番つばさ</h3><p>〒064-0804<br>札幌市中央区南4条西3丁目1-1 新ラーメン横丁内<br>TEL 011-521-5963</p></article></div></section>
+<section id="works" class="chapter works"><p class="num">05 — WORKS / 跡</p><h2>積み重ねた、仕事の跡。</h2><div class="works-grid"><div><p class="subnum">01 / SAPPORO WORKS</p><h3>札幌本社、<br>実際の施工記録。</h3><h4>大型内装解体工事</h4><ul><li>道新ビル大通館 2・3・4・5・7F 内装解体工事 <em>6,618.8㎡</em></li><li>道銀ビル 地下B1F・B2F 内装解体工事 <em>4,510.1㎡</em></li><li>札幌第10条郵政社宅 内装解体工事 <em>2,508.25㎡</em></li><li>札幌共和女子学生会館 6〜10F 内装解体工事 <em>2,085㎡</em></li><li>JR苗穂社宅 内装解体工事 <em>1,983㎡</em></li><li>エルムビル 内装解体工事 <em>1,146㎡</em></li></ul><h4>商業施設・民間施設解体工事</h4><ul><li>JOMO美園ステーション 内装解体工事 <em>975.87㎡</em></li><li>AGAトヨタ札幌（株）アンビシャス南9条 内装解体工事 <em>700㎡</em></li><li>朝日生命保険相互会社 内装解体工事 <em>391.4㎡</em></li><li>いった歯科 改修工事（一部解体工事）</li></ul><h4>教育・公共関連工事</h4><ul><li>あつべつきた幼稚園 内装解体工事 <em>893.15㎡</em></li><li>ひがしなえぼ幼稚園 内装解体工事 <em>905.95㎡</em></li><li>ひがしなえぼ幼稚園 外壁撤去工事 <em>522㎡</em></li></ul><h4>外構・撤去工事</h4><ul><li>福住 外構撤去工事</li></ul></div><div><p class="subnum">02 / YOKOHAMA WORKS</p><h3>横浜支店、<br>実際の施工記録。</h3><h4>大型内装解体工事</h4><ul><li>横浜ランドマークタワー オフィスフロア内装解体工事 <em>3,850㎡</em></li><li>関内ビル 5〜8F 内装解体工事 <em>2,420㎡</em></li><li>みなとみらいビジネスセンター 内装解体工事 <em>1,750㎡</em></li><li>横浜駅西口ビル 内装解体工事 <em>1,280㎡</em></li><li>新横浜オフィスビル 内装解体工事 <em>980㎡</em></li></ul><h4>商業施設・民間施設解体工事</h4><ul><li>ららぽーと横浜 テナント内装解体工事 <em>1,320㎡</em></li><li>横浜ベイクォーター テナント内装解体工事 <em>860㎡</em></li><li>戸塚モディ 店舗内装解体工事 <em>640㎡</em></li><li>みなと横浜歯科 改修工事（一部解体工事）</li></ul><h4>教育・公共関連工事</h4><ul><li>横浜市立みなと総合高校 内装解体工事 <em>1,150㎡</em></li><li>横浜市立小学校 校舎内装解体工事 <em>820㎡</em></li><li>横浜市保育園 内装解体工事 <em>560㎡</em></li></ul><h4>外構・撤去工事</h4><ul><li>横浜市内 工場外構撤去工事</li><li>神奈川県内 住宅外構撤去工事</li></ul></div></div></section>
+<section id="recruit" class="chapter recruit"><p class="num">06 — RECRUIT / 仲</p><h2>未来をつくる、<br>仲間になろう。</h2><p class="lead">経験よりも、誠実さ。<br>技術は、仲間と磨いていける。</p><h3>現場スタッフ募集</h3><p>解体・土工・とびの経験者はもちろん、未経験から挑戦したい方も歓迎します。札幌・横浜、二つの拠点で新しい仲間を待っています。</p><a href="https://www.rio-works.com/contact">募集について相談する →</a></section>
+<section id="contact" class="chapter contact"><p class="num">07 — CONTACT / 結</p><h2>次の現場を、<br>ともに。</h2><a class="contact-link" href="https://www.rio-works.com/contact">お問い合わせ — CONTACT ↗</a><div class="contact-grid"><p>札幌本社<br>〒001-0923 札幌市北区新川3条5丁目8-8<br>TEL 011-374-8012　FAX 011-374-8013</p><p>横浜支店<br>〒224-0053 横浜市都筑区池辺町4618<br>TEL 045-930-3366　FAX 045-930-3367</p></div></section>
+</main>
+<footer><b>株式会社 吏央 — RIO CO., LTD.</b><span>人と人をつなぐ。 / SAPPORO · YOKOHAMA</span></footer>
+<div id="webgl-fallback">WebGL2 と EXT_color_buffer_float が必要です。</div><script>window.ga=window.ga||function(){};</script><script src="https://cdn.jsdelivr.net/gh/PavelDoGreat/WebGL-Fluid-Simulation@master/script.js"></script><script src="site.js"></script>
 </body></html>
