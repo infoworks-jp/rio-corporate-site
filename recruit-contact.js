@@ -25,13 +25,16 @@
   modal.innerHTML=`<div class="contact-form-card" role="dialog" aria-modal="true" aria-labelledby="contact-form-title"><button class="contact-form-close" aria-label="閉じる">×</button><h3 id="contact-form-title">お問い合わせ</h3><p>株式会社吏央へのお問い合わせはこちらから。</p><form class="rio-contact-form"><label>お問い合わせ種別<select name="type"><option>工事・お見積りについて</option><option>採用について</option><option>その他</option></select></label><label>お名前<input name="name" required autocomplete="name" maxlength="100"></label><label>会社名<input name="company" autocomplete="organization" maxlength="140"></label><label>メールアドレス<input name="email" type="email" required autocomplete="email" maxlength="254"></label><label>電話番号<input name="tel" type="tel" autocomplete="tel" maxlength="50"></label><label>お問い合わせ内容<textarea name="message" required maxlength="5000"></textarea></label><label class="contact-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><button type="submit">送信する →</button><div class="contact-note">送信先：info@rio-works.com　この画面のまま送信できます。</div><div class="contact-result" role="status" aria-live="polite"></div></form></div>`;
   document.body.appendChild(modal);
   const form=modal.querySelector('form'), submit=form.querySelector('button[type="submit"]'), result=form.querySelector('.contact-result');
+  let submitting=false;
   const openForm=()=>{modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')};
-  const closeForm=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
+  const closeForm=()=>{if(submitting)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
   modal.querySelector('.contact-form-close').addEventListener('click',closeForm);modal.addEventListener('click',e=>{if(e.target===modal)closeForm()});
   form.addEventListener('submit',async e=>{
     e.preventDefault();
-    result.className='contact-result';result.textContent='';submit.disabled=true;submit.textContent='送信中…';
+    if(submitting)return;
+    submitting=true;result.className='contact-result';result.textContent='';submit.disabled=true;submit.textContent='送信中…';
     const d=new FormData(form);const payload=Object.fromEntries(d.entries());
+    payload.clientToken=(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`);
     try{
       const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       const data=await r.json().catch(()=>({}));
@@ -40,7 +43,7 @@
       else if(r.status===429){result.textContent='短時間に送信回数が多くなっています。しばらくしてからもう一度お試しください。';result.className='contact-result show';}
       else throw new Error(data.error||'send_failed');
     }catch(err){result.textContent='送信できませんでした。時間をおいて再度お試しいただくか、札幌本社 011-374-8012 までご連絡ください。';result.className='contact-result show';}
-    finally{submit.disabled=false;submit.textContent='送信する →';}
+    finally{submitting=false;submit.disabled=false;submit.textContent='送信する →';}
   });
   addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
   if(document.readyState==='loading')addEventListener('DOMContentLoaded',apply,{once:true});else apply();
