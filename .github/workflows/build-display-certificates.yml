@@ -1,0 +1,66 @@
+name: Build display certificate PDFs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF helper
+        run: pip install pypdf
+      - name: Build one-document-per-click PDFs and correct orientation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from shutil import copyfile
+          from pypdf import PdfReader, PdfWriter
+
+          src = Path('assets/certificates/original')
+          out = Path('assets/certificates/display')
+          out.mkdir(parents=True, exist_ok=True)
+
+          # 解体工事施工技士: 登録証だけ
+          copyfile(src / 'kaitai-register.pdf', out / 'demolition.pdf')
+
+          # 産廃講習と2級土木は civil-engineer.pdf の1・2ページ目に同居しているため分離
+          reader = PdfReader(str(src / 'civil-engineer.pdf'))
+
+          waste = PdfWriter()
+          waste.add_page(reader.pages[0])
+          with open(out / 'waste.pdf', 'wb') as f:
+              waste.write(f)
+
+          civil = PdfWriter()
+          p = reader.pages[1]
+          # 原本は横倒しなので表示用のみ時計回り90度補正
+          p.rotate(90)
+          civil.add_page(p)
+          with open(out / 'civil.pdf', 'wb') as f:
+              civil.write(f)
+
+          # 感謝状: 1件のみ
+          copyfile(src / 'social-letter.pdf', out / 'recognition.pdf')
+          PY
+      - name: Commit generated display PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/certificates/display/
+          if git diff --cached --quiet; then
+            echo "No certificate changes"
+            exit 0
+          fi
+          git commit -m "Split certificate originals and fix rotation"
+          git push
