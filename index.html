@@ -29,10 +29,85 @@
     </section>
     <section id="about" class="panel-section"><div class="section-number">01</div><div class="content-panel"><p class="kicker">ABOUT RIO</p><h2>安全と信頼を、<br>一つひとつ積み重ねる。</h2><p>株式会社吏央は、札幌と横浜で主に解体業と土工業を展開しています。安全で効率的な作業を心掛け、信頼されるパートナーとして、お客様のニーズに応えるサービスを提供できるよう努めてまいります。</p><a class="text-link" href="https://www.rio-works.com/about">私たちについて <span>↗</span></a></div></section>
     <section class="services-section"><div class="section-heading"><p class="kicker">OUR SERVICE</p><h2>壊すだけではない。<br>次の建設へつなぐ仕事。</h2></div><div class="service-grid"><article><span>01</span><h3>解体工事</h3><p>周辺環境と安全に配慮し、確実で効率的な施工を行います。</p></article><article><span>02</span><h3>土工事</h3><p>現場の基礎を支える土工事を、経験と機動力で遂行します。</p></article><article><span>03</span><h3>施工管理</h3><p>品質・工程・安全を一体で管理し、信頼される現場をつくります。</p></article></div><a class="outline-button" href="https://www.rio-works.com/service">サービスを見る</a></section>
+
+    <section id="credentials" class="credentials-section" aria-labelledby="credentials-title">
+      <div class="credentials-head">
+        <p class="kicker">CREDENTIALS</p>
+        <h2 id="credentials-title">技術と信頼の証。</h2>
+        <p class="credentials-intro">施工の技術、法令への理解、そして地域社会との信頼。株式会社吏央が積み重ねてきた資格・講習・社会貢献の一部をご紹介します。</p>
+      </div>
+
+      <div class="credentials-block">
+        <div class="credentials-label"><span>01</span><p>COMPANY LICENSE</p></div>
+        <div class="credential-row credential-row-static">
+          <div>
+            <p class="credential-type">CONSTRUCTION BUSINESS LICENSE</p>
+            <h3>建設業許可</h3>
+          </div>
+          <span class="credential-status">LICENSED</span>
+        </div>
+      </div>
+
+      <div class="credentials-block">
+        <div class="credentials-label"><span>02</span><p>TECHNICAL QUALIFICATIONS</p></div>
+        <button class="credential-row certificate-trigger" type="button"
+          data-cert-title="解体工事施工技士"
+          data-cert-meta="TECHNICAL QUALIFICATION"
+          data-cert-kind="kaitai">
+          <div>
+            <p class="credential-type">TECHNICAL QUALIFICATION</p>
+            <h3>解体工事施工技士</h3>
+            <p>全国解体工事業団体連合会 登録</p>
+          </div>
+          <span class="view-certificate">VIEW CERTIFICATE <b>↗</b></span>
+        </button>
+
+        <button class="credential-row certificate-trigger" type="button"
+          data-cert-title="産業廃棄物処理業 許可申請講習"
+          data-cert-meta="TRAINING / COMPLIANCE"
+          data-cert-kind="waste">
+          <div>
+            <p class="credential-type">TRAINING / COMPLIANCE</p>
+            <h3>産業廃棄物処理業 許可申請講習</h3>
+            <p>新規・収集運搬課程 修了</p>
+          </div>
+          <span class="view-certificate">VIEW CERTIFICATE <b>↗</b></span>
+        </button>
+      </div>
+
+      <div class="social-contribution">
+        <div class="social-copy">
+          <p class="kicker">SOCIAL CONTRIBUTION</p>
+          <h2>人を育てることも、<br>私たちの仕事です。</h2>
+          <p>更生保護事業への理解と、非行少年の就職・改善更生への協力に対し、札幌保護観察所より感謝状を拝受しました。</p>
+          <button class="letter-trigger certificate-trigger" type="button"
+            data-cert-title="札幌保護観察所 感謝状"
+            data-cert-meta="SOCIAL CONTRIBUTION"
+            data-cert-kind="social">VIEW LETTER <span>↗</span></button>
+        </div>
+        <div class="social-mark" aria-hidden="true"><span>TRUST</span><b>03</b></div>
+      </div>
+    </section>
+
     <section class="office-section"><div class="office-card"><p class="kicker">SAPPORO HEAD OFFICE</p><h2>札幌本社</h2><address>〒001-0923<br>札幌市北区新川3条5丁目8-8<br>TEL 011-374-8012<br>FAX 011-374-8013</address><a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">MAP ↗</a></div><div class="office-card"><p class="kicker">YOKOHAMA BRANCH</p><h2>横浜支店</h2><address>〒224-0053<br>横浜市都筑区池辺町4618<br>TEL 045-930-3366<br>FAX 045-930-3367</address><a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">MAP ↗</a></div></section>
     <section class="recruit-section"><p class="kicker">RECRUIT</p><h2>未来をつくる仲間を、<br>募集しています。</h2><a class="solid-button" href="https://www.rio-works.com/recruit">採用情報を見る</a></section>
   </main>
   <footer><img src="assets/rio-logo-transparent.svg" alt="株式会社吏央"><p>© RIO CO., LTD.</p><a href="https://www.rio-works.com/contact">CONTACT ↗</a></footer>
+
+  <div id="certificate-modal" class="certificate-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="certificate-title">
+    <div class="certificate-modal-backdrop" data-modal-close></div>
+    <div class="certificate-modal-shell">
+      <div class="certificate-modal-head">
+        <div><p id="certificate-meta"></p><h2 id="certificate-title"></h2></div>
+        <button class="certificate-close" type="button" data-modal-close aria-label="証書を閉じる">CLOSE <span>×</span></button>
+      </div>
+      <div class="certificate-stage">
+        <div id="certificate-sheet" class="certificate-sheet" aria-live="polite"></div>
+      </div>
+      <p class="certificate-note">個人情報保護のため、一部情報を非表示にしています。</p>
+    </div>
+  </div>
+
   <div class="controls" aria-label="WebGL設定"><button id="show-params" type="button">PARAMETERS <span>表示</span></button><button id="hide-params" type="button">CLOSE <span>閉じる</span></button></div>
   <div class="promo" hidden><button class="promo-close">×</button><a id="apple_link"></a><a id="google_link"></a></div><div id="webgl-fallback" role="status">この端末ではWebGL流体表現を利用できません。通常表示でご覧いただけます。</div>
   <script>window.ga=window.ga||function(){};</script><script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/PavelDoGreat/WebGL-Fluid-Simulation@master/script.js"></script><script src="site.js"></script>
