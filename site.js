@@ -44,16 +44,16 @@
   if(oldSeal){
     const img=document.createElement('img');
     img.className='rio-seal-image';
-    img.src='assets/rio-seal.jpg?v=20260809-2';
+    img.src='assets/rio-seal.jpg?v=20260809-3';
     img.alt='吏央 篆刻';
     oldSeal.replaceWith(img);
   }
 
   const records={
-    demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',assets:['assets/dismantle-public-0.txt','assets/dismantle-public-1.txt','assets/dismantle-public-c2.txt','assets/dismantle-public-2.txt','assets/dismantle-public-3.txt','assets/dismantle-public-4.txt','assets/dismantle-public-5.txt'],rows:[['氏名','大渕 吏央'],['登録番号','第25010020号'],['登録有効期限','令和13年4月30日'],['登録日','令和8年5月1日'],['発行','公益社団法人 全国解体工事業団体連合会']]},
-    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',assets:['assets/civil-public.txt'],rows:[['氏名','山内 司'],['証明書番号','97150759'],['資格','2級土木施工管理技士'],['合格証明日','平成10年3月10日'],['発行','建設大臣']]},
-    waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',assets:['assets/waste-public.txt'],rows:[['会社名','株式会社 吏央'],['氏名','大渕 吏央'],['修了課程','産業廃棄物処理業の許可申請に関する講習（新規）収集運搬課程'],['修了日','2026年2月18日'],['有効期限','発行日より5年間'],['発行','一般社団法人 環境総合研究所']]},
-    recognition:{kicker:'RECOGNITION / 表彰・感謝状',title:'札幌保護観察所 感謝状',assets:['assets/recognition-public.txt'],rows:[['受領','株式会社 吏央'],['内容','更生保護事業の重要性に深い理解を示し、非行少年の就職を助け、その改善更生に協力'],['日付','令和5年11月30日'],['発行','札幌保護観察所長 吉原 克久']]}
+    demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',assets:['assets/certificates/kaitai-register.b64'],mime:'image/jpeg',rows:[['氏名','大渕 吏央'],['登録番号','第25010020号'],['登録有効期限','令和13年4月30日'],['登録日','令和8年5月1日'],['発行','公益社団法人 全国解体工事業団体連合会']]},
+    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',assets:['assets/civil-public.txt'],mime:'image/webp',rows:[['氏名','山内 司'],['証明書番号','97150759'],['資格','2級土木施工管理技士'],['合格証明日','平成10年3月10日'],['発行','建設大臣']]},
+    waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',assets:['assets/certificates/waste-training.b64'],mime:'image/jpeg',rows:[['会社名','株式会社 吏央'],['氏名','大渕 吏央'],['修了課程','産業廃棄物処理業の許可申請に関する講習（新規）収集運搬課程'],['修了日','2026年2月18日'],['有効期限','発行日より5年間'],['発行','一般社団法人 環境総合研究所']]},
+    recognition:{kicker:'RECOGNITION / 表彰・感謝状',title:'札幌保護観察所 感謝状',assets:['assets/certificates/social-letter.b64'],mime:'image/jpeg',rows:[['受領','株式会社 吏央'],['内容','更生保護事業の重要性に深い理解を示し、非行少年の就職を助け、その改善更生に協力'],['日付','令和5年11月30日'],['発行','札幌保護観察所長 吉原 克久']]}
   };
 
   function rowHtml(rows){return rows.map(([a,b])=>`<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('')}
@@ -82,8 +82,8 @@
   const cache=new Map();
   async function assetData(r,key){
     if(cache.has(key))return cache.get(key);
-    const parts=await Promise.all(r.assets.map(async u=>{const res=await fetch(u,{cache:'force-cache'});if(!res.ok)throw new Error(u+' '+res.status);return (await res.text()).trim()}));
-    const data='data:image/webp;base64,'+parts.join('');cache.set(key,data);return data;
+    const parts=await Promise.all(r.assets.map(async u=>{const res=await fetch(u,{cache:'no-cache'});if(!res.ok)throw new Error(u+' '+res.status);return (await res.text()).replace(/\s+/g,'')}));
+    const data=`data:${r.mime};base64,${parts.join('')}`;cache.set(key,data);return data;
   }
   const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
   document.addEventListener('click',async e=>{
