@@ -1,0 +1,33 @@
+name: Install recruitment and contact UI
+on:
+  push:
+    paths:
+      - 'recruit-contact.js'
+      - '.github/workflows/install-recruit-contact.yml'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add script to page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          tag='<script src="recruit-contact.js?v=20260809-1633"></script>'
+          if 'recruit-contact.js' not in s:
+              s=s.replace('</body>', tag+'\n</body>')
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Enable recruitment links and contact form'
+          git push
