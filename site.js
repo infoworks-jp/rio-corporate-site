@@ -31,14 +31,24 @@
   .credential-card dt{font-size:9px;letter-spacing:.15em;color:#a92d1f}.credential-card dd{margin:0;font-size:13px}
   .credential-card .privacy{margin-top:28px;font-size:9px;letter-spacing:.08em;color:rgba(23,24,28,.55)}
   .credential-close{position:fixed;right:max(22px,env(safe-area-inset-right));top:max(18px,env(safe-area-inset-top));z-index:1001;border:0;background:none;color:#f4eee2;font-size:32px;line-height:1;cursor:pointer;font-weight:200}
+  .rio-seal-image{display:block;width:76px;height:76px;object-fit:cover;margin:28px auto 0;mix-blend-mode:multiply;transform:rotate(-2deg)}
   body.modal-open{overflow:hidden}
-  @media(max-width:768px){.credentials-head,.credential-groups{grid-template-columns:1fr}.credentials-head{gap:20px;margin-bottom:42px}.credential-group,.credential-group+.credential-group{padding:26px 0;border-right:0;border-top:1px solid rgba(23,24,28,.22)}.credential-group:first-child{border-top:0}.credentials{padding-top:86px;padding-bottom:80px}.credential-card .row{grid-template-columns:1fr;gap:3px}}
+  @media(max-width:768px){.credentials-head,.credential-groups{grid-template-columns:1fr}.credentials-head{gap:20px;margin-bottom:42px}.credential-group,.credential-group+.credential-group{padding:26px 0;border-right:0;border-top:1px solid rgba(23,24,28,.22)}.credential-group:first-child{border-top:0}.credentials{padding-top:86px;padding-bottom:80px}.credential-card .row{grid-template-columns:1fr;gap:3px}.rio-seal-image{width:68px;height:68px}}
   `;
   document.head.appendChild(style);
 
+  const oldSeal=document.querySelector('.principles .seal');
+  if(oldSeal){
+    const img=document.createElement('img');
+    img.className='rio-seal-image';
+    img.src='assets/rio-seal.jpg?v=20260809';
+    img.alt='吏央 篆刻';
+    oldSeal.replaceWith(img);
+  }
+
   const records={
     demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',rows:[['氏名','大渕 吏央'],['登録番号','第25010020号'],['登録有効期限','令和13年4月30日'],['登録日','令和8年5月1日'],['発行','公益社団法人 全国解体工事業団体連合会']]},
-    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',rows:[['氏名','大渕 吏央'],['証明書番号','97150759'],['資格','2級土木施工管理技士'],['合格証明日','平成10年3月10日'],['発行','建設大臣']]},
+    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',rows:[['氏名','山内 司'],['証明書番号','97150759'],['資格','2級土木施工管理技士'],['合格証明日','平成10年3月10日'],['発行','建設大臣']]},
     waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',rows:[['会社名','株式会社 吏央'],['氏名','大渕 吏央'],['修了課程','産業廃棄物処理業の許可申請に関する講習（新規）収集運搬課程'],['修了日','2026年2月18日'],['有効期限','発行日より5年間'],['発行','一般社団法人 環境総合研究所']]},
     recognition:{kicker:'RECOGNITION / 表彰・感謝状',title:'札幌保護観察所 感謝状',rows:[['受領','株式会社 吏央'],['内容','更生保護事業の重要性に深い理解を示し、非行少年の就職を助け、その改善更生に協力'],['日付','令和5年11月30日'],['発行','札幌保護観察所長 吉原 克久']]}
   };
