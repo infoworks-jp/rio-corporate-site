@@ -33,10 +33,10 @@
   if(oldSeal){const img=document.createElement('img');img.className='rio-seal-image';img.src='assets/rio-seal-original.jpg?v=20260809-original';img.alt='吏央 篆刻';oldSeal.replaceWith(img)}
 
   const records={
-    demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',pdf:'assets/certificates/original/kaitai-register.pdf'},
-    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',pdf:'assets/certificates/original/civil-engineer.pdf'},
-    waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',pdf:'assets/certificates/original/qualification-set.pdf'},
-    recognition:{kicker:'RECOGNITION / 表彰・感謝状',title:'札幌保護観察所 感謝状',pdf:'assets/certificates/original/social-letter.pdf'}
+    demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',pdf:'assets/certificates/display/demolition.pdf'},
+    civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',pdf:'assets/certificates/display/civil.pdf'},
+    waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',pdf:'assets/certificates/display/waste.pdf'},
+    recognition:{kicker:'RECOGNITION / 表彰・感謝状',title:'札幌保護観察所 感謝状',pdf:'assets/certificates/display/recognition.pdf'}
   };
 
   const section=document.createElement('section');section.className='credentials';section.id='credentials';
@@ -50,6 +50,6 @@
   const modal=document.createElement('div');modal.className='credential-modal';modal.setAttribute('aria-hidden','true');modal.innerHTML='<button class="credential-close" aria-label="閉じる">×</button><div class="credential-card" role="dialog" aria-modal="true"><div class="credential-meta"><small></small><h3></h3></div><iframe class="credential-pdf" title="原本証書"></iframe><div class="credential-fallback">PDFを表示できない場合は <a target="_blank" rel="noopener">原本PDFを開く ↗</a></div></div>';document.body.appendChild(modal);
   const frame=modal.querySelector('.credential-pdf'),fallback=modal.querySelector('.credential-fallback'),fallbackLink=fallback.querySelector('a');
   const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');frame.src='about:blank'};
-  document.addEventListener('click',e=>{const b=e.target.closest('[data-record]');if(!b)return;const r=records[b.dataset.record];if(!r)return;modal.querySelector('small').textContent=r.kicker;modal.querySelector('h3').textContent=r.title;frame.src=r.pdf+'#view=FitH';fallbackLink.href=r.pdf;modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-record]');if(!b)return;const r=records[b.dataset.record];if(!r)return;modal.querySelector('small').textContent=r.kicker;modal.querySelector('h3').textContent=r.title;frame.src=r.pdf+'?v=20260809-single#page=1&view=Fit';fallbackLink.href=r.pdf;modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')});
   modal.querySelector('.credential-close').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 })();
