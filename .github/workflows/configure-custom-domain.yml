@@ -1,0 +1,35 @@
+name: Configure GitHub Pages custom domain
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/configure-custom-domain.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Register rio-works.com with GitHub Pages API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -o response.txt -w '%{http_code}' \
+            -L -X PUT \
+            -H 'Accept: application/vnd.github+json' \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'X-GitHub-Api-Version: 2026-03-10' \
+            https://api.github.com/repos/infoworks-jp/rio-corporate-site/pages \
+            -d '{"cname":"rio-works.com","build_type":"workflow"}')
+          echo "HTTP ${code}"
+          cat response.txt || true
+          if [ "$code" != "204" ]; then
+            echo 'Automatic Pages custom-domain registration was not authorized with GITHUB_TOKEN.'
+            exit 2
+          fi
