@@ -1,0 +1,93 @@
+name: rio-works.com migration preflight
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/domain-migration-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install DNS tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq dnsutils
+
+      - name: Capture current DNS and HTTP baseline
+        run: |
+          set -euo pipefail
+          {
+            echo '=== UTC ==='
+            date -u +%Y-%m-%dT%H:%M:%SZ
+            echo
+            echo '=== NS ==='
+            dig +short rio-works.com NS
+            echo
+            echo '=== A apex ==='
+            dig +short rio-works.com A
+            echo
+            echo '=== AAAA apex ==='
+            dig +short rio-works.com AAAA
+            echo
+            echo '=== CNAME www ==='
+            dig +short www.rio-works.com CNAME
+            echo
+            echo '=== A www ==='
+            dig +short www.rio-works.com A
+            echo
+            echo '=== MX ==='
+            dig +short rio-works.com MX
+            echo
+            echo '=== TXT ==='
+            dig +short rio-works.com TXT
+            echo
+            echo '=== mail hosts ==='
+            for h in pop.rio-works.com smtp.rio-works.com imap.rio-works.com webmail.rio-works.com; do
+              echo "-- $h"
+              dig +short "$h" A
+              dig +short "$h" CNAME
+            done
+            echo
+            echo '=== current WWW HTTP headers ==='
+            curl -ILsS --max-time 30 https://www.rio-works.com/ | sed -n '1,40p'
+            echo
+            echo '=== current apex HTTP headers ==='
+            curl -ILsS --max-time 30 https://rio-works.com/ | sed -n '1,40p' || true
+            echo
+            echo '=== target GitHub Pages headers ==='
+            curl -ILsS --max-time 30 https://infoworks-jp.github.io/rio-corporate-site/ | sed -n '1,40p'
+          } | tee domain-preflight.txt
+
+      - name: Build safe change plan
+        run: |
+          cat > change-plan.txt <<'EOF'
+          TARGET WEBSITE: GitHub Pages
+          TARGET A (apex):
+            185.199.108.153
+            185.199.109.153
+            185.199.110.153
+            185.199.111.153
+          TARGET CNAME (www): infoworks-jp.github.io
+
+          IMPORTANT:
+          - Preserve ALL existing MX records.
+          - Preserve TXT records used for mail/SPF/DKIM/verification.
+          - Preserve pop.rio-works.com, smtp.rio-works.com, imap.rio-works.com, webmail.rio-works.com records.
+          - Do not alter mail-service credentials or mail server settings.
+          - Change only website-routing records for apex/www after GitHub custom domain is registered.
+          EOF
+
+      - name: Upload preflight evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rio-domain-migration-preflight
+          path: |
+            domain-preflight.txt
+            change-plan.txt
+          retention-days: 30
