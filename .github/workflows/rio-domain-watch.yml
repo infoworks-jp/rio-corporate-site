@@ -1,0 +1,77 @@
+name: rio-works.com DNS watch
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install DNS tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils
+
+      - name: Capture DNS state
+        run: |
+          set -euo pipefail
+          {
+            echo "checked_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "NS:"; dig +short NS rio-works.com | sort
+            echo "A apex:"; dig +short A rio-works.com | sort
+            echo "CNAME www:"; dig +short CNAME www.rio-works.com | sort
+            echo "MX:"; dig +short MX rio-works.com | sort
+            echo "TXT:"; dig +short TXT rio-works.com | sort
+          } | tee dns-state.txt
+
+      - name: Protect Ricoh mail DNS
+        run: |
+          set -euo pipefail
+          mx="$(dig +short MX rio-works.com | sort)"
+          txt="$(dig +short TXT rio-works.com | tr -d '"')"
+          echo "$mx" | grep -Fq '10 mx.aams6.jp.'
+          echo "$mx" | grep -Fq '20 mx-0.aams6.jp.'
+          echo "$mx" | grep -Fq '20 mx-1.aams6.jp.'
+          echo "$txt" | grep -Fq 'v=spf1 include:spf.aams6.jp a ~all'
+
+      - name: Check whether website has moved to GitHub Pages
+        id: cutover
+        shell: bash
+        run: |
+          set -euo pipefail
+          a="$(dig +short A rio-works.com | sort)"
+          expected=$(printf '%s\n' 185.199.108.153 185.199.109.153 185.199.110.153 185.199.111.153 | sort)
+          cname="$(dig +short CNAME www.rio-works.com | sed 's/\.$//' | tr '[:upper:]' '[:lower:]')"
+          if [ "$a" = "$expected" ] && [ "$cname" = 'infoworks-jp.github.io' ]; then
+            echo 'moved=yes' >> "$GITHUB_OUTPUT"
+          else
+            echo 'moved=no' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify GitHub site after DNS cutover
+        if: steps.cutover.outputs.moved == 'yes'
+        run: |
+          set -euo pipefail
+          curl -fL --retry 6 --retry-delay 10 --max-time 30 https://rio-works.com/ -o live.html
+          grep -Fq '273,295,050円（令和8年4月期 決算実績）' live.html
+          grep -Fq '68名（令和8年4月現在）' live.html
+          grep -Fq 'https://www.tubasa-susukino.com/' live.html
+          grep -Fq 'OAK LOGISTICS CENTER厚木' live.html
+          echo 'DNS cutover and live-site checks passed.'
+
+      - name: Summary
+        run: |
+          {
+            echo '## rio-works.com monitor'
+            echo
+            echo "Mail DNS: protected and verified"
+            echo "GitHub cutover detected: ${{ steps.cutover.outputs.moved }}"
+            echo
+            echo 'Current DNS:'
+            echo '```'
+            cat dns-state.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
