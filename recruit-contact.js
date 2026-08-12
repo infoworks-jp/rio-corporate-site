@@ -48,3 +48,31 @@
   addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
   if(document.readyState==='loading')addEventListener('DOMContentLoaded',apply,{once:true});else apply();
 })();
+
+// Brave-safe mouse ink layer: independent of WebGL/pointer-drag handling.
+(() => {
+  if(matchMedia('(pointer: coarse)').matches)return;
+  const c=document.createElement('canvas');
+  c.id='rio-mouse-ink';
+  Object.assign(c.style,{position:'fixed',inset:'0',width:'100vw',height:'100dvh',zIndex:'0',pointerEvents:'none'});
+  document.body.appendChild(c);
+  const ctx=c.getContext('2d',{alpha:true});
+  let dpr=1,w=0,h=0,last=null,raf=0;
+  const drops=[];
+  const fit=()=>{dpr=Math.min(devicePixelRatio||1,2);w=c.width=Math.max(1,innerWidth*dpr);h=c.height=Math.max(1,innerHeight*dpr)};
+  const add=(x,y,dx,dy)=>{
+    const speed=Math.min(1,Math.hypot(dx,dy)/18);
+    const n=2+Math.round(speed*3);
+    for(let i=0;i<n;i++)drops.push({x:(x+(Math.random()-.5)*18)*dpr,y:(y+(Math.random()-.5)*18)*dpr,r:(24+speed*54+Math.random()*22)*dpr,a:.16+speed*.18,life:1,red:Math.random()>.94});
+    if(drops.length>90)drops.splice(0,drops.length-90);
+  };
+  const draw=()=>{
+    ctx.clearRect(0,0,w,h);
+    for(let i=drops.length-1;i>=0;i--){const p=drops[i];p.life-=.018;p.r*=1.006;if(p.life<=0){drops.splice(i,1);continue}const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);const alpha=p.a*p.life;g.addColorStop(0,p.red?`rgba(169,45,31,${alpha})`:`rgba(10,12,18,${alpha})`);g.addColorStop(.38,p.red?`rgba(169,45,31,${alpha*.45})`:`rgba(17,20,27,${alpha*.42})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2)}
+    raf=requestAnimationFrame(draw);
+  };
+  addEventListener('mousemove',e=>{if(last)add(e.clientX,e.clientY,e.clientX-last.x,e.clientY-last.y);last={x:e.clientX,y:e.clientY}},{passive:true});
+  addEventListener('mouseleave',()=>{last=null},{passive:true});
+  addEventListener('resize',fit,{passive:true});
+  fit();draw();
+})();
