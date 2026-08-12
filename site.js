@@ -2,29 +2,42 @@
   const CORE='https://raw.githubusercontent.com/infoworks-jp/rio-corporate-site/6242a77a0783baa7e08141a5984059b2089c6934/site.js';
   fetch(CORE,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error('core '+r.status);return r.text()}).then(code=>{(0,eval)(code)}).catch(err=>console.error('RIO core load failed',err));
 
-  // Brave/desktop: add ink while simply moving the mouse. The original core only
-  // reacts to pointermove while a button is held, so normal hover had no effect.
-  let hoverX=null,hoverY=null,hoverLast=0;
-  addEventListener('pointermove',e=>{
-    if(e.pointerType!=='mouse'||e.buttons!==0)return;
-    const now=performance.now();
-    if(now-hoverLast<32)return;
-    hoverLast=now;
-    const x=e.clientX/innerWidth,y=1-e.clientY/innerHeight;
-    if(hoverX===null){hoverX=x;hoverY=y;return}
-    const dx=x-hoverX,dy=y-hoverY;
-    hoverX=x;hoverY=y;
-    const canvas=document.querySelector('#fluid');
-    if(!canvas)return;
-    // Feed a short synthetic pointer drag to the existing fluid core.
-    const id=987654;
-    const sx=Math.max(0,Math.min(innerWidth,(x-dx)*innerWidth));
-    const sy=Math.max(0,Math.min(innerHeight,(1-(y-dy))*innerHeight));
-    canvas.dispatchEvent(new PointerEvent('pointerdown',{pointerId:id,pointerType:'mouse',clientX:sx,clientY:sy,bubbles:true,buttons:1}));
-    canvas.dispatchEvent(new PointerEvent('pointermove',{pointerId:id,pointerType:'mouse',clientX:e.clientX,clientY:e.clientY,bubbles:true,buttons:1}));
-    canvas.dispatchEvent(new PointerEvent('pointerup',{pointerId:id,pointerType:'mouse',clientX:e.clientX,clientY:e.clientY,bubbles:true,buttons:0}));
+  // Brave-safe mouse ink layer. This does not depend on WebGL or PointerEvent drag state.
+  const mouseInk=document.createElement('canvas');
+  mouseInk.id='mouse-ink';
+  mouseInk.setAttribute('aria-hidden','true');
+  Object.assign(mouseInk.style,{position:'fixed',inset:'0',width:'100vw',height:'100dvh',zIndex:'0',pointerEvents:'none'});
+  document.body.insertBefore(mouseInk,document.querySelector('.chrome'));
+  const mctx=mouseInk.getContext('2d',{alpha:true});
+  let mdpr=1,mw=0,mh=0,lastX=null,lastY=null,lastMove=0;
+  function fitMouseInk(){
+    mdpr=Math.min(window.devicePixelRatio||1,2);
+    mw=Math.max(1,Math.round(innerWidth*mdpr)); mh=Math.max(1,Math.round(innerHeight*mdpr));
+    if(mouseInk.width!==mw||mouseInk.height!==mh){mouseInk.width=mw;mouseInk.height=mh;mctx.setTransform(mdpr,0,0,mdpr,0,0)}
+  }
+  fitMouseInk(); addEventListener('resize',fitMouseInk,{passive:true});
+  function inkDot(x,y,vx,vy){
+    const speed=Math.min(1,Math.hypot(vx,vy)/35);
+    const radius=42+speed*72;
+    const g=mctx.createRadialGradient(x,y,2,x,y,radius);
+    g.addColorStop(0,'rgba(8,10,15,.30)');
+    g.addColorStop(.36,'rgba(16,18,24,.19)');
+    g.addColorStop(1,'rgba(16,18,24,0)');
+    mctx.globalCompositeOperation='source-over';mctx.fillStyle=g;mctx.fillRect(x-radius,y-radius,radius*2,radius*2);
+  }
+  addEventListener('mousemove',e=>{
+    const now=performance.now(); if(now-lastMove<12)return; lastMove=now;
+    if(lastX===null){lastX=e.clientX;lastY=e.clientY;inkDot(lastX,lastY,0,0);return}
+    const dx=e.clientX-lastX,dy=e.clientY-lastY,dist=Math.max(1,Math.hypot(dx,dy));
+    const steps=Math.min(10,Math.ceil(dist/10));
+    for(let i=1;i<=steps;i++){const t=i/steps;inkDot(lastX+dx*t,lastY+dy*t,dx,dy)}
+    lastX=e.clientX;lastY=e.clientY;
   },{passive:true});
-  addEventListener('pointerleave',()=>{hoverX=hoverY=null},{passive:true});
+  addEventListener('mouseout',e=>{if(!e.relatedTarget){lastX=lastY=null}},{passive:true});
+  function fadeInk(){
+    mctx.save();mctx.setTransform(1,0,0,1,0,0);mctx.globalCompositeOperation='destination-out';mctx.fillStyle='rgba(0,0,0,.025)';mctx.fillRect(0,0,mouseInk.width,mouseInk.height);mctx.restore();requestAnimationFrame(fadeInk)
+  }
+  requestAnimationFrame(fadeInk);
 
   const style=document.createElement('style');
   style.textContent=`
