@@ -2,6 +2,30 @@
   const CORE='https://raw.githubusercontent.com/infoworks-jp/rio-corporate-site/6242a77a0783baa7e08141a5984059b2089c6934/site.js';
   fetch(CORE,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error('core '+r.status);return r.text()}).then(code=>{(0,eval)(code)}).catch(err=>console.error('RIO core load failed',err));
 
+  // Brave/desktop: add ink while simply moving the mouse. The original core only
+  // reacts to pointermove while a button is held, so normal hover had no effect.
+  let hoverX=null,hoverY=null,hoverLast=0;
+  addEventListener('pointermove',e=>{
+    if(e.pointerType!=='mouse'||e.buttons!==0)return;
+    const now=performance.now();
+    if(now-hoverLast<32)return;
+    hoverLast=now;
+    const x=e.clientX/innerWidth,y=1-e.clientY/innerHeight;
+    if(hoverX===null){hoverX=x;hoverY=y;return}
+    const dx=x-hoverX,dy=y-hoverY;
+    hoverX=x;hoverY=y;
+    const canvas=document.querySelector('#fluid');
+    if(!canvas)return;
+    // Feed a short synthetic pointer drag to the existing fluid core.
+    const id=987654;
+    const sx=Math.max(0,Math.min(innerWidth,(x-dx)*innerWidth));
+    const sy=Math.max(0,Math.min(innerHeight,(1-(y-dy))*innerHeight));
+    canvas.dispatchEvent(new PointerEvent('pointerdown',{pointerId:id,pointerType:'mouse',clientX:sx,clientY:sy,bubbles:true,buttons:1}));
+    canvas.dispatchEvent(new PointerEvent('pointermove',{pointerId:id,pointerType:'mouse',clientX:e.clientX,clientY:e.clientY,bubbles:true,buttons:1}));
+    canvas.dispatchEvent(new PointerEvent('pointerup',{pointerId:id,pointerType:'mouse',clientX:e.clientX,clientY:e.clientY,bubbles:true,buttons:0}));
+  },{passive:true});
+  addEventListener('pointerleave',()=>{hoverX=hoverY=null},{passive:true});
+
   const style=document.createElement('style');
   style.textContent=`
   .credentials{background:rgba(238,232,220,.94);min-height:auto;padding-top:100px;padding-bottom:110px}
