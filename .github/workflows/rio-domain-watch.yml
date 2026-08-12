@@ -1,6 +1,10 @@
 name: rio-works.com DNS watch
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rio-domain-watch.yml'
   schedule:
     - cron: '17 * * * *'
   workflow_dispatch:
