@@ -1,0 +1,61 @@
+name: Live site verification
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for GitHub Pages deployment
+        run: sleep 45
+
+      - name: Fetch live site
+        run: |
+          set -euo pipefail
+          URL="https://infoworks-jp.github.io/rio-corporate-site/"
+          curl -fL --retry 6 --retry-delay 10 --max-time 30 "$URL" -o live.html
+          test -s live.html
+
+      - name: Verify current company facts and links
+        run: |
+          set -euo pipefail
+          grep -Fq '273,295,050円（令和8年4月期 決算実績）' live.html
+          grep -Fq '68名（令和8年4月現在）' live.html
+          grep -Fq 'https://www.tubasa-susukino.com/' live.html
+          grep -Fq '横浜では新築現場の土工事を中心に' live.html
+          grep -Fq 'OAK LOGISTICS CENTER厚木' live.html
+
+      - name: Render public page in headless Chrome
+        run: |
+          set -euo pipefail
+          CHROME=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)
+          "$CHROME" --headless=new --no-sandbox --hide-scrollbars --window-size=1440,1600 --screenshot=live-site.png 'https://infoworks-jp.github.io/rio-corporate-site/'
+          test -s live-site.png
+
+      - name: Save verification report
+        run: |
+          {
+            echo "verified_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "url=https://infoworks-jp.github.io/rio-corporate-site/"
+            echo "sales=273,295,050円（令和8年4月期 決算実績）"
+            echo "employees=68名（令和8年4月現在）"
+            echo "tsubasa_link=OK"
+            echo "yokohama_earthwork_copy=OK"
+            echo "render_screenshot=OK"
+          } > live-verification.txt
+
+      - name: Upload verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-site-verification
+          path: |
+            live-site.png
+            live-verification.txt
+            live.html
+          retention-days: 30
