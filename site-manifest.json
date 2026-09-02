@@ -11,13 +11,14 @@
     "styles.css",
     "site-core.js",
     "site.js",
-    "recruit-contact.js"
+    "recruit-contact.js",
+    "supabase/functions/rio-contact/index.ts"
   ],
   "localAssets": "assets/",
   "externalRuntimeServices": [
     "Indeed",
     "rio-works.com",
-    "Supabase Edge Function",
+    "Supabase project xxhgerxugsjoxkbuuqhb / rio-contact",
     "www.tubasa-susukino.com"
   ]
 }
