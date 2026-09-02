@@ -1,7 +1,4 @@
 (() => {
-  const CORE='https://raw.githubusercontent.com/infoworks-jp/rio-corporate-site/6242a77a0783baa7e08141a5984059b2089c6934/site.js';
-  fetch(CORE,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error('core '+r.status);return r.text()}).then(code=>{(0,eval)(code)}).catch(err=>console.error('RIO core load failed',err));
-
   const style=document.createElement('style');
   style.textContent=`
   .credentials{background:rgba(238,232,220,.94);min-height:auto;padding-top:100px;padding-bottom:110px}

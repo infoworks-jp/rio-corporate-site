@@ -1,0 +1,48 @@
+name: Localize runtime assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/localize-runtime-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy ChatGPT Site images into GitHub
+        run: |
+          set -euo pipefail
+          mkdir -p assets/site
+          base='https://rio-construction-final-0731.y-kaku590232.chatgpt.site'
+          curl -fL --retry 5 "$base/rio-hero-logo.png" -o assets/site/rio-hero-logo.png
+          curl -fL --retry 5 "$base/sapporo-office.jpg" -o assets/site/sapporo-office.jpg
+          curl -fL --retry 5 "$base/yokohama-office.jpg" -o assets/site/yokohama-office.jpg
+          curl -fL --retry 5 "$base/tsubasa.jpg" -o assets/site/tsubasa.jpg
+      - name: Verify localized runtime
+        run: |
+          set -euo pipefail
+          test -s assets/site/rio-hero-logo.png
+          test -s assets/site/sapporo-office.jpg
+          test -s assets/site/yokohama-office.jpg
+          test -s assets/site/tsubasa.jpg
+          test -s site-core.js
+          ! grep -R 'chatgpt.site\|raw.githubusercontent.com/infoworks-jp/rio-corporate-site' index.html site.js site-core.js
+      - name: Save localized files
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/site
+          if git diff --cached --quiet; then
+            echo 'Runtime assets are already localized.'
+          else
+            git commit -m 'Localize ChatGPT Site images'
+            git push
+          fi
