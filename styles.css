@@ -101,3 +101,17 @@ footer{display:block;font-size:9px;padding-left:max(20px,env(safe-area-inset-lef
 .brand b{font-size:14px}.status{max-width:120px;line-height:1.5}.vertical{left:6%}.hero-meta{max-width:130px}.hero-action{left:auto;right:16px;transform:none;max-width:48vw;white-space:normal;text-align:right;line-height:1.5}.service{padding:30px 20px}.contact h2{font-size:clamp(38px,14vw,54px)}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* Location links and search-friendly content */
+.address-link{color:inherit;text-decoration:underline;text-decoration-color:#a92d1f;text-underline-offset:4px;line-height:2}
+.map-label{display:inline-block;white-space:nowrap;font-size:10px;letter-spacing:.06em}
+.tsubasa-link{display:inline-block;border-bottom:1px solid #a92d1f;padding:10px 0 5px;text-decoration:none}
+a:focus-visible,summary:focus-visible{outline:2px solid #a92d1f;outline-offset:5px}
+.hero-business{font:500 clamp(12px,1.3vw,17px)/1.9 "Yu Mincho","Hiragino Mincho ProN",serif;letter-spacing:.12em;margin:16px 0 0}
+.rio-faq{min-height:auto;background:#eee8dc;color:#17181c}.faq-wrap{max-width:1180px;margin:auto}.rio-faq h2{font-size:clamp(30px,4vw,52px)}
+.rio-faq details{border-top:1px solid rgba(23,24,28,.25);padding:4px 0}.rio-faq details:last-child{border-bottom:1px solid rgba(23,24,28,.25)}
+.rio-faq summary{cursor:pointer;padding:18px 4px;font-size:15px;line-height:1.8}.rio-faq details p{max-width:850px;font-size:14px;line-height:2;padding:0 4px 20px;margin:0}.rio-faq a{text-decoration:underline;text-decoration-color:#a92d1f;text-underline-offset:4px}
+@media(max-width:600px){.service h3{font-size:clamp(24px,7vw,36px)}.hero-business{letter-spacing:.04em}.rio-faq summary{font-size:14px}}
+
+.yard-place{grid-column:1/-1;display:grid;grid-template-columns:1fr 2fr;gap:26px;align-items:start}.yard-place h3{margin-top:0}.yard-place p{margin:0;font-size:13px}@media(max-width:768px){.yard-place{grid-template-columns:1fr;gap:8px}}
+
+.map-label{margin-left:4px}.yard-map-note{display:block;margin-top:8px;font-size:11px;line-height:1.8}

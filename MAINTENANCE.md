@@ -3,7 +3,7 @@
 ## 正本と公開先
 
 - 正本: `main`
-- 公開: https://infoworks-jp.github.io/rio-corporate-site/
+- 公開: https://rio-works.com/
 - 公開処理: `.github/workflows/pages.yml`
 
 ## 変更したい内容とファイル
@@ -35,3 +35,14 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 ## 公開確認
 
 変更後はGitHub ActionsのPages公開が成功したことを確認し、公開URLをPCとスマートフォンで開いて確認します。「ファイルを変更した」だけでは完了扱いにしません。
+
+## ドメイン移行後の更新先
+
+`rio-works.com` の正本はこのGitHubリポジトリです。旧ChatGPT Sites版を更新しても、このドメインには反映されません。
+
+- 住所・地図・つばさリンク・検索用説明・構造化データ: `index.html`
+- アイコン: `favicon.ico`、`assets/site/favicon.png`、`apple-touch-icon.png`。変更時はHTMLのバージョンも更新。
+- 拠点の住所を変更したら、表示・Google Maps検索URL・JSON-LDを同時に確認。
+- 札幌土場の所在地は土地賃貸借契約書に記載された東雁来町302番78・302番79。Google Mapsでは302番付近のため「周辺MAP」と明記。
+- ページ追加時は `sitemap.xml` を更新。`lastmod` は実際の内容更新日を使用。
+- Search Consoleの登録・サイトマップ送信と検索順位の確認は、公開HTMLの検証とは別に行う。
