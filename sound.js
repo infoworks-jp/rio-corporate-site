@@ -35,16 +35,20 @@
       source.connect(filter); filter.connect(level); level.connect(master); source.start();
       return {level, filter};
     }
-    bed('lowpass', 230, .17);
-    // A very quiet, slowly breathing foundation, also audible on small speakers.
-    const earth = ctx.createOscillator(), earthLevel = ctx.createGain();
-    earth.frequency.value = 82; earthLevel.gain.value = .018;
-    earth.connect(earthLevel); earthLevel.connect(master); earth.start();
-    const breath = ctx.createOscillator(), depth = ctx.createGain();
-    breath.frequency.value = .09; depth.gain.value = .008;
-    breath.connect(depth); depth.connect(earthLevel.gain); breath.start();
-    const ink = bed('bandpass', 780, 0);
-    brush = ink.level; brushFilter = ink.filter; brushFilter.Q.value = .6;
+    // Quiet gallery-like harmony: no continuous wind noise or sub-bass rumble.
+    [174.61, 261.63, 392].forEach((frequency, i) => {
+      const tone = ctx.createOscillator(), level = ctx.createGain();
+      const breath = ctx.createOscillator(), depth = ctx.createGain();
+      tone.frequency.value = frequency;
+      level.gain.value = [.006, .004, .003][i];
+      breath.frequency.value = .025 + i * .011;
+      depth.gain.value = level.gain.value * .45;
+      breath.connect(depth); depth.connect(level.gain);
+      tone.connect(level); level.connect(master);
+      tone.start(); breath.start();
+    });
+    const ink = bed('lowpass', 420, 0);
+    brush = ink.level; brushFilter = ink.filter; brushFilter.Q.value = .35;
     ctx.addEventListener('statechange', () => {
       if (ctx.state !== 'running' && enabled) silence();
     });
@@ -65,24 +69,24 @@
     const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : ctx.createGain();
     if (pan.pan) pan.pan.value = (x - .5) * 1.1;
     pan.connect(master);
-    // Rising bubble resonance gives the liquid “po-chan”, rather than a notification beep.
-    [0, .075, .14].forEach((delay, i) => {
+    // A tiny, short bubble: a light “pi-chan” with very little splash.
+    [0, .045].forEach((delay, i) => {
       const tone = ctx.createOscillator(), level = ctx.createGain();
-      const t = now + delay, base = [390, 780, 1150][i] * (.94 + Math.random() * .12);
+      const t = now + delay, base = [1250, 1850][i] * (.94 + Math.random() * .12);
       tone.frequency.setValueAtTime(base, t);
-      tone.frequency.exponentialRampToValueAtTime(base * 1.8, t + .12);
+      tone.frequency.exponentialRampToValueAtTime(base * 1.25, t + .045);
       level.gain.setValueAtTime(0, t);
-      level.gain.linearRampToValueAtTime([.19, .065, .025][i] * strength, t + .006);
-      level.gain.exponentialRampToValueAtTime(.0001, t + .28);
-      tone.connect(level); level.connect(pan); tone.start(t); tone.stop(t + .3);
-      tone.onended = () => { tone.disconnect(); level.disconnect(); if(i === 2) pan.disconnect(); };
+      level.gain.linearRampToValueAtTime([.055, .016][i] * strength, t + .004);
+      level.gain.exponentialRampToValueAtTime(.0001, t + .14);
+      tone.connect(level); level.connect(pan); tone.start(t); tone.stop(t + .16);
+      tone.onended = () => { tone.disconnect(); level.disconnect(); if(i === 1) pan.disconnect(); };
     });
     const splash = ctx.createBufferSource(), filter = ctx.createBiquadFilter(), level = ctx.createGain();
     splash.buffer = noise; filter.type = 'bandpass'; filter.frequency.value = 1900; filter.Q.value = .7;
-    level.gain.setValueAtTime(.16 * strength, now);
-    level.gain.exponentialRampToValueAtTime(.0001, now + .2);
+    level.gain.setValueAtTime(.022 * strength, now);
+    level.gain.exponentialRampToValueAtTime(.0001, now + .065);
     splash.connect(filter); filter.connect(level); level.connect(master);
-    splash.start(now); splash.stop(now + .22);
+    splash.start(now); splash.stop(now + .075);
     splash.onended = () => { splash.disconnect(); filter.disconnect(); level.disconnect(); };
   }
   button.addEventListener('click', async () => {
@@ -109,10 +113,10 @@
     if (now - lastBrush < .035) return;
     lastBrush = now;
     const speed = Math.max(0, Math.min(1, detail.speed || .1));
-    brushFilter.frequency.setTargetAtTime(450 + speed * 1100, now, .08);
+    brushFilter.frequency.setTargetAtTime(320 + speed * 300, now, .12);
     brush.gain.cancelScheduledValues(now);
-    brush.gain.setTargetAtTime(.04 + speed * .2, now, .04);
-    brush.gain.setTargetAtTime(0, now + .07, .18);
+    brush.gain.setTargetAtTime(.008 + speed * .035, now, .09);
+    brush.gain.setTargetAtTime(0, now + .09, .22);
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) silence(); });
   addEventListener('pagehide', silence);
