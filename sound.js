@@ -1,4 +1,4 @@
-/* Original procedural soundscape: earth, wet ink and falling drops. */
+/* Original procedural soundscape: soft pipe organ, wet ink and tiny drops. */
 (() => {
   'use strict';
   const button = document.querySelector('#sound-toggle');
@@ -6,6 +6,8 @@
   const Audio = window.AudioContext || window.webkitAudioContext;
   let ctx, master, brush, brushFilter, noise, enabled = false, busy = false;
   let lastDrop = -10, lastBrush = -10;
+  const organVoices = [];
+  let organTimer, nextOrganTime = 0, organNote = 0;
   function display(on) {
     enabled = on;
     button.setAttribute('aria-pressed', String(on));
@@ -35,17 +37,17 @@
       source.connect(filter); filter.connect(level); level.connect(master); source.start();
       return {level, filter};
     }
-    // Quiet gallery-like harmony: no continuous wind noise or sub-bass rumble.
-    [174.61, 261.63, 392].forEach((frequency, i) => {
+    // Gentle flute-like pipe stops: fundamental plus restrained pipe harmonics.
+    const organWave = ctx.createPeriodicWave(
+      new Float32Array(6), new Float32Array([0, 1, .32, .14, .07, .025])
+    );
+    [174.61, 220, 261.63].forEach(frequency => {
       const tone = ctx.createOscillator(), level = ctx.createGain();
-      const breath = ctx.createOscillator(), depth = ctx.createGain();
+      tone.setPeriodicWave(organWave);
       tone.frequency.value = frequency;
-      level.gain.value = [.006, .004, .003][i];
-      breath.frequency.value = .025 + i * .011;
-      depth.gain.value = level.gain.value * .45;
-      breath.connect(depth); depth.connect(level.gain);
-      tone.connect(level); level.connect(master);
-      tone.start(); breath.start();
+      level.gain.value = 0;
+      tone.connect(level); level.connect(master); tone.start();
+      organVoices.push(level);
     });
     const ink = bed('lowpass', 420, 0);
     brush = ink.level; brushFilter = ink.filter; brushFilter.Q.value = .35;
@@ -53,9 +55,34 @@
       if (ctx.state !== 'running' && enabled) silence();
     });
   }
+  function startOrgan() {
+    clearInterval(organTimer);
+    organNote = 0;
+    nextOrganTime = ctx.currentTime + .04;
+    const schedule = () => {
+      if (!enabled || ctx.state !== 'running') return;
+      // Six seconds per note, with soft overlapping tails: F3 → A3 → C4.
+      while (nextOrganTime < ctx.currentTime + 1) {
+        const gain = organVoices[organNote % 3].gain, t = nextOrganTime;
+        gain.setValueAtTime(0, t);
+        gain.linearRampToValueAtTime(.024, t + 1.2);
+        gain.setValueAtTime(.024, t + 4.5);
+        gain.linearRampToValueAtTime(0, t + 7.5);
+        organNote++;
+        nextOrganTime += 6;
+      }
+    };
+    schedule();
+    organTimer = setInterval(schedule, 500);
+  }
   function silence() {
     display(false);
+    clearInterval(organTimer);
     if (!ctx) return;
+    organVoices.forEach(level => {
+      level.gain.cancelScheduledValues(ctx.currentTime);
+      level.gain.setValueAtTime(0, ctx.currentTime);
+    });
     master.gain.cancelScheduledValues(ctx.currentTime);
     master.gain.setValueAtTime(0, ctx.currentTime);
     brush.gain.cancelScheduledValues(ctx.currentTime);
@@ -98,6 +125,7 @@
       await ctx.resume();
       if (document.hidden || ctx.state !== 'running') { silence(); return; }
       display(true);
+      startOrgan();
       master.gain.setTargetAtTime(.65, ctx.currentTime, .2);
       drop(.5, .7);
     } catch (_) {
