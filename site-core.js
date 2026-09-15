@@ -2,6 +2,8 @@
   'use strict';
   const canvas = document.querySelector('#fluid');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const inkSound = detail => dispatchEvent(new CustomEvent('rio:ink', {detail}));
+  const isSoundControl = e => e.target instanceof Element && !!e.target.closest('#sound-toggle');
   const mobile = matchMedia('(max-width: 768px), (pointer: coarse)').matches;
   const gl = canvas.getContext('webgl2', {
     alpha:false, antialias:false, depth:false, stencil:false, powerPreference:mobile?'low-power':'high-performance'
@@ -41,11 +43,13 @@
         red:Math.random()>.78
       });
       if(blobs.length>(mobile?18:26))blobs.splice(0,blobs.length-(mobile?18:26));
+      inkSound({kind:'drop', x:clientX/innerWidth});
       if(reducedMotion.matches)paint();
     };
-    addEventListener('pointerdown',e=>point(e.clientX,e.clientY),{passive:true});
+    addEventListener('pointerdown',e=>{if(!isSoundControl(e))point(e.clientX,e.clientY)},{passive:true});
     if(!('PointerEvent' in window)){
       addEventListener('touchstart',e=>{
+      if(isSoundControl(e))return;
         for(const touch of e.changedTouches)point(touch.clientX,touch.clientY);
       },{passive:true});
     }
@@ -261,6 +265,7 @@
   }
   let tap=0;
   function burst(x,y){
+    inkSound({kind:'drop',x});
     const red=(++tap%4===0);
     for(let i=0;i<12;i++){const a=i/12*Math.PI*2+Math.random()*.4;
       splat(x,y,Math.cos(a)*320,Math.sin(a)*320,0,0,2.2)}
@@ -294,18 +299,21 @@
   const active=new Map();
   const uv=e=>({x:e.clientX/innerWidth,y:1-e.clientY/innerHeight});
   addEventListener('pointerdown',e=>{
+    if(isSoundControl(e))return;
     const p=uv(e);
     active.set(e.pointerId,{...p,sx:p.x,sy:p.y,moved:0,time:performance.now(),touch:e.pointerType==='touch'});
     if(e.pointerType==='touch')burst(p.x,p.y);
   },{passive:true});
   addEventListener('pointermove',e=>{const q=uv(e),p=active.get(e.pointerId);if(!p)return;
     const dx=q.x-p.x,dy=q.y-p.y,speed=Math.min(Math.hypot(dx,dy)*40,1);p.moved+=Math.abs(dx)+Math.abs(dy);
+    inkSound({kind:'brush',speed});
     splat(q.x,q.y,dx*CFG.force,dy*CFG.force,.14+speed*.5,0,.8+speed*1.4);p.x=q.x;p.y=q.y},{passive:true});
   addEventListener('pointerup',e=>{const p=active.get(e.pointerId);active.delete(e.pointerId);
     if(p&&!p.touch&&performance.now()-p.time<260&&p.moved<.015)burst(p.sx,p.sy)});
   addEventListener('pointercancel',e=>active.delete(e.pointerId));
   if(!('PointerEvent' in window)){
     addEventListener('touchstart',e=>{
+      if(isSoundControl(e))return;
       for(const touch of e.changedTouches){
         const p=uv(touch);burst(p.x,p.y);
       }
@@ -323,8 +331,11 @@
   setTimeout(()=>splat(.62,.7,30,-110,.8,0,2.6),250);
   setTimeout(()=>splat(.35,.55,-25,-80,.45,0,1.4),800);
   setTimeout(()=>burst(.55,.48),1500);
+  let ambientDrops=0;
   if(!reducedMotion.matches)setInterval(()=>{
+    if(document.hidden)return;
     const y=.2+Math.random()*.6,x=.18+Math.random()*.64;
+    if(++ambientDrops%3===0)inkSound({kind:'drop',x,strength:.35});
     splat(x,y,(Math.random()-.5)*55,-35-Math.random()*55,.16+Math.random()*.22,Math.random()>.88?.18:0,1.1+Math.random());
   },mobile?3200:2200);
 })();
