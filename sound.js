@@ -37,6 +37,32 @@
       source.connect(filter); filter.connect(level); level.connect(master); source.start();
       return {level, filter};
     }
+    // A seamless, quiet water bed made from small overlapping bubble resonances.
+    // Short liquid sounds provide movement without a continuous wind-like hiss.
+    const waterBuffer = ctx.createBuffer(2, ctx.sampleRate * 16, ctx.sampleRate);
+    const waterLeft = waterBuffer.getChannelData(0), waterRight = waterBuffer.getChannelData(1);
+    for (let bubble = 0; bubble < 96; bubble++) {
+      const start = Math.floor(Math.random() * waterBuffer.length);
+      const duration = .12 + Math.random() * .22;
+      const count = Math.floor(duration * ctx.sampleRate);
+      const frequency = 480 + Math.random() * 1250;
+      const volume = .016 + Math.random() * .024;
+      const position = .25 + Math.random() * .5;
+      let phase = 0;
+      for (let i = 0; i < count; i++) {
+        const t = i / ctx.sampleRate;
+        const envelope = (1 - Math.exp(-t * 350)) * Math.exp(-t * 24)
+          * Math.min(1, (duration - t) / .025);
+        phase += 2 * Math.PI * frequency * (1 + .7 * t / duration) / ctx.sampleRate;
+        const value = Math.sin(phase) * envelope * volume;
+        const at = (start + i) % waterBuffer.length;
+        waterLeft[at] += value * Math.sqrt(1 - position);
+        waterRight[at] += value * Math.sqrt(position);
+      }
+    }
+    const water = ctx.createBufferSource(), waterLevel = ctx.createGain();
+    water.buffer = waterBuffer; water.loop = true; waterLevel.gain.value = .75;
+    water.connect(waterLevel); waterLevel.connect(master); water.start();
     // Gentle flute-like pipe stops: fundamental plus restrained pipe harmonics.
     const organWave = ctx.createPeriodicWave(
       new Float32Array(6), new Float32Array([0, 1, .32, .14, .07, .025])
@@ -65,8 +91,8 @@
       while (nextOrganTime < ctx.currentTime + 1) {
         const gain = organVoices[organNote % 3].gain, t = nextOrganTime;
         gain.setValueAtTime(0, t);
-        gain.linearRampToValueAtTime(.024, t + 1.2);
-        gain.setValueAtTime(.024, t + 4.5);
+        gain.linearRampToValueAtTime(.010, t + 1.2);
+        gain.setValueAtTime(.010, t + 4.5);
         gain.linearRampToValueAtTime(0, t + 7.5);
         organNote++;
         nextOrganTime += 6;
