@@ -1,4 +1,4 @@
-/* Original procedural soundscape: soft pipe organ, wet ink and tiny drops. */
+/* Original procedural soundscape: quiet water, wet ink and tiny drops. */
 (() => {
   'use strict';
   const button = document.querySelector('#sound-toggle');
@@ -6,8 +6,6 @@
   const Audio = window.AudioContext || window.webkitAudioContext;
   let ctx, master, brush, brushFilter, noise, enabled = false, busy = false;
   let lastDrop = -10, lastBrush = -10;
-  const organVoices = [];
-  let organTimer, nextOrganTime = 0, organNote = 0;
   function display(on) {
     enabled = on;
     button.setAttribute('aria-pressed', String(on));
@@ -63,52 +61,15 @@
     const water = ctx.createBufferSource(), waterLevel = ctx.createGain();
     water.buffer = waterBuffer; water.loop = true; waterLevel.gain.value = .75;
     water.connect(waterLevel); waterLevel.connect(master); water.start();
-    // Gentle flute-like pipe stops: fundamental plus restrained pipe harmonics.
-    const organWave = ctx.createPeriodicWave(
-      new Float32Array(6), new Float32Array([0, 1, .32, .14, .07, .025])
-    );
-    [174.61, 220, 261.63].forEach(frequency => {
-      const tone = ctx.createOscillator(), level = ctx.createGain();
-      tone.setPeriodicWave(organWave);
-      tone.frequency.value = frequency;
-      level.gain.value = 0;
-      tone.connect(level); level.connect(master); tone.start();
-      organVoices.push(level);
-    });
     const ink = bed('lowpass', 420, 0);
     brush = ink.level; brushFilter = ink.filter; brushFilter.Q.value = .35;
     ctx.addEventListener('statechange', () => {
       if (ctx.state !== 'running' && enabled) silence();
     });
   }
-  function startOrgan() {
-    clearInterval(organTimer);
-    organNote = 0;
-    nextOrganTime = ctx.currentTime + .04;
-    const schedule = () => {
-      if (!enabled || ctx.state !== 'running') return;
-      // Six seconds per note, with soft overlapping tails: F3 → A3 → C4.
-      while (nextOrganTime < ctx.currentTime + 1) {
-        const gain = organVoices[organNote % 3].gain, t = nextOrganTime;
-        gain.setValueAtTime(0, t);
-        gain.linearRampToValueAtTime(.010, t + 1.2);
-        gain.setValueAtTime(.010, t + 4.5);
-        gain.linearRampToValueAtTime(0, t + 7.5);
-        organNote++;
-        nextOrganTime += 6;
-      }
-    };
-    schedule();
-    organTimer = setInterval(schedule, 500);
-  }
   function silence() {
     display(false);
-    clearInterval(organTimer);
     if (!ctx) return;
-    organVoices.forEach(level => {
-      level.gain.cancelScheduledValues(ctx.currentTime);
-      level.gain.setValueAtTime(0, ctx.currentTime);
-    });
     master.gain.cancelScheduledValues(ctx.currentTime);
     master.gain.setValueAtTime(0, ctx.currentTime);
     brush.gain.cancelScheduledValues(ctx.currentTime);
@@ -151,7 +112,6 @@
       await ctx.resume();
       if (document.hidden || ctx.state !== 'running') { silence(); return; }
       display(true);
-      startOrgan();
       master.gain.setTargetAtTime(.65, ctx.currentTime, .2);
       drop(.5, .7);
     } catch (_) {
