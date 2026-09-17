@@ -57,7 +57,8 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 
 ## 建設業許可通知書（2025年7月15日）
 
-- 閲覧ページ: `certificates/construction-permit.html`
+- サイト内PDF表示: `assets/certificates/display/construction-permit.pdf`（解体工事施工技士と共通モーダル）
+- 元の閲覧ページ: `certificates/construction-permit.html`
 - 原本写真: `assets/certificates/original/construction-permit-20250715.jpeg`（受領ファイルをそのまま保存）
 - 写真の文字・日付・印影は書き換えず、CSSの射影変換で用紙の傾きと余白を表示時に調整。
 - 会社概要と信用情報の建設業許可リンクから開く。表記は北海道知事許可（般－7）石第21656号。

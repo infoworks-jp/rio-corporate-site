@@ -30,6 +30,7 @@
   if(oldSeal){const img=document.createElement('img');img.className='rio-seal-image';img.src='assets/rio-seal-original.jpg?v=20260809-original';img.alt='吏央 篆刻';oldSeal.replaceWith(img)}
 
   const records={
+    construction:{kicker:'COMPANY LICENSE / 会社許可・登録',title:'建設業許可通知書',pdf:'assets/certificates/display/construction-permit.pdf'},
     demolition:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'解体工事施工技士',pdf:'assets/certificates/display/demolition.pdf'},
     civil:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'2級土木施工管理技士',pdf:'assets/certificates/display/civil.pdf'},
     waste:{kicker:'TECHNICAL QUALIFICATIONS / 技術資格',title:'産業廃棄物収集運搬課程 修了',pdf:'assets/certificates/display/waste.pdf'},
@@ -38,7 +39,7 @@
 
   const section=document.createElement('section');section.className='credentials';section.id='credentials';
   section.innerHTML=`<div class="credentials-wrap"><div class="credentials-head"><div><div class="section-no">CREDENTIALS — LICENSE / CERTIFICATION / RECOGNITION</div><h2>信頼を、<br>実績で。</h2></div><p class="credentials-intro">許可、技術資格、そして社会からの評価。必要な情報を端正にまとめ、証書は確認したい方だけが原本を閲覧できる形で公開しています。</p></div><div class="credential-groups">
-  <div class="credential-group"><div class="credential-kicker">COMPANY LICENSE / 会社許可・登録</div><article class="credential-item"><h3>建設業許可</h3><p>北海道知事許可（般－7）石第21656号</p><a class="credential-view" href="certificates/construction-permit.html" target="_blank" rel="noopener noreferrer">建設業許可通知書を開く ↗</a></article><article class="credential-item"><h3>産業廃棄物収集運搬業許可</h3><a class="credential-view" href="assets/certificates/original/industrial-waste-transport-permit.png" target="_blank" rel="noopener noreferrer">産業廃棄物収集運搬業許可証を開く ↗</a></article></div>
+  <div class="credential-group"><div class="credential-kicker">COMPANY LICENSE / 会社許可・登録</div><article class="credential-item"><h3>建設業許可</h3><p>北海道知事許可（般－7）石第21656号</p><button class="credential-view" data-record="construction">VIEW ORIGINAL ↗</button></article><article class="credential-item"><h3>産業廃棄物収集運搬業許可</h3><a class="credential-view" href="assets/certificates/original/industrial-waste-transport-permit.png" target="_blank" rel="noopener noreferrer">産業廃棄物収集運搬業許可証を開く ↗</a></article></div>
   <div class="credential-group"><div class="credential-kicker">TECHNICAL QUALIFICATIONS / 技術資格</div><article class="credential-item"><h3>解体工事施工技士</h3><p>登録番号 第25010020号｜登録有効期限 令和13年4月30日</p><button class="credential-view" data-record="demolition">VIEW ORIGINAL ↗</button></article><article class="credential-item"><h3>2級土木施工管理技士</h3><p>2級技術検定合格証明書｜番号 97150759</p><button class="credential-view" data-record="civil">VIEW ORIGINAL ↗</button></article><article class="credential-item"><h3>産業廃棄物収集運搬課程 修了</h3><p>許可申請に関する講習（新規）収集運搬課程｜2026年2月18日修了・発行日より5年間有効</p><button class="credential-view" data-record="waste">VIEW ORIGINAL ↗</button></article></div>
   <div class="credential-group"><div class="credential-kicker">RECOGNITION / 表彰・感謝状</div><article class="credential-item"><h3>札幌保護観察所 感謝状</h3><p class="recognition-note">人を育て、社会へつなぐ。非行少年の就職支援および改善更生への協力に対し、札幌保護観察所より感謝状を拝受。</p><button class="credential-view" data-record="recognition">VIEW ORIGINAL ↗</button></article></div>
   </div></div>`;
