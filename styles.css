@@ -125,3 +125,12 @@ a:focus-visible,summary:focus-visible{outline:2px solid #a92d1f;outline-offset:5
 .credential-close,.contact-form-close{min-width:44px;min-height:44px}
 .contact :focus-visible,.credential-modal :focus-visible{outline-color:#f4eee2}
 @media(max-width:600px){.contact-form-modal .rio-contact-form input,.contact-form-modal .rio-contact-form textarea,.contact-form-modal .rio-contact-form select{font-size:16px}}
+
+/* Site sharing: preserve a white quiet zone for reliable QR scanning. */
+footer{position:relative;z-index:1;align-items:center;gap:32px;padding-bottom:70px}
+.footer-copy{flex:1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px 24px}
+.site-qr{flex:0 0 auto;text-align:center;font-size:11px;line-height:1.7;letter-spacing:.08em}
+.site-qr img{display:block;width:148px;height:148px;margin:0 auto;background:#fff}
+.site-qr p{margin:12px 0 4px}
+.site-qr .qr-download{color:inherit;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:768px){footer{padding-bottom:max(30px,env(safe-area-inset-bottom))}.footer-copy{display:block}.site-qr{margin:28px auto 0;width:max-content}.site-qr img{width:148px;height:148px}}
