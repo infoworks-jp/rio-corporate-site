@@ -27,7 +27,7 @@
   const form=modal.querySelector('form'), submit=form.querySelector('button[type="submit"]'), result=form.querySelector('.contact-result');
   let submitting=false;
   const openForm=()=>{modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')};
-  const closeForm=()=>{if(submitting)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
+  const closeForm=()=>{if(submitting||!modal.classList.contains('is-open'))return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
   modal.querySelector('.contact-form-close').addEventListener('click',closeForm);modal.addEventListener('click',e=>{if(e.target===modal)closeForm()});
   form.addEventListener('submit',async e=>{
     e.preventDefault();
@@ -51,7 +51,7 @@
 
 // Brave-safe mouse ink layer: independent of WebGL/pointer-drag handling.
 (() => {
-  if(matchMedia('(pointer: coarse)').matches)return;
+  if(matchMedia('(pointer: coarse), (prefers-reduced-motion: reduce)').matches)return;
   const c=document.createElement('canvas');
   c.id='rio-mouse-ink';
   Object.assign(c.style,{position:'fixed',inset:'0',width:'100vw',height:'100dvh',zIndex:'0',pointerEvents:'none'});
@@ -65,14 +65,17 @@
     const n=2+Math.round(speed*3);
     for(let i=0;i<n;i++)drops.push({x:(x+(Math.random()-.5)*18)*dpr,y:(y+(Math.random()-.5)*18)*dpr,r:(24+speed*54+Math.random()*22)*dpr,a:.16+speed*.18,life:1,red:Math.random()>.94});
     if(drops.length>90)drops.splice(0,drops.length-90);
+    if(!raf)raf=requestAnimationFrame(draw);
   };
   const draw=()=>{
+    raf=0;
     ctx.clearRect(0,0,w,h);
     for(let i=drops.length-1;i>=0;i--){const p=drops[i];p.life-=.018;p.r*=1.006;if(p.life<=0){drops.splice(i,1);continue}const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);const alpha=p.a*p.life;g.addColorStop(0,p.red?`rgba(169,45,31,${alpha})`:`rgba(10,12,18,${alpha})`);g.addColorStop(.38,p.red?`rgba(169,45,31,${alpha*.45})`:`rgba(17,20,27,${alpha*.42})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2)}
-    raf=requestAnimationFrame(draw);
+    if(drops.length)raf=requestAnimationFrame(draw);
   };
-  addEventListener('mousemove',e=>{if(last)add(e.clientX,e.clientY,e.clientX-last.x,e.clientY-last.y);last={x:e.clientX,y:e.clientY}},{passive:true});
+  addEventListener('mousemove',e=>{if(document.hidden)return;if(last)add(e.clientX,e.clientY,e.clientX-last.x,e.clientY-last.y);last={x:e.clientX,y:e.clientY}},{passive:true});
   addEventListener('mouseleave',()=>{last=null},{passive:true});
   addEventListener('resize',fit,{passive:true});
-  fit();draw();
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;drops.length=0;last=null;ctx.clearRect(0,0,w,h)}});
+  fit();
 })();
