@@ -115,3 +115,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid #a92d1f;outline-offset:5
 .yard-place{grid-column:1/-1;display:grid;grid-template-columns:1fr 2fr;gap:26px;align-items:start}.yard-place h3{margin-top:0}.yard-place p{margin:0;font-size:13px}@media(max-width:768px){.yard-place{grid-template-columns:1fr;gap:8px}}
 
 .map-label{margin-left:4px}.yard-map-note{display:block;margin-top:8px;font-size:11px;line-height:1.8}
+
+/* Dragging the interactive hero must move ink without selecting its artwork. */
+.hero,.hero *{-webkit-user-select:none;user-select:none}
+.hero img{-webkit-user-drag:none}
