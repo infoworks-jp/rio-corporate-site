@@ -138,3 +138,5 @@ footer{position:relative;z-index:1;align-items:center;gap:32px;padding-bottom:70
 /* Let pointer-driven ink gestures cross page text without selecting it. */
 body,body *{-webkit-user-select:none;user-select:none}
 body input,body textarea,body [contenteditable]:not([contenteditable="false"]),body [contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text}
+
+.office-detail-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;border-bottom:1px solid #a92d1f;font-size:13px;line-height:1.8}.office-detail-link:hover{color:#a92d1f}

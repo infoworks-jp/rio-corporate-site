@@ -1,0 +1,80 @@
+:root{--paper:#eee8dc;--ink:#17181c;--red:#a12d22;--line:#c7c0b4;--muted:#5b564f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.9 system-ui,-apple-system,sans-serif}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,a,summary{-webkit-tap-highlight-color:transparent}
+:where(a,summary):focus-visible{outline:3px solid var(--red);outline-offset:5px}
+.wrap{width:min(1180px,calc(100% - 104px));margin-inline:auto}
+.skip-link{position:absolute;left:20px;top:-100px;z-index:5;background:var(--ink);color:var(--paper);padding:12px 20px}
+.skip-link:focus{top:12px}
+.masthead{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 42px;border-bottom:1px solid var(--line)}
+.brand{display:block;line-height:1.4;flex-shrink:0}
+.brand b{display:block;font:600 22px/1.4 "Yu Mincho","Hiragino Mincho ProN",serif;letter-spacing:.12em}
+.brand>span{font-size:10px;letter-spacing:.19em}
+.seal-dot{font-size:12px;color:var(--red);margin-left:10px}
+.masthead nav,footer nav{display:flex;flex-wrap:wrap;gap:12px 28px;font-size:13px}
+.masthead nav a,footer nav a{display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid transparent}
+.masthead nav a:hover,.masthead nav [aria-current],footer nav a:hover{border-color:var(--red);color:var(--red)}
+.office-hero{padding:26px 0 72px}
+.breadcrumbs{display:flex;gap:16px;color:var(--muted);font-size:12px;margin-bottom:60px}
+.breadcrumbs a{text-decoration:underline;text-underline-offset:4px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:72px}
+.eyebrow{font-size:11px;letter-spacing:.18em;color:var(--red);margin:0 0 24px}
+h1,h2,h3{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:600}
+h1{font-size:clamp(52px,5.7vw,78px);line-height:1.25;letter-spacing:.04em;margin:0 0 30px}
+h1>span{display:block;font-size:20px;letter-spacing:.06em;margin-bottom:18px}
+.hero-service{font:600 clamp(19px,1.9vw,26px)/1.7 "Yu Mincho","Hiragino Mincho ProN",serif;margin:0 0 18px}
+.intro{font-size:15px;line-height:2.1;max-width:540px;color:var(--muted)}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:20px 28px;margin-top:30px}
+.button{display:inline-flex;justify-content:space-between;align-items:center;gap:34px;min-height:52px;padding:12px 23px;background:var(--red);color:#fff;font-size:14px;transition:background .2s}
+.button:hover{background:#792117}
+.button span{transition:transform .2s}.button:hover span{transform:translate(2px,-2px)}
+.text-link{display:inline-block;min-height:44px;padding:10px 0 7px;border-bottom:1px solid var(--red);font-size:14px;line-height:1.8;transition:color .2s}
+.text-link:hover{color:var(--red)}
+figure{margin:0;animation:arrive .75s ease-out both}
+figure img{width:100%;aspect-ratio:449/323;object-fit:cover;border:1px solid var(--line)}
+figcaption{font-size:11px;letter-spacing:.06em;color:var(--muted);padding-top:14px;border-top:1px solid var(--line);margin-top:16px}
+.hero-copy{animation:arrive .55s ease-out both}
+.section{display:grid;grid-template-columns:.85fr 1.4fr;gap:90px;padding-block:88px;border-top:1px solid var(--line)}
+h2{font-size:clamp(30px,3.4vw,46px);line-height:1.5;margin:0 0 24px;letter-spacing:.035em}
+.section-heading>p:not(.eyebrow){font-size:14px;color:var(--muted)}
+.service-list,.work-list{list-style:none;padding:0;margin:0}
+.service-list li{display:grid;grid-template-columns:32px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--line)}
+.service-list li:first-child{padding-top:0}
+.item-no{font:italic 16px/2 Georgia,serif;color:var(--red)}
+.service-list h3{font-size:23px;margin:0 0 12px}
+.service-list p{font-size:15px;line-height:2;margin:0;color:var(--muted)}
+.works-section{background:var(--ink);color:var(--paper);padding:82px 0 76px}
+.works-section .eyebrow{color:#ec8374}
+.works-heading{display:flex;justify-content:space-between;align-items:end;gap:60px;margin-bottom:42px}
+.works-heading>p{font-size:14px;line-height:2;color:#d5cfc3;max-width:390px}
+.work-list{border-top:1px solid #5f5b57;margin-bottom:28px}
+.work-list li{display:flex;justify-content:space-between;gap:28px;align-items:center;border-bottom:1px solid #5f5b57;padding:25px 0}
+.work-list h3{font-size:21px;margin:0 0 4px;line-height:1.6}
+.work-list p{font-size:13px;color:#d5cfc3;margin:0}
+.work-list li>span{font-size:14px;white-space:nowrap}
+.works-section .text-link{border-color:#ec8374}.works-section .text-link:hover{color:#ec8374}
+.works-section :focus-visible{outline-color:#ec8374}
+.office-facts{margin:0}
+.office-facts>div{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.office-facts>div:first-child{padding-top:0}
+dt{font-size:12px;color:var(--red)}dd{margin:0;font-size:15px}
+.phone{font-size:21px;letter-spacing:.025em}
+.yard-note{margin-top:28px;padding-left:20px;border-left:2px solid var(--red)}
+.yard-note h3{font-size:18px;margin:0 0 4px}.yard-note p{font-size:14px;margin:0}
+.access-note{font-size:14px;line-height:2;color:var(--muted);margin-top:28px}
+.questions{padding-top:70px;padding-bottom:80px;border-top:1px solid var(--line)}
+.questions h2{font-size:32px}
+details{border-bottom:1px solid var(--line)}details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:21px 0;font-size:15px}
+details p{max-width:850px;font-size:15px;margin:0 0 24px;line-height:2.1}
+details p a{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:5px}
+footer{display:flex;justify-content:space-between;align-items:center;gap:32px;border-top:1px solid var(--line);padding-block:30px 44px}
+footer b{display:block;font:600 17px/1.8 "Yu Mincho","Hiragino Mincho ProN",serif}
+footer div>span{display:block;font-size:10px;letter-spacing:.08em}
+@keyframes arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.wrap{width:calc(100% - 56px)}.masthead{padding:20px 28px}.hero-grid{gap:36px}.section{gap:42px;grid-template-columns:.8fr 1.2fr}.masthead nav{gap:16px}h1{font-size:54px}.works-heading{gap:30px}}
+@media(max-width:650px){.wrap{width:calc(100% - 40px)}.masthead{padding:18px 20px;align-items:start}.brand b{font-size:19px}.masthead nav{gap:0 16px;justify-content:flex-end;max-width:190px;font-size:12px}.masthead nav a{min-height:32px}.office-hero{padding:20px 0 46px}.breadcrumbs{margin-bottom:34px;font-size:11px}.hero-grid{grid-template-columns:1fr;gap:35px}h1{font-size:52px;margin-bottom:22px}h1>span{font-size:19px}.eyebrow{margin-bottom:18px}.intro{font-size:14px}.actions{gap:16px 22px}.button{font-size:13px;padding-inline:18px;gap:26px}figure{max-width:449px;width:100%}figcaption{margin-top:10px;padding-top:10px}.section{grid-template-columns:1fr;gap:26px;padding-block:48px}h2{font-size:33px}.section-heading h2 br{display:none}.service-list h3{font-size:21px}.service-list li{gap:10px;grid-template-columns:26px 1fr}.works-section{padding:48px 0}.works-heading{display:block;margin-bottom:28px}.works-heading>p{font-size:13px}.work-list li{align-items:flex-start;gap:10px;flex-direction:column}.work-list h3{font-size:20px}.work-list li>span{font-size:13px}.office-facts>div{grid-template-columns:1fr;gap:4px;padding:16px 0}.questions{padding-block:48px}summary{font-size:14px;line-height:1.9}details p{font-size:14px}footer{display:block}footer nav{gap:12px 22px;margin-top:20px;font-size:12px}.phone{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
