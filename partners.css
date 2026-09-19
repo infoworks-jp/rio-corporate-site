@@ -1,0 +1,34 @@
+/* Brand motion and a quiet, editorial invitation to work together. */
+.hero-mark{position:relative;isolation:isolate;width:min(78vw,860px,calc((100svh - 380px)*1.5));aspect-ratio:3/2;margin:16px auto 0;touch-action:pan-y}
+.hero-mark .hero-logo{width:100%;height:100%;margin:0;object-fit:contain}
+.hero-mark canvas{position:absolute;inset:0;width:100%;height:100%;max-width:none;pointer-events:none;mix-blend-mode:multiply;filter:contrast(1.1) saturate(.95);opacity:0}
+.hero-mark.is-animating .hero-logo{opacity:0}
+.hero-mark.is-animating canvas{opacity:1}
+.hero-logo-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0 0;min-height:44px;font-size:10px;letter-spacing:.12em;color:#60584e}
+.hero-logo-controls button{font:inherit;letter-spacing:inherit;background:none;color:#5b332b;border:0;border-bottom:1px solid #a92d1f;min-height:44px;cursor:pointer;padding:8px 0}
+.hero .tagline{margin-top:8px}
+.partners{min-height:0;background:#eee8dc;padding-top:110px;padding-bottom:100px}
+.partners-wrap{max-width:1180px;margin:auto}
+.partners-heading{display:grid;grid-template-columns:1.1fr .9fr;gap:7vw;align-items:end}
+.partners h2{font-size:clamp(40px,5.8vw,78px);margin-bottom:20px}
+.partners-subtitle{font-size:14px;letter-spacing:.12em;margin:0}
+.partners-intro{font-size:14px;line-height:2.2;margin:0;max-width:480px}
+.partner-offices{display:grid;grid-template-columns:1fr 1fr;margin-top:60px;border-top:1px solid #8c8172;border-bottom:1px solid #8c8172}
+.partner-office{padding:36px 7% 38px 0}
+.partner-office+ .partner-office{border-left:1px solid #b6ab9a;padding-left:12%;padding-right:0}
+.partner-office small{font-size:10px;letter-spacing:.2em;color:#8e3025}
+.partner-office h3{font:500 clamp(30px,4vw,46px)/1.3 "Yu Mincho","Hiragino Mincho ProN",serif;margin:14px 0 22px}
+.partner-office ul{padding:0;list-style:none;font-size:14px;line-height:2.2;margin:0}
+.partner-office .arrow-link{font-size:13px;letter-spacing:.04em;gap:14px;margin-top:24px;min-height:48px}
+.partner-office .arrow-link span{transition:transform .25s}
+.partner-office .arrow-link:hover span{transform:translateX(5px)}
+.partner-phone{margin:16px 0 0;font-size:12px;color:#595047}
+.partner-phone a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;text-decoration-color:#a92d1f;text-underline-offset:4px}
+.partner-values{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px}
+.partner-values h3{font:500 21px/1.5 "Yu Mincho",serif;margin:0 0 8px}
+.partner-values p{font-size:12px;line-height:1.9;margin:0;color:#595047}
+.partner-process{margin:38px 0 0;font-size:12px;line-height:2;letter-spacing:.04em}
+@media(min-width:769px){.hero{padding-top:max(80px,env(safe-area-inset-top))}.side-nav{gap:5px}.side-nav a{font-size:10px;letter-spacing:.1em;padding:5px 2px}.hero-copy{margin-top:0}.hero .vertical{top:28%}}
+@media(max-width:768px){.hero-mark{width:min(100%,640px);margin-top:16px}.hero-copy{margin-top:-3vh}.hero-logo-controls{font-size:9px;gap:12px}.partners{padding-top:84px;padding-bottom:76px}.partners-heading{grid-template-columns:1fr;gap:26px}.partners-subtitle{font-size:12px;letter-spacing:.04em}.partners-intro{font-size:13px}.partner-offices{grid-template-columns:1fr;margin-top:36px}.partner-office,.partner-office+.partner-office{padding:28px 0;border-left:0}.partner-office+.partner-office{border-top:1px solid #b6ab9a}.partner-values{grid-template-columns:1fr;gap:22px}.partner-values>div{display:grid;grid-template-columns:7em 1fr;gap:16px}.partner-values h3{font-size:17px}.partner-process{margin-top:28px}}
+@media(max-height:650px) and (min-width:769px){.hero-mark{width:420px}.hero{min-height:700px}}
+@media(prefers-reduced-motion:reduce){.hero-logo-controls{display:none}.partner-office .arrow-link span{transition:none}}
