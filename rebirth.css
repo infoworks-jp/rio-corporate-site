@@ -1,4 +1,4 @@
-.rebirth{padding:0;min-height:0;height:220vh;background:#eee8dc;isolation:isolate}
+.rebirth{padding:0;min-height:0;height:360vh;background:#eee8dc;isolation:isolate}
 .rebirth-stage{position:sticky;top:0;height:100svh;min-height:640px;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#f7f2e8,#e9e1d1)}
 .rebirth-heading{position:absolute;top:100px;left:8%;z-index:2;pointer-events:none}
 .rebirth-heading small{color:#a92d1f;font-size:10px;letter-spacing:.25em}
@@ -12,7 +12,16 @@
 .rebirth-options{display:flex;gap:20px;align-items:center;font-size:11px}.rebirth-options a{text-decoration:underline;text-underline-offset:5px}
 .rebirth-fallback{position:absolute;width:min(55%,500px);left:50%;top:55%;transform:translate(-50%,-50%);mix-blend-mode:multiply}
 .rebirth.is-ready .rebirth-fallback{visibility:hidden}
-@media(max-width:700px){.rebirth{height:200vh}.rebirth-stage{min-height:580px}.rebirth-heading{left:7%;top:95px}.rebirth-heading h2{font-size:30px}.rebirth-bottom{left:7%;right:7%;bottom:24px;display:block}.rebirth-bottom p{font-size:10px}.rebirth-steps{gap:13px;font-size:11px}.rebirth-options{margin-top:8px;justify-content:space-between}}
+@media(max-width:700px){.rebirth{height:320vh}.rebirth-stage{min-height:580px}.rebirth-heading{left:7%;top:95px}.rebirth-heading h2{font-size:30px}.rebirth-bottom{left:7%;right:7%;bottom:24px;display:block}.rebirth-bottom p{font-size:10px}.rebirth-steps{gap:13px;font-size:11px}.rebirth-options{margin-top:8px;justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.rebirth{height:100svh;min-height:640px}.rebirth-stage{position:relative}}
 /* Clip horizontal overflow without creating an ancestor scroll container. */
 @supports(overflow:clip){html,body{overflow-x:clip}}
+
+.rebirth-ink-controls{position:absolute;z-index:2;left:50%;top:67%;transform:translateX(-50%);text-align:center;width:86%;visibility:hidden;opacity:0;transition:opacity .3s}
+.is-ink-phase .rebirth-ink-controls{visibility:visible;opacity:1}
+.rebirth-ink-controls button{margin:0 12px}
+.ink-hint{font-size:12px;letter-spacing:.1em}
+.rebirth canvas.is-drawing{touch-action:none;cursor:crosshair}
+.rebirth-scene{font-weight:500}
+@media(max-width:700px){.rebirth-steps{gap:10px;font-size:10px}.rebirth-ink-controls{top:62%}.ink-hint{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.rebirth-ink-controls{transition:none}}
