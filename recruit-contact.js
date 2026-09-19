@@ -1,6 +1,6 @@
 (() => {
-  const SAPPORO='https://jp.indeed.com/cmp/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE-%E5%90%8F%E5%A4%AE-2/jobs?jk=91ce7644bf2afaab&start=0&clearPrefilter=1';
-  const YOKOHAMA='https://jp.indeed.com/cmp/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE-%E5%90%8F%E5%A4%AE/jobs?jk=6342d3c5e932ba44&start=0&clearPrefilter=1';
+  const SAPPORO='/recruit/';
+  const YOKOHAMA='/recruit/yokohama/';
   const ENDPOINT='https://xxhgerxugsjoxkbuuqhb.supabase.co/functions/v1/rio-contact';
   const css=document.createElement('style');
   css.textContent=`
