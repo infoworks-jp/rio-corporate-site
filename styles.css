@@ -134,3 +134,7 @@ footer{position:relative;z-index:1;align-items:center;gap:32px;padding-bottom:70
 .site-qr p{margin:12px 0 4px}
 .site-qr .qr-download{color:inherit;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:768px){footer{padding-bottom:max(30px,env(safe-area-inset-bottom))}.footer-copy{display:block}.site-qr{margin:28px auto 0;width:max-content}.site-qr img{width:148px;height:148px}}
+
+/* Let pointer-driven ink gestures cross page text without selecting it. */
+body,body *{-webkit-user-select:none;user-select:none}
+body input,body textarea,body [contenteditable]:not([contenteditable="false"]),body [contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text}
