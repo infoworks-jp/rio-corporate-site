@@ -140,3 +140,10 @@ body,body *{-webkit-user-select:none;user-select:none}
 body input,body textarea,body [contenteditable]:not([contenteditable="false"]),body [contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text}
 
 .office-detail-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;border-bottom:1px solid #a92d1f;font-size:13px;line-height:1.8}.office-detail-link:hover{color:#a92d1f}
+
+/* Permit scope and one shared three-document viewer. */
+.permit-summary{margin:18px 0}.permit-summary .permit-label{margin:0 0 9px;font-size:14px;font-weight:600;color:#17181c;letter-spacing:.04em}
+.permit-industries{list-style:none;margin:0;padding:0;font-size:14px;line-height:1.85;color:#17181c}.permit-industries li{margin:0;padding:0;overflow-wrap:anywhere}
+.permit-view.credential-view{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;font-size:14px;line-height:1.6;letter-spacing:.02em}
+.facts .permit-industries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 18px}.facts .permit-industries li:nth-child(5){grid-column:1/-1}
+@media(max-width:480px){.facts .permit-industries{grid-template-columns:1fr}.facts .permit-industries li:nth-child(5){grid-column:auto}}
