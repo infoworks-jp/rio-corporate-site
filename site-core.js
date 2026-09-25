@@ -1,4 +1,4 @@
-(() => {
+function startRioFluid() {
   'use strict';
   const canvas = document.querySelector('#fluid');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -338,4 +338,6 @@
     if(++ambientDrops%3===0)inkSound({kind:'drop',x,strength:.35});
     splat(x,y,(Math.random()-.5)*55,-35-Math.random()*55,.16+Math.random()*.22,Math.random()>.88?.18:0,1.1+Math.random());
   },mobile?3200:2200);
-})();
+}
+// Give the already-styled page and logo their first paint before WebGL setup.
+requestAnimationFrame(() => setTimeout(startRioFluid, 0));

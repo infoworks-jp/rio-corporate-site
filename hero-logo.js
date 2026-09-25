@@ -113,7 +113,7 @@
     let color = '';
     for (const p of points) {
       if (!intro && !p.active) continue;
-      const progress = intro ? Math.max(0,Math.min(1,(elapsed-.45-p.delay)/3.2)) : 1;
+      const progress = intro ? Math.max(0,Math.min(1,(elapsed-p.delay)/3.2)) : 1;
       const gather = smooth(progress), remaining = 1-gather;
       const targetX = logoX+p.x*sx, targetY = logoY+p.y*sy;
       // Spawn throughout the full hero, including its edges. Curved paths give
@@ -125,7 +125,7 @@
       const x = targetX+(dx*cosine-dy*sine)*remaining+p.dx;
       const y = targetY+(dx*sine+dy*cosine)*remaining+p.dy;
       if(x < -4 || x > fieldWidth+4 || y < -4 || y > fieldHeight+4) continue;
-      ctx.globalAlpha = (p.active ? 1 : 1-merge)*smooth(elapsed/.45)*(.38+.62*gather);
+      ctx.globalAlpha = (p.active ? 1 : 1-merge)*(.2+.8*smooth(elapsed/.2))*(.38+.62*gather);
       if (color !== p.color) { color = p.color; ctx.fillStyle = color; }
       const baseSize = Math.max(.55,cell*sx*(.25+p.ink*.22));
       const size = baseSize+remaining*p.depth*1.65;
