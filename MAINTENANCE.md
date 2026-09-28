@@ -102,3 +102,18 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 - `styles.css`、`sound.css`、`partners.css` を `index.html` に埋め込み、外部CSSの通信待ちによる初回の白画面を防ぐ。これらのCSSを編集したら、公開前に必ず `python scripts/embed-home-styles.py` を実行する。
 - 表示用スクリプトはhead内のdeferで並列取得し、ロゴを先に初期化。WebGL背景の準備は最初の描画後に行う。粒子の開始時にあった空白の待ち時間も短縮。
 - マニフェストの起動背景はサイトと同じ `#eee8dc`。iPhone 15 Pro Maxのホーム画面起動用に同色の縦・横起動画像を指定。OSに保存済みの起動画面はサイトの通常キャッシュとは別に保持される場合がある。
+
+## 問い合わせスパム対策（2026年9月29日）
+
+- `supabase/functions/rio-contact/handler.ts` が受付、`security.ts` が入力検証・迷惑判定・Turnstile検証。`index.ts` は起動処理。
+- 1時間に送信元IPで10件、メールアドレスで5件まで。DBの原子的な更新で同時送信も制限。ブラウザー情報の変更では制限をリセットしない。IPはハッシュのみ保存。
+- 同じ連絡先・種別・本文は24時間以内の重複通知を抑止。受信済み／メール失敗中の再送では「保存済み」を返す。
+- 迷惑スコア6以上は `rio_contact_submissions.status = 'quarantined'` として保存し、通知メールを送らない。`spam_score` と `spam_reasons` に理由を保存。単に英語・URL付きという理由では拒否しない。
+- 管理者は [Supabase Table Editor](https://supabase.com/dashboard/project/xxhgerxugsjoxkbuuqhb/editor) で `rio_contact_submissions` を開き、`status = quarantined` を定期確認する。誤判定なら本文の連絡先へ通常の方法で対応し、対応後 `status = reviewed` に変更できる。メール失敗は `mail_failed`、処理途中は `received`。受付内容を自動削除しない。
+- 保存テーブルと回数制限テーブルは公開クライアントからの権限を除き、RLS有効。サーバーのDB接続のみ使用。
+- Cloudflare Turnstileの有効化: Managedウィジェットに `rio-works.com`、`www.rio-works.com`、`infoworks-jp.github.io` を登録し、Supabase Edge Function Secretsへ `TURNSTILE_SITE_KEY` と `TURNSTILE_SECRET_KEY` を**同時に**設定する。秘密鍵をGit・HTML・チャットへ貼り付けない。
+- 両キーが未設定の間は、回数制限・重複抑止・迷惑判定のみ稼働する。片方だけ設定された状態では受付を停止する。GETの `turnstileSiteKey` は公開サイトキーのみ返し、画面が認証を読み込む。サーバーはhostnameとaction=`rio_contact`も検証する。テストキーを本番へ入れない。
+- 有効化は新しいフロントの公開後に行う。認証失敗・期限切れ時は入力を保持して再確認できる。
+- DB追加定義は `supabase/sql/contact-spam-protection.sql`。適用済みmigration名は `rio_contact_spam_protection`。既存データを残す追加変更。
+- 検証: `node --test tests/contact.test.mjs`、`npx deno check supabase/functions/rio-contact/index.ts`。UI試験は仮受付を使い、実メールは送らない。
+- 既存のFormSubmit通知先への直接投稿や、メールアドレス宛の直接迷惑メールは、このフォーム用フィルターの対象外。必要に応じてメールサービス側で別途対処する。

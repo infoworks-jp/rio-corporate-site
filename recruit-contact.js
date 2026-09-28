@@ -24,10 +24,56 @@
   };
 
   const modal=document.createElement('div');modal.className='contact-form-modal';modal.id='contact-form';modal.setAttribute('aria-hidden','true');
-  modal.innerHTML=`<div class="contact-form-card" role="dialog" aria-modal="true" aria-labelledby="contact-form-title"><button class="contact-form-close" aria-label="閉じる">×</button><h3 id="contact-form-title">お問い合わせ</h3><p data-form-intro>株式会社吏央へのお問い合わせはこちらから。<br>「必須」の項目をご記入ください。</p><form class="rio-contact-form"><label>お問い合わせ種別<select name="type"><option>工事・お見積りについて</option><option>協力会社について</option><option>採用について</option><option>その他</option></select></label><label>お名前（必須）<input name="name" required autocomplete="name" maxlength="100"></label><label>会社名<span data-company-required hidden>（必須）</span><input name="company" autocomplete="organization" maxlength="140"></label><label>メールアドレス（必須）<input name="email" type="email" required autocomplete="email" maxlength="254"></label><label>電話番号<input name="tel" type="tel" autocomplete="tel" maxlength="50"></label><fieldset class="partner-fields" hidden disabled><legend>協力会社のご相談</legend><label>希望拠点（必須）<select name="partnerOffice" required><option value="">お選びください</option><option>札幌本社</option><option>横浜支店</option><option>両拠点について相談</option></select></label><label>得意な工事（必須）<input name="specialty" required maxlength="200" placeholder="例：内装解体、土工事、足場工事"></label></fieldset><label>お問い合わせ内容（必須）<textarea name="message" required maxlength="5000"></textarea></label><label class="contact-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><button type="submit">送信する →</button><div class="contact-note">送信先：info@rio-works.com　この画面のまま送信できます。</div><div class="contact-result" role="status" aria-live="polite"></div></form></div>`;
+  modal.innerHTML=`<div class="contact-form-card" role="dialog" aria-modal="true" aria-labelledby="contact-form-title"><button class="contact-form-close" aria-label="閉じる">×</button><h3 id="contact-form-title">お問い合わせ</h3><p data-form-intro>株式会社吏央へのお問い合わせはこちらから。<br>「必須」の項目をご記入ください。</p><form class="rio-contact-form"><label>お問い合わせ種別<select name="type"><option>工事・お見積りについて</option><option>協力会社について</option><option>採用について</option><option>その他</option></select></label><label>お名前（必須）<input name="name" required autocomplete="name" maxlength="100"></label><label>会社名<span data-company-required hidden>（必須）</span><input name="company" autocomplete="organization" maxlength="140"></label><label>メールアドレス（必須）<input name="email" type="email" required autocomplete="email" maxlength="254"></label><label>電話番号<input name="tel" type="tel" autocomplete="tel" maxlength="50"></label><fieldset class="partner-fields" hidden disabled><legend>協力会社のご相談</legend><label>希望拠点（必須）<select name="partnerOffice" required><option value="">お選びください</option><option>札幌本社</option><option>横浜支店</option><option>両拠点について相談</option></select></label><label>得意な工事（必須）<input name="specialty" required maxlength="200" placeholder="例：内装解体、土工事、足場工事"></label></fieldset><label>お問い合わせ内容（必須）<textarea name="message" required maxlength="5000"></textarea></label><label class="contact-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div class="contact-verification" aria-label="送信前の確認"></div><p class="contact-note contact-verification-status" role="status" aria-live="polite"></p><button type="button" class="contact-verification-retry" hidden>確認をやり直す</button><button type="submit">送信する →</button><div class="contact-note">送信先：info@rio-works.com　この画面のまま送信できます。</div><div class="contact-result" role="status" aria-live="polite"></div></form></div>`;
   document.body.appendChild(modal);
   const form=modal.querySelector('form'), submit=form.querySelector('button[type="submit"]'), result=form.querySelector('.contact-result');
-  let submitting=false;
+  let submitting=false, verificationReady=false, verificationLoading=false, verificationToken='', widgetId=null, verificationScript=null;
+  const verificationBox=form.querySelector('.contact-verification');
+  const verificationStatus=form.querySelector('.contact-verification-status');
+  const verificationRetry=form.querySelector('.contact-verification-retry');
+  const updateSubmit=()=>{submit.disabled=submitting||!verificationReady;};
+  const verificationError=()=>{
+    verificationReady=false;verificationToken='';updateSubmit();
+    verificationStatus.textContent='送信前の確認ができませんでした。「確認をやり直す」を押してください。入力内容は保持されています。';
+    verificationRetry.hidden=false;
+  };
+  const loadVerificationScript=()=>{
+    if(window.turnstile)return Promise.resolve();
+    if(verificationScript)return verificationScript;
+    verificationScript=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      const timer=setTimeout(()=>{script.remove();verificationScript=null;reject(new Error('verification_timeout'));},12000);
+      script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';script.async=true;
+      script.onload=()=>{clearTimeout(timer);resolve();};
+      script.onerror=()=>{clearTimeout(timer);script.remove();verificationScript=null;reject(new Error('verification_load'));};
+      document.head.appendChild(script);
+    });
+    return verificationScript;
+  };
+  const prepareVerification=async()=>{
+    if(verificationLoading||submitting)return;
+    verificationLoading=true;verificationReady=false;verificationToken='';updateSubmit();
+    verificationRetry.hidden=true;verificationStatus.textContent='送信前の確認を準備しています…';
+    try{
+      const response=await fetch(ENDPOINT,{cache:'no-store',signal:AbortSignal.timeout(15000)});
+      const config=await response.json();
+      if(!response.ok||!config.ok)throw new Error('verification_config');
+      if(!config.turnstileSiteKey){verificationReady=true;verificationStatus.textContent='';updateSubmit();return;}
+      await loadVerificationScript();
+      if(widgetId!==null){window.turnstile.remove(widgetId);widgetId=null;}
+      widgetId=window.turnstile.render(verificationBox,{
+        sitekey:config.turnstileSiteKey,action:'rio_contact',theme:'light',size:'flexible',language:'ja',
+        callback:token=>{verificationToken=token;verificationReady=true;verificationRetry.hidden=true;verificationStatus.textContent='送信前の確認が完了しました。';updateSubmit();},
+        'expired-callback':()=>{verificationToken='';verificationReady=false;verificationStatus.textContent='確認の有効期限が切れました。再確認しています…';updateSubmit();window.turnstile.reset(widgetId);},
+        'error-callback':()=>{verificationError();return true;},
+        'timeout-callback':verificationError,
+      });
+      verificationStatus.textContent='送信前の確認中です。必要に応じて表示された確認を行ってください。';
+    }catch{verificationError();}
+    finally{verificationLoading=false;}
+  };
+  verificationRetry.addEventListener('click',prepareVerification);
+  updateSubmit();
   const syncType=()=>{
     const partner=form.elements.type.value==='協力会社について';
     const fields=form.querySelector('.partner-fields');fields.hidden=!partner;fields.disabled=!partner;
@@ -42,12 +88,13 @@
     if(office){form.elements.type.value='協力会社について';form.elements.partnerOffice.value=office;}
     syncType();result.className='contact-result';result.textContent='';
     modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');
+    prepareVerification();
   };
   const closeForm=()=>{if(submitting||!modal.classList.contains('is-open'))return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
   modal.querySelector('.contact-form-close').addEventListener('click',closeForm);modal.addEventListener('click',e=>{if(e.target===modal)closeForm()});
   form.addEventListener('submit',async e=>{
     e.preventDefault();
-    if(submitting)return;
+    if(submitting||!verificationReady||!form.reportValidity())return;
     submitting=true;result.className='contact-result';result.textContent='';submit.disabled=true;submit.textContent='送信中…';
     const d=new FormData(form);const payload=Object.fromEntries(d.entries());
     const phone=payload.partnerOffice==='横浜支店'?'横浜支店 045-930-3366':'札幌本社 011-374-8012';
@@ -55,16 +102,17 @@
       payload.message=`希望拠点：${payload.partnerOffice}\n得意な工事：${payload.specialty}\n\nご相談内容：\n${payload.message}`;
     }
     delete payload.partnerOffice;delete payload.specialty;
-    payload.clientToken=(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    payload.turnstileToken=verificationToken;
     try{
-      const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(30000)});
       const data=await r.json().catch(()=>({}));
       if(r.ok&&data.ok){form.reset();syncType();result.textContent='送信しました。お問い合わせありがとうございます。担当者よりご連絡いたします。';result.className='contact-result show';}
       else if(data.saved){result.textContent='内容は受け付けましたが、メール送信処理で一時的なエラーが発生しました。担当者が確認できるよう保存されています。';result.className='contact-result show';}
+      else if(data.error==='verification_required'||data.error==='verification_unavailable'){verificationReady=false;verificationRetry.hidden=false;result.textContent='送信前の確認をやり直してください。入力内容は保持されています。';result.className='contact-result show';}
       else if(r.status===429){result.textContent='短時間に送信回数が多くなっています。しばらくしてからもう一度お試しください。';result.className='contact-result show';}
       else throw new Error(data.error||'send_failed');
     }catch(err){result.textContent=`送信できませんでした。時間をおいて再度お試しいただくか、${phone} までご連絡ください。`;result.className='contact-result show';}
-    finally{submitting=false;submit.disabled=false;submit.textContent='送信する →';}
+    finally{submitting=false;submit.textContent='送信する →';if(widgetId!==null){verificationToken='';verificationReady=false;updateSubmit();window.turnstile.reset(widgetId);}else{updateSubmit();}}
   });
   addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
   if(document.readyState==='loading')addEventListener('DOMContentLoaded',apply,{once:true});else apply();
