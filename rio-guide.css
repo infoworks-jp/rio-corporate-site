@@ -1,0 +1,24 @@
+.rio-guide-launch{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;border:1px solid rgba(238,232,220,.7);border-radius:999px;background:#a92d1f;color:#fff;padding:12px 18px;box-shadow:0 10px 32px rgba(0,0,0,.24);font:700 14px/1.4 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.rio-guide-launch:hover,.rio-guide-launch:focus-visible{background:#832015}
+.rio-guide-inline{display:inline-block;margin:0 0 22px;border:1px solid #a92d1f;background:transparent;color:#a92d1f;padding:10px 16px;font:700 13px/1.5 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.rio-guide-inline:hover{background:#a92d1f;color:#fff}
+.rio-guide-dialog{position:fixed;inset:auto max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) auto;margin:0;width:min(430px,calc(100vw - 32px));max-height:min(680px,calc(100dvh - 32px));padding:0;border:1px solid rgba(255,255,255,.25);border-radius:16px;background:#eee8dc;color:#17181c;box-shadow:0 24px 70px rgba(0,0,0,.35);overflow:auto;font:15px/1.65 ui-sans-serif,system-ui,sans-serif;z-index:1050}
+.rio-guide-dialog::backdrop{background:rgba(16,17,20,.34)}
+.rio-guide-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#17181c;color:#f4eee2;padding:18px 20px}
+.rio-guide-head small{display:block;color:#e3a598;letter-spacing:.1em;font-size:11px}
+.rio-guide-head h2{margin:4px 0 0;font:600 22px/1.4 "Yu Mincho","Hiragino Mincho ProN",serif;letter-spacing:.04em;color:inherit}
+.rio-guide-close{border:0;background:transparent;color:#fff;font-size:26px;line-height:1;min-width:44px;min-height:44px;cursor:pointer}
+.rio-guide-body{padding:18px 20px 20px}
+.rio-guide-note{margin:0 0 17px;color:#53504d;font-size:13px;line-height:1.7}
+.rio-guide-topics{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:17px}
+.rio-guide-topics button{border:1px solid #a92d1f;border-radius:999px;background:transparent;color:#832015;padding:7px 12px;font:600 13px/1.4 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.rio-guide-topics button:hover{background:#a92d1f;color:#fff}
+.rio-guide-form{display:flex;gap:7px;margin-bottom:16px}
+.rio-guide-form input{min-width:0;flex:1;border:1px solid #aaa094;border-radius:7px;background:#fff;color:#17181c;padding:11px;font-size:16px}
+.rio-guide-form button{border:0;border-radius:7px;background:#a92d1f;color:#fff;padding:10px 14px;font-size:14px;cursor:pointer}
+.rio-guide-answer{min-height:116px;padding:15px;background:#fff;border-left:3px solid #a92d1f;line-height:1.75;white-space:pre-line}
+.rio-guide-answer p{margin:0 0 8px}
+.rio-guide-answer a{color:#a92d1f;text-decoration:underline;text-underline-offset:3px}
+.rio-guide-caption{font-size:12px;color:#605a55;margin:15px 0 0;line-height:1.65}
+.rio-guide-dialog :focus-visible,.rio-guide-launch:focus-visible,.rio-guide-inline:focus-visible{outline:3px solid #df8c72;outline-offset:2px}
+@media(max-width:600px){.rio-guide-dialog{inset:auto 0 0 0;width:100vw;max-height:min(82dvh,740px);border-radius:16px 16px 0 0}.rio-guide-launch{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));padding:11px 15px;font-size:13px}.rio-guide-body{padding:16px}.rio-guide-head{padding:15px 16px}}
