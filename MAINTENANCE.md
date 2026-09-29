@@ -111,6 +111,7 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 - 迷惑スコア6以上は `rio_contact_submissions.status = 'quarantined'` として保存し、通知メールを送らない。`spam_score` と `spam_reasons` に理由を保存。単に英語・URL付きという理由では拒否しない。
 - 管理者は [Supabase Table Editor](https://supabase.com/dashboard/project/xxhgerxugsjoxkbuuqhb/editor) で `rio_contact_submissions` を開き、`status = quarantined` を定期確認する。誤判定なら本文の連絡先へ通常の方法で対応し、対応後 `status = reviewed` に変更できる。メール失敗は `mail_failed`、処理途中は `received`。受付内容を自動削除しない。
 - 保存テーブルと回数制限テーブルは公開クライアントからの権限を除き、RLS有効。サーバーのDB接続のみ使用。
+- 2026-09-29: Cloudflare Managedウィジェット「RIO contact form」の本番キー2件をSupabaseへ登録済み。本番画面の認証成功、GETでサイトキー配信、認証なし・不正トークンのPOSTが403になることを確認（通知メールは送信していない）。
 - Cloudflare Turnstileの有効化: Managedウィジェットに `rio-works.com`、`www.rio-works.com`、`infoworks-jp.github.io` を登録し、Supabase Edge Function Secretsへ `TURNSTILE_SITE_KEY` と `TURNSTILE_SECRET_KEY` を**同時に**設定する。秘密鍵をGit・HTML・チャットへ貼り付けない。
 - 両キーが未設定の間は、回数制限・重複抑止・迷惑判定のみ稼働する。片方だけ設定された状態では受付を停止する。GETの `turnstileSiteKey` は公開サイトキーのみ返し、画面が認証を読み込む。サーバーはhostnameとaction=`rio_contact`も検証する。テストキーを本番へ入れない。
 - 有効化は新しいフロントの公開後に行う。認証失敗・期限切れ時は入力を保持して再確認できる。
