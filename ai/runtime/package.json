@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild worker-source.js --bundle --format=esm --platform=browser --outfile=worker.js && node trim-unused.js && node copy-wasm.js"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
+  }
+}
