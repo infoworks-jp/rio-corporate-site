@@ -24,7 +24,7 @@ def head(title, description, path, schema=None):
 {structured}</head><body><a class="skip-link" href="#main">本文へ進む</a>
 <header class="masthead"><a class="brand" href="/"><b>株式会社 吏央<span class="seal-dot" aria-hidden="true">●</span></b><span>RIO CO., LTD.</span></a><nav aria-label="サイト案内"><a href="/recruit/">採用情報</a><a href="/sapporo/">札幌本社</a><a href="/yokohama/">横浜支店</a></nav></header>'''
 
-FOOT = '<footer class="wrap"><div><b>株式会社 吏央</b><span>RIO CO., LTD.</span></div><nav aria-label="フッター"><a href="/">公式ホームページ</a><a href="/recruit/">募集一覧</a><a href="/#contact">お問い合わせ</a></nav></footer></body></html>\n'
+FOOT = '<footer class="wrap"><div><b>株式会社 吏央</b><span>RIO CO., LTD.</span></div><nav aria-label="フッター"><a href="/">公式ホームページ</a><a href="/recruit/">募集一覧</a><a href="/#contact">お問い合わせ</a></nav></footer><script src="/portfolio-return.js?v=1" defer></script></body></html>\n'
 
 def wage(job):
     return f'日給{job["salaryMin"]:,}円～{job["salaryMax"]:,}円'
@@ -54,7 +54,8 @@ for job in JOBS:
     if job.get('validThrough'):
         schema['validThrough'] = job['validThrough']
         expiry = '｜紹介期限：' + job['validThrough'][:10].replace('-', '/')
-    dates = f'元求人の掲載開始：{job["datePosted"].replace("-", "/")} {expiry}｜内容確認：{REVIEWED.replace("-", "/")}'
+    reviewed = job.get('reviewed', REVIEWED)
+    dates = f'元求人の掲載開始：{job["datePosted"].replace("-", "/")} {expiry}｜内容確認：{reviewed.replace("-", "/")}'
     page = head(title, description, path, schema) + f'''<main class="wrap job-main" id="main">
 <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><a href="/recruit/">採用情報</a><span>/</span><span aria-current="page">{esc(job['office'])}・{esc(job['title'])}</span></nav>
 <div class="job-hero"><div><p class="eyebrow">{esc(job['office'])} ／ 正社員</p><h1>{esc(job['title'])}</h1><p class="job-salary">{wage(job)}</p><p class="job-intro">{esc(job['intro'])}</p><p class="job-dates">{dates}</p>{actions(job)}</div><img src="/assets/site/{job['photo']}" alt="株式会社吏央 {job['office']}" width="449" height="323"></div>
