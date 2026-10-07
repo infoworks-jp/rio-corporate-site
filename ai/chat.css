@@ -1,0 +1,46 @@
+.tsubasa-guide-launch{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:900;border:1px solid #f4d6ac;border-radius:999px;background:#971d18;color:#fff;padding:12px 18px;box-shadow:0 10px 35px #0009;font:700 14px/1.4 system-ui,sans-serif;cursor:pointer}
+.tsubasa-guide-launch:hover{background:#ba2e25}
+.tsubasa-guide-dialog{position:fixed;inset:auto max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) auto;margin:0;width:min(430px,calc(100vw - 32px));max-height:min(690px,calc(100dvh - 32px));padding:0;border:1px solid #d3b386!important;border-radius:18px;background:#f7eee0!important;color:#221513;box-shadow:0 24px 70px #000b;overflow:auto;font:15px/1.65 system-ui,sans-serif;z-index:1100}
+.tsubasa-guide-dialog::backdrop{background:#0905058c}
+.tsubasa-guide-head{display:flex;justify-content:space-between;gap:12px;background:#240f0e;color:#fff4e5;padding:18px 20px}
+.tsubasa-guide-head small{color:#e8b779;font:700 11px/1.4 system-ui,sans-serif;letter-spacing:.13em}
+.tsubasa-guide-head h2{margin:4px 0 0;padding:0!important;color:inherit;font:600 23px/1.4 'Yu Mincho','Hiragino Mincho ProN',serif!important}
+.tsubasa-guide-close{border:0;background:transparent;color:inherit;min-width:44px;min-height:44px;font-size:27px;cursor:pointer}
+.tsubasa-guide-body{padding:18px 20px 20px}
+.tsubasa-guide-note{font-size:13px;margin:0 0 16px;color:#574b42}
+.tsubasa-guide-topics{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.tsubasa-guide-topics button{border:1px solid #a8392e;border-radius:99px;background:transparent;color:#84221b;padding:8px 12px;font:700 13px/1.4 system-ui,sans-serif;cursor:pointer}
+.tsubasa-guide-topics button:hover{background:#a8392e;color:white}
+.tsubasa-guide-form{display:flex;gap:7px;margin-bottom:16px}
+.tsubasa-guide-form input{flex:1;min-width:0;border:1px solid #a89586;border-radius:7px;background:white;color:#221513;padding:11px;font:16px system-ui,sans-serif}
+.tsubasa-guide-form button{border:0;border-radius:7px;background:#971d18;color:white;padding:10px 14px;font:700 14px system-ui,sans-serif;cursor:pointer}
+.tsubasa-guide-answer{min-height:105px;padding:15px;border-left:3px solid #a8392e;background:#fff;line-height:1.75}
+.tsubasa-guide-answer p{margin:0 0 8px}
+.tsubasa-guide-answer a{color:#84221b;text-decoration:underline;text-underline-offset:3px}
+.tsubasa-guide-caption{font-size:12px;color:#60534a;margin:14px 0 0}
+.tsubasa-guide-dialog :focus-visible,.tsubasa-guide-launch:focus-visible{outline:3px solid #e6a750;outline-offset:2px}
+@media(max-width:600px){.tsubasa-guide-dialog{inset:auto 0 0 0;width:100vw;max-height:min(82dvh,740px);border-radius:18px 18px 0 0}.tsubasa-guide-launch{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));font-size:13px;padding:11px 14px}.tsubasa-guide-body{padding:16px}.tsubasa-guide-head{padding:15px 16px}}
+
+/* AI additions are scoped to the existing guide; photograph/effects untouched. */
+.ai-chat-label{display:flex;flex-direction:column;flex:1;min-width:0;font-size:12px}
+.ai-chat-history{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;max-height:38dvh;overflow:auto;overscroll-behavior:contain}
+.ai-chat-message{background:white;border-left:3px solid #a8392e;padding:12px;overflow-wrap:anywhere}
+.ai-chat-message small{font-weight:700;color:#84221b}
+.ai-chat-message p{white-space:pre-line;margin:5px 0;line-height:1.7}
+.ai-chat-user{background:#eadbca;border-color:#8c7762}
+.ai-chat-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ai-chat-actions a{display:inline-flex;align-items:center;min-height:44px;padding:5px 10px;color:#84221b;border:1px solid #a8392e;border-radius:8px;font-size:13px}
+.tsubasa-guide-topics button{min-height:44px}.tsubasa-guide-form button{min-height:44px;align-self:end}.tsubasa-guide-dialog button:disabled{opacity:.55;cursor:wait}
+.tsubasa-guide-dialog{box-sizing:border-box;max-width:calc(100vw - 32px)}
+.tsubasa-guide-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
+.tsubasa-guide-head{flex-shrink:0}.tsubasa-guide-body{min-height:0;overflow:auto;overscroll-behavior:contain}
+@media(max-width:600px){.tsubasa-guide-dialog{max-width:100vw}.tsubasa-guide-body{padding-bottom:max(16px,env(safe-area-inset-bottom))}.ai-chat-history{max-height:28dvh}}
+
+/* RIO palette */
+.tsubasa-guide-launch{background:#222b27;border-color:#b6a07c}.tsubasa-guide-head{background:#222b27}.tsubasa-guide-dialog{background:#f3ede2!important}
+
+/* On-device model controls: downloading is always opt-in. */
+.ai-chat-enable,.ai-chat-stop{border:1px solid currentColor;border-radius:999px;padding:10px 14px;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12px;line-height:1.5;max-width:100%;text-align:left;}
+.ai-chat-enable:disabled{opacity:.65;cursor:default;}
+.ai-chat-stop[hidden]{display:none;}
+.ai-chat-status{font-size:12px;line-height:1.7;margin:10px 0;}

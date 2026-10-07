@@ -1,9 +1,9 @@
 name: Contact form checks
 on:
   push:
-    paths: ['recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
+    paths: ['ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
   pull_request:
-    paths: ['recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
+    paths: ['ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
 permissions:
   contents: read
 jobs:
@@ -16,3 +16,4 @@ jobs:
           node-version: '24'
       - run: node --check recruit-contact.js
       - run: node --test tests/contact.test.mjs
+      - run: node tests/ai-chat-qa.mjs
