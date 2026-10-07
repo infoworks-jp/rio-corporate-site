@@ -23,7 +23,7 @@
 
 /* AI additions are scoped to the existing guide; photograph/effects untouched. */
 .ai-chat-label{display:flex;flex-direction:column;flex:1;min-width:0;font-size:12px}
-.ai-chat-history{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;max-height:38dvh;overflow:auto;overscroll-behavior:contain}
+.ai-chat-history{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;overflow:visible}
 .ai-chat-message{background:white;border-left:3px solid #a8392e;padding:12px;overflow-wrap:anywhere}
 .ai-chat-message small{font-weight:700;color:#84221b}
 .ai-chat-message p{white-space:pre-line;margin:5px 0;line-height:1.7}
@@ -33,8 +33,8 @@
 .tsubasa-guide-topics button{min-height:44px}.tsubasa-guide-form button{min-height:44px;align-self:end}.tsubasa-guide-dialog button:disabled{opacity:.55;cursor:wait}
 .tsubasa-guide-dialog{box-sizing:border-box;max-width:calc(100vw - 32px)}
 .tsubasa-guide-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
-.tsubasa-guide-head{flex-shrink:0}.tsubasa-guide-body{min-height:0;overflow:auto;overscroll-behavior:contain}
-@media(max-width:600px){.tsubasa-guide-dialog{max-width:100vw}.tsubasa-guide-body{padding-bottom:max(16px,env(safe-area-inset-bottom))}.ai-chat-history{max-height:28dvh}}
+.tsubasa-guide-head{flex-shrink:0}.tsubasa-guide-body{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+@media(max-width:600px){.tsubasa-guide-dialog{max-width:100vw}.tsubasa-guide-body{padding-bottom:max(16px,env(safe-area-inset-bottom))}}
 
 /* RIO palette */
 .tsubasa-guide-launch{background:#222b27;border-color:#b6a07c}.tsubasa-guide-head{background:#222b27}.tsubasa-guide-dialog{background:#f3ede2!important}
