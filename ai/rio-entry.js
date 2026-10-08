@@ -1,5 +1,5 @@
 import config from './rio-config.js?v=20261007-airwork2';
 import {createChatProvider} from './chat-provider.js';
-import {mountChat} from './chat-widget.js';
+import {mountChat} from './chat-widget.js?v=20261008-top';
 const {dialog,launch}=mountChat(config,createChatProvider());
 document.querySelectorAll('[data-rio-guide-open]').forEach(b=>b.addEventListener('click',()=>launch.click()));
