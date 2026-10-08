@@ -63,7 +63,19 @@ export function mountChat(config,provider) {
  dialog.addEventListener('close',()=>controller?.abort());
  const launch=document.createElement('button');launch.className='tsubasa-guide-launch';launch.type='button';launch.textContent=config.launch;
  launch.setAttribute('aria-haspopup','dialog');launch.setAttribute('aria-controls',dialog.id);
- launch.addEventListener('click',()=>{if(!dialog.open)dialog.showModal();});
+ const closeButton=dialog.querySelector('.tsubasa-guide-close');
+ closeButton.autofocus=true;
+ const resetPosition=()=>{
+  dialog.scrollTop=0;
+  dialog.querySelector('.tsubasa-guide-body').scrollTop=0;
+ };
+ launch.addEventListener('click',()=>{
+  if(dialog.open)return;
+  dialog.showModal();
+  closeButton.focus({preventScroll:true});
+  resetPosition();
+  requestAnimationFrame(()=>{if(dialog.open)resetPosition();});
+ });
  document.body.append(dialog,launch);
  return {dialog,launch};
 }
