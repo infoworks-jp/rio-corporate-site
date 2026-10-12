@@ -5,7 +5,8 @@ import {createChatProvider} from '../ai/chat-provider.js';
 assert.equal(config.topics.length,9);
 for(const t of config.topics){const a=await createChatProvider().answer({question:t.label,config});assert.ok(a.text);assert.ok(a.cta.every(c=>config.links[c]));}
 assert.match(config.answer('給料について').text,/経験・資格・能力・勤務内容等で変動/);
-assert.match(config.answer('横浜の給料').text,/広告番号2776304/);
+assert.match(config.answer('横浜の給料').text,/広告番号2891758/);
+assert.match(config.answer('横浜の給料').text,/2026\/11\/30/);
 assert.match(config.answer('札幌の求人').text,/広告番号2854905/);
 assert.match(config.answer('札幌の求人').text,/2026\/10\/31/);
 const homepage=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
@@ -15,9 +16,9 @@ const yokohamaPage=fs.readFileSync(new URL('../recruit/yokohama/index.html',impo
 const chatCss=fs.readFileSync(new URL('../ai/chat.css',import.meta.url),'utf8');
 for(const slug of ['sapporo-experienced','sapporo-entry','yokohama'])assert.match(homepage,new RegExp(`href="recruit/${slug}/"`));
 assert.match(listing,/Airワーク有料掲載中｜広告番号 2854905｜2026\/10\/31まで/);
-assert.match(listing,/Airワーク有料掲載中｜広告番号 2776304｜2026\/10\/11まで/);
+assert.match(listing,/Airワーク有料掲載中｜広告番号 2891758｜2026\/11\/30まで/);
 assert.match(sapporoPage,/広告番号 2854905/);
-assert.match(yokohamaPage,/広告番号 2776304/);
+assert.match(yokohamaPage,/広告番号 2891758/);
 assert.match(chatCss,/\.ai-chat-history\{[^}]*overflow:visible/);
 assert.doesNotMatch(chatCss,/\.ai-chat-history\{[^}]*overscroll-behavior:contain/);
 assert.deepEqual(config.answer('応募したい').cta,['apply','phone','yokohamaPhone','contact']);
