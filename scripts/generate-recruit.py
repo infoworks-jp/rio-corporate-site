@@ -25,7 +25,7 @@ def head(title, description, path, schema=None):
 <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{BASE}{path}">
 <link rel="icon" href="/favicon.ico?v=20260915-brush"><link rel="stylesheet" href="/recruit/jobs.css?v=20260920-jobs1"><meta name="theme-color" content="#eee8dc">
 <meta property="og:type" content="website"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="株式会社吏央"><meta property="og:title" content="{esc(title, quote=True)}"><meta property="og:description" content="{esc(description, quote=True)}"><meta property="og:url" content="{BASE}{path}">
-{structured}</head><body><a class="skip-link" href="#main">本文へ進む</a>
+{structured}<script defer src="/site-analytics.js?v=20261025-1" data-ga-id="G-M9QWNNZ4NS" data-ga-hosts="rio-works.com,www.rio-works.com"></script></head><body><a class="skip-link" href="#main">本文へ進む</a>
 <header class="masthead"><a class="brand" href="/"><b>株式会社 吏央<span class="seal-dot" aria-hidden="true">●</span></b><span>RIO CO., LTD.</span></a><nav aria-label="サイト案内"><a href="/recruit/">採用情報</a><a href="/sapporo/">札幌本社</a><a href="/yokohama/">横浜支店</a></nav></header>'''
 
 FOOT = '<footer class="wrap"><div><b>株式会社 吏央</b><span>RIO CO., LTD.</span></div><nav aria-label="フッター"><a href="/">公式ホームページ</a><a href="/recruit/">募集一覧</a><a href="/#contact">お問い合わせ</a></nav></footer><script src="/portfolio-return.js?v=1" defer></script></body></html>\n'
