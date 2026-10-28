@@ -18,7 +18,7 @@ def js_string(value):
     return json.dumps(value, ensure_ascii=False).replace('</', '<\\/')
 
 def head(title, description, path, schema=None):
-    hero_assets = '<link rel="stylesheet" href="/recruit/sakura.css?v=20261028-1"><script defer src="/recruit/sakura.js?v=20261028-1"></script>' if path == '/recruit/' else ''
+    hero_assets = '<link rel="stylesheet" href="/recruit/sakura.css?v=20261028-2"><script defer src="/recruit/sakura.js?v=20261028-2"></script>' if path == '/recruit/' else ''
     structured = '' if schema is None else '<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
     return f'''<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -91,7 +91,7 @@ for job in JOBS:
 listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の土木作業スタッフ（経験者・未経験者）、横浜の土工。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
 listing += f'''<main id="main">
 <section class="sakura-hero" aria-labelledby="recruit-title">
-<div class="sakura-scenery" aria-hidden="true"><picture><source media="(max-width:650px)" srcset="/assets/recruit/sakura-mobile.webp"><img src="/assets/recruit/sakura-wide.webp" alt="" width="1920" height="1080" fetchpriority="high"></picture><div class="sakura-petals"></div></div>
+<div class="sakura-scenery" aria-hidden="true"><img class="sakura-poster" src="/assets/recruit/glass-hand-poster.jpg" alt="" width="768" height="448" fetchpriority="high"><video class="sakura-video" data-src="/assets/recruit/glass-hand.mp4" poster="/assets/recruit/glass-hand-poster.jpg" width="768" height="448" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture></video></div>
 <div class="sakura-copy"><p class="sakura-kicker">株式会社 吏央 <span>RECRUIT</span></p><h1 id="recruit-title">ここから、<br>あなたの<span class="sakura-highlight">未来</span>が咲く。</h1><p class="sakura-lead">経験がある人も、これからの人も。<br>札幌・横浜で、街を支える仲間へ。</p><a class="sakura-cta" href="#open-positions">募集を見る <span aria-hidden="true">↓</span></a></div>
 <button class="sakura-motion" type="button" aria-pressed="false" hidden>動きを止める</button><span class="sakura-caption" aria-hidden="true">一歩を、吏央と。</span>
 </section>

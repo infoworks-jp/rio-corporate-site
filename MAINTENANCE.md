@@ -127,9 +127,10 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 - 求人一覧の「はじめての方へ」と仕事内容直後のリンクは `scripts/generate-recruit.py` が生成。求人ページのHTMLを手編集しない。
 - 画像制作は内蔵imagegenを使用。制作プロンプト・出力元は `assets/work-guide/README.md`。文字は画像に入れず、安全装備や地上での作業を描く。求人の条件は各募集要項を正本とする。
 
-## 募集一覧の桜導入（2026年10月28日）
+## 募集一覧の動画導入（2026年10月28日）
 
-- `/recruit/` 冒頭のみ。生成元は `scripts/generate-recruit.py`、見た目は `recruit/sakura.css`、花びら・停止操作は `recruit/sakura.js`。
-- 背景は新規制作の `assets/recruit/sakura-wide.webp` / `sakura-mobile.webp`。文字とリンクはHTMLで表示する。制作記録は同フォルダーのREADME。
-- 動きは停止・再生可能。動きを減らす設定では静止し、画面外・非表示でも停止する。背景・文章・募集リンクはJavaScriptなしでも表示する。
+- `/recruit/` 冒頭のみ。生成元は `scripts/generate-recruit.py`、見た目は `recruit/sakura.css`、動画の停止操作は `recruit/sakura.js`。
+- 動画はユーザー指定の `assets/recruit/glass-hand.mp4`。ポスターは同じ動画から取り出した `glass-hand-poster.jpg`。見出し・説明・募集リンクはHTMLで動画の上に表示する。以前の桜背景とCSS花びらは使用しない。制作記録は同フォルダーのREADME。
+- 動画は無音・ループ再生。停止・再生可能。動きを減らす設定では動画を読み込まずポスターを表示し、画面外・非表示でも停止する。再生を拒否するブラウザーでは再生ボタンを表示する。JavaScriptなし・動画読込失敗時もポスター・文章・募集リンクを表示する。
+- スマートフォンでは手のひらを中心に動画をトリミングし、上部の暗いグラデーションで文字を読みやすくする。背景動画を差し替える場合はこの配置とポスターも確認する。CSS・JS変更時は生成元のクエリ版数を更新して再生成する。
 - 給与・求人期限などは引き続き `recruit/jobs.json` を正本とし、演出変更時に書き換えない。

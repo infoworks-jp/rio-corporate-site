@@ -2,28 +2,49 @@
   'use strict';
   const hero = document.querySelector('.sakura-hero');
   if (!hero) return;
-  const layer = hero.querySelector('.sakura-petals');
+  const video = hero.querySelector('.sakura-video');
   const button = hero.querySelector('.sakura-motion');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let paused = false;
   let visible = true;
-  const sync = () => {
-    hero.classList.toggle('is-paused', paused || !visible || document.hidden || reduced.matches);
-    button.hidden = reduced.matches;
-    button.setAttribute('aria-pressed', String(paused));
-    button.textContent = paused ? '動きを再生する' : '動きを止める';
+  let blocked = false;
+  let failed = false;
+  video.muted = true;
+  const renderButton = () => {
+    button.hidden = reduced.matches || failed;
+    button.setAttribute('aria-pressed', String(paused || blocked));
+    button.textContent = paused || blocked ? '動画を再生する' : '動画を止める';
   };
-  // Fixed stagger makes the first frame calm; mobile keeps a small particle count.
-  const count = window.matchMedia('(max-width:650px)').matches ? 14 : 24;
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < count; i++) {
-    const petal = document.createElement('i');
-    petal.className = 'sakura-petal';
-    petal.style.cssText = `--x:${(i * 37) % 100}%;--size:${9 + (i * 7) % 19}px;--blur:${i % 5 === 0 ? 2 : 0}px;--duration:${13 + i % 9}s;--delay:${-i * 1.7}s`;
-    fragment.append(petal);
-  }
-  layer.append(fragment);
-  button.addEventListener('click', () => { paused = !paused; sync(); });
+  const sync = () => {
+    const shouldPlay = !paused && visible && !document.hidden && !reduced.matches && !failed;
+    if (!shouldPlay) {
+      video.pause();
+      renderButton();
+      return;
+    }
+    if (!video.getAttribute('src')) video.src = video.dataset.src;
+    if (video.paused) {
+      const attempt = video.play();
+      if (attempt) attempt.catch(() => { blocked = true; renderButton(); });
+    }
+    renderButton();
+  };
+  video.addEventListener('playing', () => {
+    blocked = false;
+    video.classList.add('is-playing');
+    if (paused || !visible || document.hidden || reduced.matches) video.pause();
+    renderButton();
+  });
+  video.addEventListener('error', () => {
+    failed = true;
+    video.classList.remove('is-playing');
+    renderButton();
+  });
+  button.addEventListener('click', () => {
+    paused = blocked ? false : !paused;
+    blocked = false;
+    sync();
+  });
   reduced.addEventListener('change', sync);
   document.addEventListener('visibilitychange', sync);
   if ('IntersectionObserver' in window) {

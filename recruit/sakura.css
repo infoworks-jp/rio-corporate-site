@@ -1,26 +1,17 @@
-/* Recruitment introduction: original sakura artwork with accessible HTML copy. */
-.sakura-hero{position:relative;isolation:isolate;display:grid;place-items:center;min-height:540px;height:calc(100svh - 109px);max-height:880px;overflow:hidden;background:#101716;color:#fff7ef;text-align:center}
-.sakura-scenery,.sakura-scenery picture,.sakura-scenery img,.sakura-petals{position:absolute;inset:0;width:100%;height:100%}
-.sakura-scenery{z-index:-2;overflow:hidden}.sakura-scenery img{object-fit:cover;animation:sakura-breathe 24s ease-in-out infinite alternate}
-.sakura-scenery:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(7,16,14,.63),rgba(7,16,14,.30) 55%,rgba(7,16,14,.12))}
-.sakura-copy{width:min(850px,calc(100% - 40px));padding:42px 0 68px;position:relative;text-shadow:0 2px 20px #07100e}
-.sakura-kicker{margin:0 0 35px;font:600 22px/1.5 "Yu Mincho","Hiragino Mincho ProN",serif;letter-spacing:.2em}.sakura-kicker span{display:block;margin-top:10px;font:11px/1.5 system-ui,sans-serif;letter-spacing:.32em;color:#f1c7cd}
-.sakura-hero h1{font-size:clamp(38px,4.8vw,68px);font-weight:500;letter-spacing:.09em;line-height:1.7;margin:0 0 24px}
-.sakura-highlight{display:inline-block;position:relative;z-index:0;padding:0 .12em}.sakura-highlight:before{content:"";position:absolute;inset:18% -.04em 10%;z-index:-1;background:#7c293b;border-radius:52% 46% 45% 48%;transform:rotate(-5deg)}
-.sakura-lead{font-size:clamp(14px,1.2vw,16px);line-height:2.2;letter-spacing:.07em;margin:0 0 30px}
-.sakura-cta{display:inline-flex;align-items:center;justify-content:center;gap:46px;padding:13px 30px;min-height:54px;border:1px solid #eed5d5;color:#fff7ef;font-size:14px;letter-spacing:.12em;background:rgba(16,23,22,.5);transition:background .25s,border-color .25s}
-.sakura-cta:hover{background:#7c293b;border-color:#efcbd1}.sakura-cta span{transition:transform .25s}.sakura-cta:hover span{transform:translateY(4px)}
-.sakura-hero :focus-visible{outline:3px solid #ffc7d1;outline-offset:5px}
-.sakura-motion{position:absolute;bottom:24px;right:30px;min-height:48px;padding:10px 16px;border:1px solid #8c9a92;background:#101716cc;color:#fff7ef;cursor:pointer;font:12px/1.6 system-ui,sans-serif;letter-spacing:.06em}
-.sakura-motion[hidden]{display:none}.sakura-caption{position:absolute;bottom:37px;left:35px;font:12px/1.5 "Yu Mincho",serif;letter-spacing:.25em}
-.sakura-petal{position:absolute;top:-12%;left:var(--x);width:var(--size);height:calc(var(--size)*.65);background:linear-gradient(125deg,#fff4f0,#eeb2bf 58%,#b96680);border-radius:80% 15% 75% 30%;opacity:0;filter:blur(var(--blur));animation:sakura-fall var(--duration) linear var(--delay) infinite;will-change:transform}
-.sakura-copy>*{animation:sakura-arrive 1.2s ease-out both}.sakura-copy>:nth-child(2){animation-delay:.15s}.sakura-copy>:nth-child(3){animation-delay:.35s}.sakura-copy>:nth-child(4){animation-delay:.55s}
-.sakura-hero.is-paused *{animation-play-state:paused!important}
+/* Recruitment film: selected local glass-hand clip, HTML copy and controls. */
+.sakura-hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:610px;height:calc(100svh - 109px);max-height:880px;overflow:hidden;background:#0b0909;color:#fff7ef;text-align:left}
+.sakura-scenery,.sakura-poster,.sakura-video{position:absolute;inset:0;width:100%;height:100%}
+.sakura-scenery{z-index:-2;overflow:hidden}.sakura-poster,.sakura-video{object-fit:cover;object-position:center}.sakura-video{opacity:0}.sakura-video.is-playing{opacity:1}
+.sakura-scenery:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,6,7,.88),rgba(8,6,7,.68) 35%,rgba(8,6,7,.10) 74%)}
+.sakura-copy{width:min(700px,calc(100% - 80px));margin-left:clamp(30px,7vw,120px);padding:44px 0 86px;position:relative;text-shadow:0 2px 22px #0b0909}
+.sakura-kicker{margin:0 0 24px;font:600 20px/1.5 "Yu Mincho","Hiragino Mincho ProN",serif;letter-spacing:.2em}.sakura-kicker span{display:block;margin-top:7px;font:10px/1.5 system-ui,sans-serif;letter-spacing:.32em;color:#efc6bc}
+.sakura-hero h1{font-size:clamp(36px,4.1vw,61px);font-weight:500;letter-spacing:.065em;line-height:1.6;margin:0 0 24px}
+.sakura-hero h1>.sakura-highlight{display:inline;font:inherit;letter-spacing:inherit;margin:0;color:#f1c9bb}
+.sakura-lead{font-size:clamp(14px,1.2vw,16px);line-height:2.1;letter-spacing:.05em;margin:0 0 27px}
+.sakura-cta{display:inline-flex;align-items:center;justify-content:center;gap:46px;padding:12px 28px;min-height:52px;border:1px solid #e9c8bb;color:#fff7ef;font-size:14px;letter-spacing:.12em;background:rgba(12,9,9,.65);transition:background .2s}
+.sakura-cta:hover{background:#583b35}.sakura-hero :focus-visible{outline:3px solid #ffc7b6;outline-offset:5px}
+.sakura-motion{position:absolute;bottom:24px;right:30px;min-height:48px;padding:10px 16px;border:1px solid #a19188;background:#100b0bea;color:#fff7ef;cursor:pointer;font:12px/1.6 system-ui,sans-serif;letter-spacing:.06em}
+.sakura-motion[hidden]{display:none}.sakura-caption{position:absolute;bottom:39px;left:clamp(30px,7vw,120px);font:12px/1.5 "Yu Mincho",serif;letter-spacing:.25em}
 .recruit-list-title{font-size:clamp(32px,4.4vw,54px);margin:0 0 25px}#open-positions{scroll-margin-top:24px;padding-top:38px}
-@keyframes sakura-breathe{from{transform:scale(1)}to{transform:scale(1.07) translateY(-1%)}}
-@keyframes sakura-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes sakura-fall{0%{opacity:0;transform:translate3d(-30px,-20px,0) rotate(0)}10%{opacity:.8}50%{transform:translate3d(65px,50svh,0) rotate(180deg) rotateY(130deg)}85%{opacity:.65}100%{opacity:0;transform:translate3d(-25px,110svh,0) rotate(350deg) rotateY(280deg)}}
-@media(max-width:650px){.sakura-hero{height:calc(100svh - 105px);min-height:560px;max-height:850px}.sakura-copy{padding:38px 0 80px}.sakura-kicker{font-size:20px;margin-bottom:28px}.sakura-hero h1{font-size:clamp(24px,7.4vw,43px);letter-spacing:.04em;line-height:1.85}.sakura-lead{font-size:13px;letter-spacing:.03em}.sakura-caption{left:20px;bottom:33px;font-size:10px}.sakura-motion{right:20px;bottom:20px;font-size:11px}.sakura-scenery:after{background:radial-gradient(ellipse at center,rgba(7,16,14,.65),rgba(7,16,14,.35) 65%,rgba(7,16,14,.15))}}
-@media(prefers-reduced-motion:reduce){.sakura-petals{display:none}.sakura-hero *{animation:none!important;transition:none!important}.sakura-motion{display:none}}
-/* Override the shared office heading's small introductory span. */
-.sakura-hero h1>.sakura-highlight{font:inherit;letter-spacing:inherit;margin:0}
+@media(max-width:650px){.sakura-hero{align-items:flex-start;height:calc(100svh - 105px);min-height:650px;max-height:850px}.sakura-copy{width:calc(100% - 40px);margin-left:20px;padding:30px 0 0}.sakura-kicker{font-size:16px;margin-bottom:16px}.sakura-kicker span{margin-top:4px;font-size:9px}.sakura-hero h1{font-size:clamp(28px,8vw,43px);letter-spacing:.035em;line-height:1.6;margin-bottom:14px}.sakura-lead{font-size:12px;line-height:1.9;letter-spacing:.025em;margin-bottom:17px}.sakura-cta{min-height:46px;padding:9px 20px;font-size:12px;gap:35px}.sakura-poster,.sakura-video{object-fit:cover;object-position:48% center}.sakura-scenery:after{background:linear-gradient(180deg,rgba(11,9,9,.88),rgba(11,9,9,.62) 45%,rgba(11,9,9,.06) 82%)}.sakura-caption{left:20px;bottom:36px;font-size:10px}.sakura-motion{right:20px;bottom:21px;font-size:11px;min-height:44px}}
+@media(prefers-reduced-motion:reduce){.sakura-video{display:none}.sakura-motion{display:none}.sakura-hero *{transition:none!important}}
