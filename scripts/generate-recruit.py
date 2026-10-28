@@ -23,7 +23,7 @@ def head(title, description, path, schema=None):
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{esc(title)}</title><meta name="description" content="{esc(description, quote=True)}">
 <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{BASE}{path}">
-<link rel="icon" href="/favicon.ico?v=20260915-brush"><link rel="stylesheet" href="/recruit/jobs.css?v=20260920-jobs1"><meta name="theme-color" content="#eee8dc">
+<link rel="icon" href="/favicon.ico?v=20260915-brush"><link rel="stylesheet" href="/recruit/jobs.css?v=20260920-jobs1"><link rel="stylesheet" href="/work-guide/work-guide.css?v=20261028-1"><meta name="theme-color" content="#eee8dc">
 <meta property="og:type" content="website"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="株式会社吏央"><meta property="og:title" content="{esc(title, quote=True)}"><meta property="og:description" content="{esc(description, quote=True)}"><meta property="og:url" content="{BASE}{path}">
 {structured}<script defer src="/site-analytics.js?v=20261025-1" data-ga-id="G-M9QWNNZ4NS" data-ga-hosts="rio-works.com,www.rio-works.com"></script></head><body><a class="skip-link" href="#main">本文へ進む</a>
 <header class="masthead"><a class="brand" href="/"><b>株式会社 吏央<span class="seal-dot" aria-hidden="true">●</span></b><span>RIO CO., LTD.</span></a><nav aria-label="サイト案内"><a href="/recruit/">採用情報</a><a href="/sapporo/">札幌本社</a><a href="/yokohama/">横浜支店</a></nav></header>'''
@@ -48,7 +48,14 @@ for job in JOBS:
     path = '/recruit/' + job['slug'] + '/'
     title = f'{job["title"]}の求人｜{job["office"]}｜株式会社吏央'
     description = f'株式会社吏央 {job["office"]}の正社員募集。{wage(job)}。{job["intro"]}'
-    sections = ''.join('<section class="job-section"><h2>' + esc(s['title']) + '</h2>' + ''.join('<p>' + esc(p) + '</p>' for p in s['paragraphs']) + '</section>' for s in job['sections'])
+    guide_anchor = 'dismantle' if 'sapporo' in job['slug'] else 'earthworks'
+    guide_label = '内装解体' if guide_anchor == 'dismantle' else '土工・とび・仮設'
+    sections = ''
+    for section in job['sections']:
+        sections += '<section class="job-section"><h2>' + esc(section['title']) + '</h2>' + ''.join('<p>' + esc(p) + '</p>' for p in section['paragraphs'])
+        if section['title'] == '仕事内容':
+            sections += f'<aside class="work-guide-note" aria-label="イラストで仕事を知る"><p>仕事のイメージを、イラストで。</p><a class="text-link" href="/work-guide/#{guide_anchor}">{guide_label}の仕事を見る →</a><a class="text-link" href="/work-guide/#first-steps">入社して最初にすることを見る →</a></aside>'
+        sections += '</section>'
     # Same employer text is visible on the page and in JobPosting.description.
     schema_description = '<p>雇用主：株式会社吏央。雇用形態：正社員。</p>' + ''.join('<p>' + esc(s['title']) + '</p>' + ''.join('<p>' + esc(p) + '</p>' for p in s['paragraphs']) for s in job['sections'])
     schema = {
@@ -81,7 +88,7 @@ cards = ''
 for job in JOBS:
     cards += f'''<article class="job-card"><p class="eyebrow">{job['office']} ／ 正社員</p><a href="/recruit/{job['slug']}/"><h2>{esc(job['title'])}</h2></a><p class="job-status">{esc(publication_status(job))}</p><p class="job-salary">{wage(job)}</p><p>{esc(job['intro'])}</p><div class="actions"><a class="button" href="/recruit/{job['slug']}/">募集要項・応募方法を見る →</a></div></article>'''
 listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の土木作業スタッフ（経験者・未経験者）、横浜の土工。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
-listing += f'''<main class="wrap job-main" id="main"><nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span aria-current="page">採用情報</span></nav><p class="eyebrow">株式会社吏央 ／ 札幌・横浜</p><h1>採用情報</h1><p class="job-intro">仕事内容や給与、勤務地を確認して、希望する募集へご応募ください。経験者も未経験の方も、それぞれに合う仕事の始め方をご相談いただけます。</p><div class="job-list">{cards}</div><p class="job-note">各求人は掲載中の募集要項をもとにご案内しています。詳しい条件は各ページからご確認ください。</p></main>''' + FOOT
+listing += f'''<main class="wrap job-main" id="main"><nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><span aria-current="page">採用情報</span></nav><p class="eyebrow">株式会社吏央 ／ 札幌・横浜</p><h1>採用情報</h1><p class="job-intro">仕事内容や給与、勤務地を確認して、希望する募集へご応募ください。経験者も未経験の方も、それぞれに合う仕事の始め方をご相談いただけます。</p><aside class="work-guide-note work-guide-intro"><p class="eyebrow">はじめての方へ</p><h2>どんな仕事か、まずは見てみよう。</h2><p>解体・土工・とびの仕事と、入社して最初にすることをイラストで紹介します。</p><a class="text-link" href="/work-guide/">イラストでわかる 吏央の仕事 →</a></aside><div class="job-list">{cards}</div><p class="job-note">各求人は掲載中の募集要項をもとにご案内しています。詳しい条件は各ページからご確認ください。</p></main>''' + FOOT
 (ROOT / 'recruit/index.html').write_text(listing)
 
 # Keep the homepage recruitment links in sync with the same job source.

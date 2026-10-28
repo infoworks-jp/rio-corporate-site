@@ -119,3 +119,10 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 - DB追加定義は `supabase/sql/contact-spam-protection.sql`。適用済みmigration名は `rio_contact_spam_protection`。既存データを残す追加変更。
 - 検証: `node --test tests/contact.test.mjs`、`npx deno check supabase/functions/rio-contact/index.ts`。UI試験は仮受付を使い、実メールは送らない。
 - 既存のFormSubmit通知先への直接投稿や、メールアドレス宛の直接迷惑メールは、このフォーム用フィルターの対象外。必要に応じてメールサービス側で別途対処する。
+
+## イラストでわかる仕事紹介（2026年10月28日）
+
+- `/work-guide/index.html` は内装解体・土工・とび・仮設・最初の仕事を各3場面で紹介。説明文はHTML、画像は `assets/work-guide/*.webp`。各場面は共通画像の表示位置をCSSで切り替え、スマートフォンでは縦に並ぶ。
+- 共通の追加スタイルは `work-guide/work-guide.css`。トップの事業リンク・求人の案内にも使用。既存のロゴや背景演出には触れない。
+- 求人一覧の「はじめての方へ」と仕事内容直後のリンクは `scripts/generate-recruit.py` が生成。求人ページのHTMLを手編集しない。
+- 画像制作は内蔵imagegenを使用。制作プロンプト・出力元は `assets/work-guide/README.md`。文字は画像に入れず、安全装備や地上での作業を描く。求人の条件は各募集要項を正本とする。
