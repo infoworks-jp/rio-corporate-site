@@ -126,3 +126,10 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 - 共通の追加スタイルは `work-guide/work-guide.css`。トップの事業リンク・求人の案内にも使用。既存のロゴや背景演出には触れない。
 - 求人一覧の「はじめての方へ」と仕事内容直後のリンクは `scripts/generate-recruit.py` が生成。求人ページのHTMLを手編集しない。
 - 画像制作は内蔵imagegenを使用。制作プロンプト・出力元は `assets/work-guide/README.md`。文字は画像に入れず、安全装備や地上での作業を描く。求人の条件は各募集要項を正本とする。
+
+## 募集一覧の桜導入（2026年10月28日）
+
+- `/recruit/` 冒頭のみ。生成元は `scripts/generate-recruit.py`、見た目は `recruit/sakura.css`、花びら・停止操作は `recruit/sakura.js`。
+- 背景は新規制作の `assets/recruit/sakura-wide.webp` / `sakura-mobile.webp`。文字とリンクはHTMLで表示する。制作記録は同フォルダーのREADME。
+- 動きは停止・再生可能。動きを減らす設定では静止し、画面外・非表示でも停止する。背景・文章・募集リンクはJavaScriptなしでも表示する。
+- 給与・求人期限などは引き続き `recruit/jobs.json` を正本とし、演出変更時に書き換えない。
