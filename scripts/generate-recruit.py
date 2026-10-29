@@ -102,7 +102,7 @@ listing += f'''<main id="main">
 homepage_path = ROOT / 'index.html'
 homepage = homepage_path.read_text()
 homepage_links = ''.join(
-    f'<a href="recruit/{job["slug"]}/">{esc(job["office"])}｜{esc(job["title"])} <span>→</span></a>'
+    f'<a href="recruit/{job["slug"]}/"><span class="arm-job-name">{esc(job["office"])}｜{esc(job["title"])}</span><strong class="arm-job-pay">日給{job["salaryMin"]:,}〜{job["salaryMax"]:,}円</strong> <span aria-hidden="true">→</span></a>'
     for job in JOBS
 ) + '<a href="recruit/">求人一覧・応募方法 <span>→</span></a>'
 homepage, replacements = re.subn(

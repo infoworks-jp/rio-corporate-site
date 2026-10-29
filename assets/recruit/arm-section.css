@@ -1,0 +1,34 @@
+/* Same current section, with the approved glass-arm film behind it. */
+.arm-recruit{position:relative;isolation:isolate;overflow:hidden;min-height:680px;padding-top:110px;padding-bottom:110px;color:#fff4e7;background:#170f10}.arm-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:58% center}.arm-recruit:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(15,9,10,.85),rgba(15,9,10,.3) 58%,rgba(15,9,10,.55))}.arm-recruit .recruit-wrap{position:relative;align-items:center;gap:6vw}.arm-recruit h2{color:#fff4e7}.arm-recruit .section-no{color:#e0af9b}.arm-recruit .lead{color:#f4e6d8}.arm-recruit .recruit-card{background:rgba(24,15,17,.68);border-color:rgba(255,231,207,.35);backdrop-filter:blur(7px);color:#fff4e7}.arm-recruit .recruit-card h3,.arm-recruit .recruit-card p,.arm-recruit .recruit-links a{color:#fff4e7}.arm-recruit .recruit-links a{border-color:rgba(255,231,207,.3)}.arm-recruit .recruit-links a:hover{color:#ffd1bc;background:rgba(255,255,255,.06)}.arm-toggle{position:absolute;right:24px;bottom:22px;background:#170f10c9;border:1px solid #e3c0a9;color:#fff4e7;padding:10px 16px;min-height:44px;font:12px system-ui;cursor:pointer}.arm-toggle:focus-visible{outline:3px solid #fff;outline-offset:4px}.arm-recruit{scroll-margin-top:0}.arm-recruit .arm-toggle{bottom:48px}@media(max-width:768px){.arm-recruit{padding:70px 22px 95px;min-height:800px}.arm-recruit .recruit-wrap{gap:30px}.arm-video{object-position:62% center}.arm-recruit:before{background:linear-gradient(180deg,#170f1088,#170f104d 30%,#170f10c9 80%)}.arm-recruit h2{font-size:40px}.arm-recruit .recruit-card{padding:24px;background:#170f10a8}.arm-recruit .recruit-card h3{font-size:27px}.arm-recruit .lead{font-size:16px}}@media(prefers-reduced-motion:reduce){.arm-toggle{display:none}}
+
+.arm-recruit .recruit-links{display:grid;margin-top:24px}.arm-recruit .recruit-links a{display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid #e3c0a950;line-height:1.7;font-size:13px;min-height:48px}.arm-recruit .recruit-links span{flex:none}.arm-in-view #sound-toggle{display:none!important}@media(max-width:768px){.arm-recruit{padding-top:105px;min-height:940px}}
+
+.arm-in-view .chrome,.arm-in-view .chrome a{color:#fff4e7}.arm-in-view .chrome em{color:#bd4b37}
+
+/* Mobile: a short film first, then readable job information on paper. */
+.arm-scene{display:contents}.arm-jobs-cta,.arm-job-pay,.arm-jobs-kicker{display:none}
+@media(max-width:768px){
+ .arm-recruit{padding:0;min-height:0;background:#eee8dc;color:#201b18;overflow:clip}.arm-recruit:before{display:none}
+ .arm-recruit .recruit-wrap{display:block;max-width:none}.arm-scene{display:block;position:relative;isolation:isolate;height:400px;overflow:hidden;background:#170f10}
+ .arm-scene:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#160d10aa 0%,#160d1033 45%,#160d1000 68%,#160d1088 100%)}
+ .arm-video{object-position:42% center}.arm-intro{position:absolute;top:78px;left:22px;right:20px}.arm-intro .section-no,.arm-intro .lead{display:none}.arm-recruit h2{font-size:32px;line-height:1.35;margin:0;letter-spacing:.02em}
+ .arm-jobs-cta{display:flex;align-items:center;justify-content:space-between;gap:28px;position:absolute;bottom:18px;left:22px;min-height:46px;padding:9px 17px;border:1px solid #fff0dd;color:#fff4e7;background:#170f1080;font-size:13px}
+ .arm-recruit .arm-toggle{bottom:18px;right:18px;min-height:46px;padding:9px 12px;font-size:11px}
+ .arm-recruit .recruit-card{border:0;background:#eee8dc;backdrop-filter:none;padding:30px 22px 44px;color:#201b18;scroll-margin-top:65px}
+ .arm-recruit .recruit-card h3{font-size:28px;line-height:1.45;color:#201b18;margin:0 0 12px}.arm-recruit .recruit-card>p:not(.arm-jobs-kicker){font-size:13px;color:#5e5449;margin:0;line-height:1.9}
+ .arm-recruit .arm-jobs-kicker{display:block;color:#963d2e;font-size:11px;letter-spacing:.1em;margin:0 0 6px}
+ .arm-recruit .recruit-links{margin-top:22px;border-top:1px solid #c8bbab;gap:0}
+ .arm-recruit .recruit-links a{display:grid;grid-template-columns:1fr 20px;gap:3px 10px;align-items:center;padding:17px 0;border-bottom:1px solid #c8bbab;color:#201b18;font-size:13px}
+ .arm-recruit .recruit-links .arm-job-name{grid-column:1;white-space:normal}.arm-recruit .recruit-links .arm-job-pay{display:block;grid-column:1;font-size:17px;font-weight:500;color:#963d2e}
+ .arm-recruit .recruit-links a>span:last-child{grid-column:2;grid-row:1/3;text-align:right}.arm-recruit .recruit-links a:hover{background:#e5ddcf;color:#963d2e}
+}
+
+.arm-recruit .recruit-links .arm-job-name{flex:1;min-width:0}@media(max-width:768px){.arm-desktop-office{display:none}}
+
+.arm-mobile-job-intro{display:none}@media(max-width:768px){.arm-recruit .recruit-card .arm-jobs-kicker{color:#963d2e}.arm-recruit .recruit-card>p:not(.arm-jobs-kicker):not(.arm-mobile-job-intro){display:none}.arm-recruit .recruit-card .arm-mobile-job-intro{display:block;color:#5e5449;font-size:13px;margin:0}}
+
+.arm-recruit .recruit-wrap{position:static}
+
+/* Keep the approved rows despite the general contact widget styles. */
+.arm-recruit .recruit-links{grid-template-columns:1fr;gap:0}.arm-recruit .recruit-links a{border:0;border-bottom:1px solid #e3c0a950;padding:13px 0;letter-spacing:normal}
+@media(max-width:768px){.arm-recruit .recruit-links a{border-bottom:1px solid #c8bbab;padding:17px 0}}
