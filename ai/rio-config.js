@@ -3,11 +3,11 @@ import jobs from './rio-jobs.generated.js';
 const unknown='正確な内容は株式会社 吏央へ直接お問い合わせください。';
 const officeJobs=office=>jobs.filter(job=>job.office===office);
 const dateLabel=value=>value?value.slice(0,10).replaceAll('-','/'):'';
-const paidLabel=job=>job.airworkAdId?`Airワーク有料広告配信中・広告番号${job.airworkAdId}・求人番号${job.airworkJobId}・${dateLabel(job.validThrough)}まで`:'通常掲載中';
+const paidLabel=job=>job.status==='closed'?`募集終了・Airワーク広告番号${job.airworkAdId}・求人番号${job.airworkJobId}・${dateLabel(job.validThrough)}終了`:job.airworkAdId?`Airワーク有料広告配信中・広告番号${job.airworkAdId}・求人番号${job.airworkJobId}・${dateLabel(job.validThrough)}まで`:'通常掲載中';
 const jobLine=job=>`${job.title}（${job.salary}、${paidLabel(job)}）`;
 const sapporoJobs=officeJobs('札幌本社');
 const yokohamaJobs=officeJobs('横浜支店');
-const salary=`現在の掲載求人は、${jobs.map(job=>`${job.office}の${jobLine(job)}`).join('、')}です。経験・資格・能力・勤務内容等で変動します。応募先の最新条件を必ずご確認ください。給与額・採用を確約するものではありません。`;
+const salary=`求人情報は、${jobs.map(job=>`${job.office}の${jobLine(job)}`).join('、')}です。経験・資格・能力・勤務内容等で変動します。応募先の最新条件を必ずご確認ください。給与額・採用を確約するものではありません。`;
 const sapporoText=`札幌本社では${sapporoJobs.map(job=>jobLine(job)).join('、')}を掲載しています。勤務地は札幌市内が中心です。最新の募集状況・勤務開始時期は採用窓口へご確認ください。`;
 const yokohamaText=`横浜支店では${yokohamaJobs.map(job=>jobLine(job)).join('、')}を掲載しています。募集状況・条件・応募方法は求人ページまたは横浜支店へご確認ください。採用や勤務開始日を確約することはできません。`;
 const links={
