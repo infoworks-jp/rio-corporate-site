@@ -57,8 +57,6 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 
 ## 流動に連動する音
 
-- `sound.js`: 静かな水の揺らぎ・柔らかい墨の音・小さな水滴の合成音。外部音源や有料サービスは使用しない。
-- `sound.css`: 右上のスピーカーマークとON/OFF表示。
 - `site-core.js` の `rio:ink` イベントでタップ・ドラッグ・自然な墨の動きに連動。
 - 初期状態はOFF。クリックで音声を初期化し、非表示・ページ離脱時はOFFに戻して停止する。
 - 変更時はHTMLの音関連ファイルのバージョンを更新し、無音開始・ON/OFF・再ON・スマホ操作を確認する。
@@ -100,7 +98,7 @@ Supabase無料プランは低利用状態が続くと停止するため、GitHub
 ## スマートフォン起動の高速化（2026年9月25日）
 
 - ホームはロゴの可視画素・透明度を保った `assets/site/rio-hero-logo.webp`（約273KB）を使用。元PNG（約2.17MB）は原本・構造化データ用に残す。
-- `styles.css`、`sound.css`、`partners.css` を `index.html` に埋め込み、外部CSSの通信待ちによる初回の白画面を防ぐ。これらのCSSを編集したら、公開前に必ず `python scripts/embed-home-styles.py` を実行する。
+- `styles.css`、`partners.css` を `index.html` に埋め込み、外部CSSの通信待ちによる初回の白画面を防ぐ。これらのCSSを編集したら、公開前に必ず `python scripts/embed-home-styles.py` を実行する。
 - 表示用スクリプトはhead内のdeferで並列取得し、ロゴを先に初期化。WebGL背景の準備は最初の描画後に行う。粒子の開始時にあった空白の待ち時間も短縮。
 - マニフェストの起動背景はサイトと同じ `#eee8dc`。iPhone 15 Pro Maxのホーム画面起動用に同色の縦・横起動画像を指定。OSに保存済みの起動画面はサイトの通常キャッシュとは別に保持される場合がある。
 

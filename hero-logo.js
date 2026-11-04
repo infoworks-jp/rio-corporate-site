@@ -16,7 +16,7 @@
   let fieldWidth = 0, fieldHeight = 0, logoX = 0, logoY = 0;
   let elapsed = 0, last = 0, raf = 0, visible = false, ready = false, disturbed = false;
   const pointer = {x:-9999, y:-9999, time:0};
-  let cell = 3, soundTime = 0;
+  let cell = 3;
   if (!ctx || !replay) return;
 
   function nativeLogo() {
@@ -145,10 +145,6 @@
     if (!ready || reduced.matches) return;
     const box = stage.getBoundingClientRect();
     pointer.x = e.clientX-box.left; pointer.y = e.clientY-box.top; pointer.time = performance.now();
-    if (pointer.time-soundTime > 220) {
-      soundTime = pointer.time;
-      dispatchEvent(new CustomEvent('rio:ink',{detail:{kind:'brush',speed:.04,x:e.clientX/innerWidth}}));
-    }
     wake();
   }
   stage.addEventListener('pointermove',touch,{passive:true});
