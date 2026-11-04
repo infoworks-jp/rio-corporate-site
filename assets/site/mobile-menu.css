@@ -7,7 +7,8 @@
   font: 14px/1.5 system-ui, sans-serif;
 }
 
-.rio-menu summary {
+.rio-menu summary,
+.rio-desktop-menu summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,8 +19,10 @@
   list-style: none;
 }
 
-.rio-menu summary::-webkit-details-marker { display: none; }
-.rio-menu summary::after {
+.rio-menu summary::-webkit-details-marker,
+.rio-desktop-menu summary::-webkit-details-marker { display: none; }
+.rio-menu summary::after,
+.rio-desktop-menu summary::after {
   content: "";
   width: 7px;
   height: 7px;
@@ -27,6 +30,7 @@
   border-width: 0 1px 1px 0;
   transform: translateY(-2px) rotate(45deg);
 }
+.rio-desktop-menu details[open] > summary::after,
 .rio-menu details[open] > summary::after,
 .rio-menu[open] > summary::after {
   transform: translateY(2px) rotate(225deg);
@@ -62,12 +66,89 @@
 
 .rio-menu nav a:hover,
 .rio-menu summary:hover { color: #983f30; }
-.rio-menu :focus-visible {
+.rio-menu :focus-visible,
+.rio-desktop-header :focus-visible,
+.rio-hero-actions :focus-visible {
   outline: 2px solid #983f30;
   outline-offset: -3px;
 }
 
-.chrome .status { right: 140px; }
+.rio-desktop-header,
+.rio-hero-actions { display: none; }
+
+#services, #works, #partners, #about, #company, #credentials, #recruit, #contact, #faq {
+  scroll-margin-top: 68px;
+}
+
+@media (min-width: 769px) {
+  .rio-menu { display: none; }
+  .rio-desktop-header {
+    position: absolute;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(16px, env(safe-area-inset-right));
+    display: flex;
+    gap: 6px;
+    pointer-events: auto;
+    color: #201c18;
+    font: 600 13px/1.5 system-ui, sans-serif;
+  }
+  .rio-desktop-menu { display: flex; gap: 6px; }
+  .rio-desktop-menu details { position: relative; }
+  .rio-desktop-menu summary {
+    background: #eee8dc;
+    border: 1px solid #b5a794;
+  }
+  .rio-desktop-menu summary:hover,
+  .rio-desktop-menu summary:focus-visible,
+  .rio-desktop-links a:hover { background: #e8ddcd; }
+  .rio-desktop-links {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 216px;
+    background: #f8f4ec;
+    border: 1px solid #b5a794;
+    box-shadow: 0 8px 24px #201c1826;
+  }
+  .rio-desktop-links a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 14px;
+    font-weight: 500;
+  }
+  .rio-desktop-contact {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 14px;
+    background: #853629;
+    color: white;
+  }
+  .rio-desktop-contact:hover { background: #6c2b21; }
+}
+
 @media (max-width: 768px) {
-  .chrome .status { display: none; }
+  .rio-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .rio-hero-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 6px 13px;
+    border: 1px solid #853629;
+    background: #853629;
+    color: white;
+    font: 600 12px/1.5 system-ui, sans-serif;
+  }
+  .rio-hero-actions a + a {
+    background: #f8f4ec;
+    color: #702a21;
+  }
 }
