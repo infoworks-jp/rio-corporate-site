@@ -32,3 +32,5 @@
 /* Keep the approved rows despite the general contact widget styles. */
 .arm-recruit .recruit-links{grid-template-columns:1fr;gap:0}.arm-recruit .recruit-links a{border:0;border-bottom:1px solid #e3c0a950;padding:13px 0;letter-spacing:normal}
 @media(max-width:768px){.arm-recruit .recruit-links a{border-bottom:1px solid #c8bbab;padding:17px 0}}
+
+.arm-film-credit{display:table;margin:14px 0 0;padding:4px 8px;background:#170f10e6;color:#fff4e7;font:500 11px/1.5 system-ui,sans-serif;letter-spacing:.08em}

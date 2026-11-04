@@ -116,8 +116,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid #a92d1f;outline-offset:5
 
 .map-label{margin-left:4px}.yard-map-note{display:block;margin-top:8px;font-size:11px;line-height:1.8}
 
-/* Dragging the interactive hero must move ink without selecting its artwork. */
-.hero,.hero *{-webkit-user-select:none;user-select:none}
+/* Keep the hero artwork from being dragged as an image. */
 .hero img{-webkit-user-drag:none}
 
 .phone-link{text-decoration:underline;text-decoration-color:#a92d1f;text-underline-offset:4px}
@@ -134,10 +133,6 @@ footer{position:relative;z-index:1;align-items:center;gap:32px;padding-bottom:70
 .site-qr p{margin:12px 0 4px}
 .site-qr .qr-download{color:inherit;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:768px){footer{padding-bottom:max(30px,env(safe-area-inset-bottom))}.footer-copy{display:block}.site-qr{margin:28px auto 0;width:max-content}.site-qr img{width:148px;height:148px}}
-
-/* Let pointer-driven ink gestures cross page text without selecting it. */
-body,body *{-webkit-user-select:none;user-select:none}
-body input,body textarea,body [contenteditable]:not([contenteditable="false"]),body [contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text}
 
 .office-detail-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;border-bottom:1px solid #a92d1f;font-size:13px;line-height:1.8}.office-detail-link:hover{color:#a92d1f}
 
