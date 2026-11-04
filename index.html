@@ -24,9 +24,6 @@ a{color:inherit;text-decoration:none}
 .brand b{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:16px;letter-spacing:.1em}
 .brand em{font-style:normal;color:#a92d1f}
 .status{position:absolute;right:24px;top:20px;text-align:right;letter-spacing:.18em}
-.side-nav{position:absolute;right:22px;top:50%;transform:translateY(-50%);display:grid;gap:14px;pointer-events:auto}
-.side-nav a{font-size:10px;letter-spacing:.16em;writing-mode:vertical-rl;padding:8px 2px;border-left:1px solid transparent}
-.side-nav a:hover{border-color:#a92d1f;color:#a92d1f}
 .scroll-note{position:absolute;right:22px;bottom:18px;text-align:right;letter-spacing:.14em}
 section{position:relative;min-height:100svh;min-height:100dvh;padding:110px clamp(26px,7vw,110px) 80px}
 .hero{display:grid;place-items:center;overflow:hidden;min-height:100svh;min-height:100dvh;padding-top:max(110px,env(safe-area-inset-top));padding-right:max(clamp(26px,7vw,110px),env(safe-area-inset-right));padding-bottom:max(80px,env(safe-area-inset-bottom));padding-left:max(clamp(26px,7vw,110px),env(safe-area-inset-left))}
@@ -99,7 +96,7 @@ h2{margin:18px 0 28px;font:600 clamp(38px,6vw,82px)/1.18 "Yu Mincho","Hiragino M
 footer{display:flex;justify-content:space-between;gap:20px;padding:30px clamp(26px,7vw,110px);background:#a92d1f;color:#f4eee2;border-top:1px solid rgba(244,238,226,.3);letter-spacing:.14em}
 #error{display:none}
 @media(max-width:768px){
-.chrome{border:0}.brand{left:max(16px,env(safe-area-inset-left));top:max(14px,env(safe-area-inset-top))}.status{right:max(16px,env(safe-area-inset-right));top:max(14px,env(safe-area-inset-top));font-size:8px}.side-nav,.scroll-note{display:none}.vertical{left:9%;top:22%;font-size:10px}
+.chrome{border:0}.brand{left:max(16px,env(safe-area-inset-left));top:max(14px,env(safe-area-inset-top))}.status{right:max(16px,env(safe-area-inset-right));top:max(14px,env(safe-area-inset-top));font-size:8px}.scroll-note{display:none}.vertical{left:9%;top:22%;font-size:10px}
 section{padding:92px max(20px,env(safe-area-inset-right)) max(68px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}.lead-grid,.overview-grid,.recruit-wrap,.contact-wrap{grid-template-columns:1fr;gap:34px}
 .hero{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
 .hero-copy{width:100%;margin-top:-1vh}.hero-logo{width:min(100%,680px);max-width:100%;margin:12px auto -5px}
@@ -200,7 +197,7 @@ body input,body textarea,body [contenteditable]:not([contenteditable="false"]),b
 .partner-values h3{font:500 21px/1.5 "Yu Mincho",serif;margin:0 0 8px}
 .partner-values p{font-size:12px;line-height:1.9;margin:0;color:#595047}
 .partner-process{margin:38px 0 0;font-size:12px;line-height:2;letter-spacing:.04em}
-@media(min-width:769px){.hero{padding-top:max(80px,env(safe-area-inset-top))}.side-nav{gap:5px}.side-nav a{font-size:10px;letter-spacing:.1em;padding:5px 2px}.hero-copy{margin-top:0}.hero .vertical{top:28%}}
+@media(min-width:769px){.hero{padding-top:max(80px,env(safe-area-inset-top))}.hero-copy{margin-top:0}.hero .vertical{top:28%}}
 @media(max-width:768px){.hero-mark{width:min(100%,640px);margin-top:16px}.hero-copy{margin-top:-3vh}.hero-logo-controls{font-size:9px;gap:12px}.partners{padding-top:84px;padding-bottom:76px}.partners-heading{grid-template-columns:1fr;gap:26px}.partners-subtitle{font-size:12px;letter-spacing:.04em}.partners-intro{font-size:13px}.partner-offices{grid-template-columns:1fr;margin-top:36px}.partner-office,.partner-office+.partner-office{padding:28px 0;border-left:0}.partner-office+.partner-office{border-top:1px solid #b6ab9a}.partner-values{grid-template-columns:1fr;gap:22px}.partner-values>div{display:grid;grid-template-columns:7em 1fr;gap:16px}.partner-values h3{font-size:17px}.partner-process{margin-top:28px}}
 @media(max-height:650px) and (min-width:769px){.hero-mark{width:420px}.hero{min-height:700px}}
 @media(prefers-reduced-motion:reduce){.hero-logo-controls{display:none}.hero .eyebrow,.hero .tagline,.hero .hero-business{transition:none}.partner-office .arrow-link span{transition:none}}
@@ -246,15 +243,20 @@ body input,body textarea,body [contenteditable]:not([contenteditable="false"]),b
 <script defer src="modal-accessibility.js?v=20260917-1"></script>
 <script defer src="rio-guide.js?v=20261008-top"></script>
 <link rel="stylesheet" href="work-photos.css?v=20261013">
-<script defer src="/site-analytics.js?v=20261025-1" data-ga-id="G-M9QWNNZ4NS" data-ga-hosts="rio-works.com,www.rio-works.com"></script><link rel="stylesheet" href="/work-guide/work-guide.css?v=20261028-2"><link rel="stylesheet" href="/assets/recruit/arm-section.css?v=20261029-1"><script defer src="/assets/recruit/arm-section.js?v=20261029-1"></script><link rel="stylesheet" href="/assets/site/mobile-menu.css?v=20261029-1"><script defer src="/assets/site/mobile-menu.js?v=20261029-1"></script></head>
+<script defer src="/site-analytics.js?v=20261025-1" data-ga-id="G-M9QWNNZ4NS" data-ga-hosts="rio-works.com,www.rio-works.com"></script><link rel="stylesheet" href="/work-guide/work-guide.css?v=20261028-2"><link rel="stylesheet" href="/assets/recruit/arm-section.css?v=20261029-1"><script defer src="/assets/recruit/arm-section.js?v=20261029-1"></script><link rel="stylesheet" href="/assets/site/mobile-menu.css?v=20261104-1"><script defer src="/assets/site/mobile-menu.js?v=20261104-1"></script></head>
 <body>
 <canvas id="fluid"></canvas>
-<div class="chrome"><button class="rio-menu-open" aria-haspopup="dialog" aria-expanded="false" aria-controls="rio-menu"><span>メニュー</span><span class="rio-menu-icon" aria-hidden="true">☰</span></button>
+<div class="chrome">
   <div class="brand"><b>株式会社 吏央</b><br>RIO CO., LTD. <em>●</em></div>
   <div class="status">SAPPORO · YOKOHAMA<br>CONSTRUCTION WORKS</div>
-  <nav class="side-nav" aria-label="サイト内ナビゲーション">
-    <a href="#about">私たち</a><a href="#services">事業内容</a><a href="#company">会社概要</a><a href="#works">施工実績</a><a href="#partners">協力会社募集</a><a href="#recruit">採用情報</a><a href="#contact">お問い合わせ</a>
-  </nav>
+  <details class="rio-dropdown">
+    <summary>メニュー <span aria-hidden="true">▾</span></summary>
+    <nav class="side-nav" aria-label="サイト内ナビゲーション">
+    <a href="#about">私たち</a><a href="#services">事業内容</a><a href="/work-guide/">イラストでわかる仕事内容</a><a href="#company">会社概要</a><a href="#works">施工実績</a><a href="#partners">協力会社募集</a><a href="#recruit">採用情報</a><a href="#contact">お問い合わせ</a>
+      <a href="tel:0113748012">札幌本社 011-374-8012</a>
+      <a href="tel:0459303366">横浜支店 045-930-3366</a>
+    </nav>
+  </details>
   <div class="scroll-note">INK IN MOTION<br>SCROLL TO EXPLORE</div>
 </div>
 <main class="page">
@@ -298,5 +300,5 @@ body input,body textarea,body [contenteditable]:not([contenteditable="false"]),b
 <footer><div class="footer-copy">株式会社 吏央（りお） — RIO CO., LTD.<span>人と人をつなぐ。 / SAPPORO · YOKOHAMA</span></div><div class="site-qr"><a href="assets/site/rio-works-qr.png" download="rio-works-qr.png" aria-label="吏央ホームページのQRコードを保存"><img src="assets/site/rio-works-qr.png" width="148" height="148" loading="lazy" alt="https://rio-works.com/ を開くQRコード"></a><p>スマートフォンで開く</p><a class="qr-download" href="assets/site/rio-works-qr.png" download="rio-works-qr.png">QRコードを保存 ↓</a></div></footer>
 <div id="error">WebGL2 と EXT_color_buffer_float が必要です。</div>
 <button id="sound-toggle" class="sound-toggle" type="button" aria-label="音をオンにする" aria-pressed="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-mute" d="m16 9 5 6m0-6-5 6"/></svg><span>SOUND OFF</span></button>
-<script src="/portfolio-return.js?v=1" defer></script><dialog id="rio-menu" aria-labelledby="rio-menu-title"><header><a class="rio-menu-brand" href="#top">株式会社 吏央<small>RIO CO., LTD.</small></a><button class="rio-menu-close" autofocus aria-label="メニューを閉じる">閉じる <span aria-hidden="true">×</span></button></header><div class="rio-menu-content"><p id="rio-menu-title">サイトメニュー</p><nav aria-label="スマホ用サイト案内"><a href="#about"><small>01</small><span>吏央について</span><b aria-hidden="true">↗</b></a><a href="#services"><small>02</small><span>事業内容</span><b aria-hidden="true">↗</b></a><a href="#works"><small>03</small><span>施工実績</span><b aria-hidden="true">↗</b></a><a href="#recruit" class="rio-menu-recruit"><small>04</small><span>採用情報</span><b aria-hidden="true">↗</b></a><a href="#partners"><small>05</small><span>協力会社募集</span><b aria-hidden="true">↗</b></a><a href="#company"><small>06</small><span>会社案内・許可・資格</span><b aria-hidden="true">↗</b></a><a href="#contact"><small>07</small><span>お問い合わせ</span><b aria-hidden="true">↗</b></a></nav><div class="rio-menu-phone"><a href="tel:0113748012"><small>札幌本社</small>011-374-8012</a><a href="tel:0459303366"><small>横浜支店</small>045-930-3366</a></div></div></dialog></body>
+<script src="/portfolio-return.js?v=1" defer></script></body>
 </html>
