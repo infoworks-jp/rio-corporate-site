@@ -31,7 +31,7 @@
 .partner-values h3{font:500 21px/1.5 "Yu Mincho",serif;margin:0 0 8px}
 .partner-values p{font-size:12px;line-height:1.9;margin:0;color:#595047}
 .partner-process{margin:38px 0 0;font-size:12px;line-height:2;letter-spacing:.04em}
-@media(min-width:769px){.hero{padding-top:max(80px,env(safe-area-inset-top))}.side-nav{gap:5px}.side-nav a{font-size:10px;letter-spacing:.1em;padding:5px 2px}.hero-copy{margin-top:0}.hero .vertical{top:28%}}
+@media(min-width:769px){.hero{padding-top:max(80px,env(safe-area-inset-top))}.hero-copy{margin-top:0}.hero .vertical{top:28%}}
 @media(max-width:768px){.hero-mark{width:min(100%,640px);margin-top:16px}.hero-copy{margin-top:-3vh}.hero-logo-controls{font-size:9px;gap:12px}.partners{padding-top:84px;padding-bottom:76px}.partners-heading{grid-template-columns:1fr;gap:26px}.partners-subtitle{font-size:12px;letter-spacing:.04em}.partners-intro{font-size:13px}.partner-offices{grid-template-columns:1fr;margin-top:36px}.partner-office,.partner-office+.partner-office{padding:28px 0;border-left:0}.partner-office+.partner-office{border-top:1px solid #b6ab9a}.partner-values{grid-template-columns:1fr;gap:22px}.partner-values>div{display:grid;grid-template-columns:7em 1fr;gap:16px}.partner-values h3{font-size:17px}.partner-process{margin-top:28px}}
 @media(max-height:650px) and (min-width:769px){.hero-mark{width:420px}.hero{min-height:700px}}
 @media(prefers-reduced-motion:reduce){.hero-logo-controls{display:none}.hero .eyebrow,.hero .tagline,.hero .hero-business{transition:none}.partner-office .arrow-link span{transition:none}}
