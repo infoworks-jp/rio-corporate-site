@@ -3,7 +3,7 @@
 
 .arm-recruit .recruit-links{display:grid;margin-top:24px}.arm-recruit .recruit-links a{display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid #e3c0a950;line-height:1.7;font-size:13px;min-height:48px}.arm-recruit .recruit-links span{flex:none}.arm-in-view #sound-toggle{display:none!important}@media(max-width:768px){.arm-recruit{padding-top:105px;min-height:940px}}
 
-.arm-in-view .chrome,.arm-in-view .chrome a{color:#fff4e7}.arm-in-view .chrome em{color:#bd4b37}
+.arm-in-view .chrome{color:#fff4e7}.arm-in-view .chrome em{color:#bd4b37}
 
 /* Mobile: a short film first, then readable job information on paper. */
 .arm-scene{display:contents}.arm-jobs-cta,.arm-job-pay,.arm-jobs-kicker{display:none}
