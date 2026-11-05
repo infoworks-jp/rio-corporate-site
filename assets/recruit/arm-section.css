@@ -34,3 +34,17 @@
 @media(max-width:768px){.arm-recruit .recruit-links a{border-bottom:1px solid #c8bbab;padding:17px 0}}
 
 .arm-film-credit{display:table;margin:14px 0 0;padding:4px 8px;background:#170f10e6;color:#fff4e7;font:500 11px/1.5 system-ui,sans-serif;letter-spacing:.08em}
+
+/* Keep the tattoo in its own frame so the recruiting copy never covers it. */
+.arm-recruit::before,.arm-scene::before{display:none}
+.arm-recruit .arm-scene{display:grid;position:relative;min-width:0;height:auto;gap:18px}
+.arm-recruit .arm-video{position:static;z-index:auto;display:block;grid-row:2;width:100%;height:auto;aspect-ratio:12/7;object-fit:contain}
+.arm-recruit .arm-intro{position:static;grid-row:1}
+.arm-recruit .arm-toggle{position:static;grid-row:3;justify-self:end}
+@media(max-width:768px){
+ .arm-recruit .arm-scene{padding:78px 0 18px;grid-template-columns:1fr 1fr;column-gap:12px}
+ .arm-recruit .arm-intro,.arm-recruit .arm-video{grid-column:1/-1}
+ .arm-recruit .arm-intro{padding:0 22px}
+ .arm-recruit .arm-jobs-cta{position:static;grid-row:3;grid-column:1;justify-self:start;margin-left:22px;gap:12px}
+ .arm-recruit .arm-toggle{grid-column:2;margin-right:18px}
+}
