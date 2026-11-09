@@ -1,5 +1,5 @@
 (() => {
-  const SAPPORO='/recruit/';
+  const SAPPORO='/recruit/sapporo/';
   const YOKOHAMA='/recruit/yokohama/';
   const ENDPOINT='https://xxhgerxugsjoxkbuuqhb.supabase.co/functions/v1/rio-contact';
   const css=document.createElement('style');

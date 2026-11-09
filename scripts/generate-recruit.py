@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://rio-works.com'
-REVIEWED = '2026-09-20'
+REVIEWED = '2026-11-09'
 JOBS = json.loads((ROOT / 'recruit/jobs.json').read_text())
 esc = html.escape
 
@@ -97,7 +97,7 @@ cards = ''
 for job in JOBS:
     card_label = '終了した募集の詳細を見る →' if job.get('status') == 'closed' else '募集要項・応募方法を見る →'
     cards += f'''<article class="job-card"><p class="eyebrow">{job['office']} ／ 正社員</p><a href="/recruit/{job['slug']}/"><h2>{esc(job['title'])}</h2></a><p class="job-status">{esc(publication_status(job))}</p><p class="job-salary">{wage(job)}</p><p>{esc(job['intro'])}</p><div class="actions"><a class="button" href="/recruit/{job['slug']}/">{card_label}</a></div></article>'''
-listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の土木作業スタッフ（経験者・未経験者）、横浜の土工。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
+listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の解体工と横浜の土木作業員を募集。未経験者・経験者ともに歓迎。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
 listing += f'''<main id="main">
 <section class="sakura-hero" aria-labelledby="recruit-title">
 <div class="sakura-scenery" aria-hidden="true"><img class="sakura-poster" src="/assets/recruit/glass-hand-hd-poster.jpg" alt="" width="1920" height="1120" fetchpriority="high"><video class="sakura-video" data-src="/assets/recruit/glass-hand-hd.mp4" poster="/assets/recruit/glass-hand-hd-poster.jpg" width="1920" height="1120" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture></video></div>
@@ -149,3 +149,14 @@ for job in JOBS:
     + 'export default ' + js_string(chat_jobs) + ';\n'
 )
 print('Generated homepage links, recruitment index,', len(JOBS), 'job detail pages, and AI chat job data.')
+
+
+# Preserve old bookmarked/search URLs without duplicate or stale JobPosting data.
+for job in JOBS:
+    for legacy_slug in job.get('legacySlugs', []):
+        destination = '/recruit/' + job['slug'] + '/'
+        redirect = f'''<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>札幌の募集を統合しました｜株式会社吏央</title><link rel="canonical" href="{BASE}{destination}"><meta http-equiv="refresh" content="0;url={destination}"></head><body><main><h1>札幌の募集を一つに統合しました</h1><p>未経験者・経験者ともに、同じ募集ページでご案内しています。</p><a href="{destination}">札幌の解体工の募集要項・応募方法を見る</a></main></body></html>\n'''
+        output = ROOT / 'recruit' / legacy_slug / 'index.html'
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(redirect)

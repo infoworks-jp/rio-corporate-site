@@ -1,9 +1,9 @@
 name: Contact form checks
 on:
   push:
-    paths: ['ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
+    paths: ['recruit/**', 'scripts/generate-recruit.py', 'index.html', 'sitemap.xml', 'ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
   pull_request:
-    paths: ['ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
+    paths: ['recruit/**', 'scripts/generate-recruit.py', 'index.html', 'sitemap.xml', 'ai/**', 'rio-guide.js', 'recruit-contact.js', 'supabase/**', 'tests/**', '.github/workflows/contact-tests.yml']
 permissions:
   contents: read
 jobs:
@@ -17,3 +17,5 @@ jobs:
       - run: node --check recruit-contact.js
       - run: node --test tests/contact.test.mjs
       - run: node tests/ai-chat-qa.mjs
+      - run: python scripts/generate-recruit.py && git diff --exit-code
+      - run: node --test tests/recruit.test.mjs

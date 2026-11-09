@@ -1,4 +1,4 @@
-import config from './rio-config.js?v=20261007-airwork2';
+import config from './rio-config.js?v=20261109-jobs';
 import {createChatProvider} from './chat-provider.js';
 import {mountChat} from './chat-widget.js?v=20261008-top';
 const {dialog,launch}=mountChat(config,createChatProvider());

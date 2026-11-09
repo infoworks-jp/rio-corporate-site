@@ -11,10 +11,10 @@ assert.match(config.answer('札幌の求人').text,/Airワーク有料広告配�
 assert.match(config.answer('札幌の求人').text,/2026\/11\/30まで/);
 const homepage=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const listing=fs.readFileSync(new URL('../recruit/index.html',import.meta.url),'utf8');
-const sapporoPage=fs.readFileSync(new URL('../recruit/sapporo-experienced/index.html',import.meta.url),'utf8');
+const sapporoPage=fs.readFileSync(new URL('../recruit/sapporo/index.html',import.meta.url),'utf8');
 const yokohamaPage=fs.readFileSync(new URL('../recruit/yokohama/index.html',import.meta.url),'utf8');
 const chatCss=fs.readFileSync(new URL('../ai/chat.css',import.meta.url),'utf8');
-for(const slug of ['sapporo-experienced','sapporo-entry','yokohama'])assert.match(homepage,new RegExp(`href="recruit/${slug}/"`));
+for(const slug of ['sapporo','yokohama'])assert.match(homepage,new RegExp(`href="recruit/${slug}/"`));
 assert.match(listing,/Airワーク有料掲載中｜広告番号 2975653｜2026\/11\/30まで/);
 assert.match(listing,/Airワーク有料掲載中｜広告番号 2891758｜2026\/11\/30まで/);
 assert.match(sapporoPage,/広告番号 2975653/);
