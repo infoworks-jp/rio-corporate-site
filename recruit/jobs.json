@@ -65,8 +65,8 @@
     "office": "横浜支店",
     "datePosted": "2026-08-20",
     "validThrough": "2026-11-30T23:59:59+09:00",
-    "source": "https://jp.indeed.com/jobs?q=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E5%90%8F%E5%A4%AE+%E5%9C%9F%E5%B7%A5%E3%83%BB%E5%9C%9F%E6%9C%A8%E4%BD%9C%E6%A5%AD%E5%93%A1&l=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82",
-    "applyUrl": "https://jp.indeed.com/jobs?q=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E5%90%8F%E5%A4%AE+%E5%9C%9F%E5%B7%A5%E3%83%BB%E5%9C%9F%E6%9C%A8%E4%BD%9C%E6%A5%AD%E5%93%A1&l=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82",
+    "source": "https://jp.indeed.com/viewjob?jk=781dac6412229d3f",
+    "applyUrl": "https://jp.indeed.com/viewjob?jk=781dac6412229d3f",
     "identifier": "6037094",
     "airworkAdId": "2891758",
     "airworkJobId": "6037094",
@@ -92,3 +92,4 @@
     ]
   }
 ]
+
