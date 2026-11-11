@@ -6,7 +6,8 @@ assert.equal(config.topics.length,9);
 for(const t of config.topics){const a=await createChatProvider().answer({question:t.label,config});assert.ok(a.text);assert.ok(a.cta.every(c=>config.links[c]));}
 assert.match(config.answer('給料について').text,/経験・資格・能力・勤務内容等で変動/);
 assert.match(config.answer('横浜の給料').text,/広告番号2891758/);
-assert.match(config.answer('横浜の給料').text,/2026\/11\/30/);
+assert.match(config.answer('横浜の給料').text,/募集終了/);
+assert.match(config.answer('横浜の給料').text,/2026\/11\/10/);
 assert.match(config.answer('札幌の求人').text,/Airワーク有料広告配信中・広告番号2975653/);
 assert.match(config.answer('札幌の求人').text,/2026\/11\/30まで/);
 const homepage=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
@@ -14,12 +15,14 @@ const listing=fs.readFileSync(new URL('../recruit/index.html',import.meta.url),'
 const sapporoPage=fs.readFileSync(new URL('../recruit/sapporo/index.html',import.meta.url),'utf8');
 const yokohamaPage=fs.readFileSync(new URL('../recruit/yokohama/index.html',import.meta.url),'utf8');
 const chatCss=fs.readFileSync(new URL('../ai/chat.css',import.meta.url),'utf8');
-for(const slug of ['sapporo','yokohama'])assert.match(homepage,new RegExp(`href="recruit/${slug}/"`));
+assert.match(homepage,/href="recruit\/sapporo\/"/);
+assert.doesNotMatch(homepage,/href="recruit\/yokohama\/"/);
 assert.match(listing,/Airワーク有料掲載中｜広告番号 2975653｜2026\/11\/30まで/);
-assert.match(listing,/Airワーク有料掲載中｜広告番号 2891758｜2026\/11\/30まで/);
+assert.match(listing,/募集終了｜Airワーク有料広告の配信は終了しました/);
 assert.match(sapporoPage,/広告番号 2975653/);
 assert.match(sapporoPage,/application\/ld\+json/);
-assert.match(yokohamaPage,/広告番号 2891758/);
+assert.match(yokohamaPage,/募集終了｜Airワーク有料広告の配信は終了しました/);
+assert.match(yokohamaPage,/Airワーク求人番号は6037094/);
 assert.match(chatCss,/\.ai-chat-history\{[^}]*overflow:visible/);
 assert.doesNotMatch(chatCss,/\.ai-chat-history\{[^}]*overscroll-behavior:contain/);
 assert.deepEqual(config.answer('応募したい').cta,['apply','phone','yokohamaPhone','contact']);

@@ -8,7 +8,6 @@
     "airworkAdId": "2975653",
     "airworkJobId": "11807357",
     "airworkTitle": "解体工　未経験OK、経験者高待遇、資格取得全額負担します。",
-    "reviewed": "2026-11-09",
     "status": "open",
     "source": "https://jp.indeed.com/viewjob?jk=186fc84748c75fce",
     "applyUrl": "https://jp.indeed.com/viewjob?jk=186fc84748c75fce",
@@ -91,14 +90,16 @@
     "title": "整地・基礎工事・コンクリート打設の土木作業員",
     "office": "横浜支店",
     "datePosted": "2026-08-20",
-    "validThrough": "2026-11-30T23:59:59+09:00",
+    "validThrough": "2026-11-10T23:59:59+09:00",
     "source": "https://jp.indeed.com/viewjob?jk=781dac6412229d3f",
     "applyUrl": "https://jp.indeed.com/viewjob?jk=781dac6412229d3f",
     "identifier": "6037094",
     "airworkAdId": "2891758",
     "airworkJobId": "6037094",
     "airworkTitle": "整地・基礎工事・コンクリート打設の土木作業員",
-    "reviewed": "2026-11-09",
+    "reviewed": "2026-11-12",
+    "status": "closed",
+    "closedAt": "2026-11-10",
     "salaryMin": 13000,
     "salaryMax": 17000,
     "region": "神奈川県",
@@ -158,8 +159,8 @@
       {
         "title": "応募・選考",
         "paragraphs": [
-          "Indeedからご応募いただくか、横浜支店の採用窓口へお電話ください。応募後に面接日程をご案内します。面接は1回。即面接・即採用・勤務も可能と掲載されています。",
-          "面接地まで行くことが難しい場合は、送迎やネットでの面接を相談できます。これまでの経験や勤務開始の希望日をお聞かせください。"
+          "この求人の有料広告は予算上限に達したため、応募受付を終了しました。Airワーク求人番号は6037094です。",
+          "今後の募集予定や勤務開始日は、横浜支店の採用窓口へご確認ください。"
         ]
       }
     ]
