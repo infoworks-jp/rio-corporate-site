@@ -54,7 +54,7 @@ for job in JOBS:
     title = f'{job["title"]}の求人｜{job["office"]}｜株式会社吏央'
     description = f'株式会社吏央 {job["office"]}の正社員募集。{wage(job)}。{job["intro"]}'
     guide_anchor = 'dismantle' if 'sapporo' in job['slug'] else 'earthworks'
-    guide_label = '内装解体' if guide_anchor == 'dismantle' else '土工・とび・仮設'
+    guide_label = '解体' if guide_anchor == 'dismantle' else '土工・とび・仮設'
     sections = ''
     for section in job['sections']:
         sections += '<section class="job-section"><h2>' + esc(section['title']) + '</h2>' + ''.join('<p>' + esc(p) + '</p>' for p in section['paragraphs'])
