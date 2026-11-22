@@ -101,3 +101,5 @@
     color: #702a21;
   }
 }
+
+.rio-menu nav > .rio-menu-brand-link{padding:12px 16px;min-height:48px;font-weight:600;background:#f8f4ec;border-bottom:1px solid #c7bcac;}
