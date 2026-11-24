@@ -32,7 +32,9 @@ def head(title, description, path, schema=None):
 FOOT = '<footer class="wrap"><div><b>株式会社 吏央</b><span>RIO CO., LTD.</span></div><nav aria-label="フッター"><a href="/">公式ホームページ</a><a href="/recruit/">募集一覧</a><a href="/#contact">お問い合わせ</a></nav></footer><script src="/portfolio-return.js?v=1" defer></script></body></html>\n'
 
 def wage(job):
-    return f'日給{job["salaryMin"]:,}円～{job["salaryMax"]:,}円'
+    label = '月給' if job.get('salaryUnit') == 'MONTH' else '日給'
+    maximum = f'{job["salaryMax"]:,}円' if job.get('salaryMax') is not None else ''
+    return f'{label}{job["salaryMin"]:,}円～{maximum}'
 
 def publication_status(job):
     if job.get('status') == 'closed':
@@ -47,7 +49,7 @@ def publication_status(job):
 def actions(job):
     if job.get('status') == 'closed':
         return f'<div class="actions"><span class="button" aria-disabled="true">この募集は終了しました</span><a class="text-link" href="tel:{job["phone"].replace("-", "")}">今後の募集を電話で確認 {job["phone"]}</a></div>'
-    return f'<div class="actions"><a class="button" href="{esc(job["applyUrl"], quote=True)}" target="_blank" rel="noopener noreferrer">Indeedで募集要項・応募先を確認 ↗</a><a class="text-link" href="tel:{job["phone"].replace("-", "")}">電話で応募・相談 {job["phone"]}</a></div>'
+    return f'<div class="actions"><a class="button" href="{esc(job["applyUrl"], quote=True)}" target="_blank" rel="noopener noreferrer">{esc(job.get("applyLabel", "Indeedで募集要項・応募先を確認 ↗"))}</a><a class="text-link" href="tel:{job["phone"].replace("-", "")}">電話で応募・相談 {job["phone"]}</a></div>'
 
 for job in JOBS:
     path = '/recruit/' + job['slug'] + '/'
@@ -58,7 +60,7 @@ for job in JOBS:
     sections = ''
     for section in job['sections']:
         sections += '<section class="job-section"><h2>' + esc(section['title']) + '</h2>' + ''.join('<p>' + esc(p) + '</p>' for p in section['paragraphs'])
-        if section['title'] == '仕事内容':
+        if section['title'] == '仕事内容' and job.get('category') != 'office':
             sections += f'<aside class="work-guide-note" aria-label="イラストで仕事を知る"><p>仕事のイメージを、イラストで。</p><a class="text-link" href="/work-guide/#{guide_anchor}">{guide_label}の仕事を見る →</a><a class="text-link" href="/work-guide/#first-steps">入社して最初にすることを見る →</a></aside>'
         sections += '</section>'
     # Same employer text is visible on the page and in JobPosting.description.
@@ -71,7 +73,7 @@ for job in JOBS:
         'identifier': {'@type': 'PropertyValue', 'name': '株式会社吏央', 'value': job['identifier']},
         'hiringOrganization': {'@type': 'Organization', 'name': '株式会社吏央', 'sameAs': BASE + '/', 'logo': BASE + '/assets/site/rio-hero-logo.png'},
         'jobLocation': {'@type': 'Place', 'name': '株式会社吏央 ' + job['office'], 'address': {'@type': 'PostalAddress', 'addressCountry': 'JP', 'addressRegion': job['region'], 'addressLocality': job['locality'], 'streetAddress': job['street'], 'postalCode': job['postalCode']}},
-        'baseSalary': {'@type': 'MonetaryAmount', 'currency': 'JPY', 'value': {'@type': 'QuantitativeValue', 'minValue': job['salaryMin'], 'maxValue': job['salaryMax'], 'unitText': 'DAY'}},
+        'baseSalary': {'@type': 'MonetaryAmount', 'currency': 'JPY', 'value': {'@type': 'QuantitativeValue', 'minValue': job['salaryMin'], **({'maxValue': job['salaryMax']} if job.get('salaryMax') is not None else {}), 'unitText': job.get('salaryUnit', 'DAY')}},
         'educationRequirements': 'no requirements',
     }
     if job.get('status') == 'closed':
@@ -83,11 +85,11 @@ for job in JOBS:
     elif job.get('validThrough'):
         expiry = '｜掲載終了：' + job['validThrough'][:10].replace('-', '/')
     reviewed = job.get('reviewed', REVIEWED)
-    dates = f'元求人の掲載開始：{job["datePosted"].replace("-", "/")} {expiry}｜内容確認：{reviewed.replace("-", "/")}'
+    dates = f'{job.get("dateLabel", "元求人の掲載開始")}：{job["datePosted"].replace("-", "/")} {expiry}｜内容確認：{reviewed.replace("-", "/")}'
     page = head(title, description, path, schema) + f'''<main class="wrap job-main" id="main">
 <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/">ホーム</a><span>/</span><a href="/recruit/">採用情報</a><span>/</span><span aria-current="page">{esc(job['office'])}・{esc(job['title'])}</span></nav>
 <div class="job-hero"><div><p class="eyebrow">{esc(job['office'])} ／ 正社員</p><h1>{esc(job['title'])}</h1><p class="job-status">{esc(publication_status(job))}</p><p class="job-salary">{wage(job)}</p><p class="job-intro">{esc(job['intro'])}</p><p class="job-dates">{dates}</p>{actions(job)}</div><img src="/assets/site/{job['photo']}" alt="株式会社吏央 {job['office']}" width="449" height="323"></div>
-<div class="job-sections">{sections}</div><section class="apply-box" id="apply"><h2>{'募集終了' if job.get('status') == 'closed' else '応募・お問い合わせ'}</h2><p>株式会社吏央 {esc(job['office'])} 採用窓口</p>{actions(job)}<p>{'この求人の応募受付は終了しました。今後の募集は採用窓口へご確認ください。' if job.get('status') == 'closed' else '勤務開始日や寮についてもご相談ください。'}</p></section>
+<div class="job-sections">{sections}</div><section class="apply-box" id="apply"><h2>{'募集終了' if job.get('status') == 'closed' else '応募・お問い合わせ'}</h2><p>株式会社吏央 {esc(job['office'])} 採用窓口</p>{actions(job)}<p>{'この求人の応募受付は終了しました。今後の募集は採用窓口へご確認ください。' if job.get('status') == 'closed' else esc(job.get('contactNote', '勤務開始日や寮についてもご相談ください。'))}</p></section>
 <p class="job-note">{'この求人は募集を終了しました。' if job.get('status') == 'closed' else f'<a class="source-link" href="{esc(job["source"], quote=True)}" target="_blank" rel="noopener noreferrer">掲載中の元の募集要項を確認する ↗</a>。募集状況や個別の条件は、応募時に採用窓口へご確認ください。'}</p></main>''' + FOOT
     output = ROOT / path.strip('/') / 'index.html'
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -97,7 +99,7 @@ cards = ''
 for job in JOBS:
     card_label = '終了した募集の詳細を見る →' if job.get('status') == 'closed' else '募集要項・応募方法を見る →'
     cards += f'''<article class="job-card"><p class="eyebrow">{job['office']} ／ 正社員</p><a href="/recruit/{job['slug']}/"><h2>{esc(job['title'])}</h2></a><p class="job-status">{esc(publication_status(job))}</p><p class="job-salary">{wage(job)}</p><p>{esc(job['intro'])}</p><div class="actions"><a class="button" href="/recruit/{job['slug']}/">{card_label}</a></div></article>'''
-listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の解体工と横浜の土木作業員を募集。未経験者・経験者ともに歓迎。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
+listing = head('採用情報・求人一覧｜札幌・横浜｜株式会社吏央', '株式会社吏央の正社員求人。札幌の解体工、横浜の土木作業員・一般事務を募集。未経験者・経験者ともに歓迎。給与、仕事内容、勤務地、寮、応募方法をご確認いただけます。', '/recruit/')
 listing += f'''<main id="main">
 <section class="sakura-hero" aria-labelledby="recruit-title">
 <div class="sakura-scenery" aria-hidden="true"><img class="sakura-poster" src="/assets/recruit/glass-hand-hd-poster.jpg" alt="" width="1920" height="1120" fetchpriority="high"><video class="sakura-video" data-src="/assets/recruit/glass-hand-hd.mp4" poster="/assets/recruit/glass-hand-hd-poster.jpg" width="1920" height="1120" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture></video></div>
@@ -111,7 +113,7 @@ listing += f'''<main id="main">
 homepage_path = ROOT / 'index.html'
 homepage = homepage_path.read_text()
 homepage_links = ''.join(
-    f'<a href="recruit/{job["slug"]}/"><span class="arm-job-name">{esc(job["office"])}｜{esc(job["title"])}</span><strong class="arm-job-pay">日給{job["salaryMin"]:,}〜{job["salaryMax"]:,}円</strong> <span aria-hidden="true">→</span></a>'
+    f'<a href="recruit/{job["slug"]}/"><span class="arm-job-name">{esc(job["office"])}｜{esc(job["title"])}</span><strong class="arm-job-pay">{wage(job)}</strong> <span aria-hidden="true">→</span></a>'
     for job in JOBS if job.get('status') != 'closed'
 ) + '<a href="recruit/">求人一覧・応募方法 <span>→</span></a>'
 homepage, replacements = re.subn(
