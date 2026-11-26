@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>就業規則｜株式会社吏央</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../internal.css?v=20261124b">
+  <script src="work-rules.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="/">株式会社 吏央 <small>RIO CO., LTD.</small></a>
+    <div class="header-actions"><a class="back-link" href="../">戻る</a></div>
+  </header>
+  <main>
+    <section id="gate">
+      <p class="eyebrow">STAFF ONLY</p>
+      <h1>就業規則</h1>
+      <form id="login">
+        <label for="password">暗証番号</label>
+        <div class="entry">
+          <input id="password" type="password" inputmode="numeric" pattern="[0-9]{4}"
+                 minlength="4" maxlength="4" required aria-describedby="message">
+          <button type="submit">就業規則を開く</button>
+        </div>
+        <p id="message" role="status">4桁の暗証番号を入力してください。</p>
+      </form>
+    </section>
+    <section id="workspace" hidden>
+      <div class="title-row">
+        <h1 id="document-title" tabindex="-1">就業規則</h1>
+        <button id="lock" type="button" class="quiet">閉じてロック</button>
+      </div>
+      <p><a id="open-pdf" target="_blank" rel="noopener noreferrer">PDFを別のタブで開く</a></p>
+      <iframe id="document" title="株式会社吏央の就業規則 PDF" style="width:100%;height:75vh;border:1px solid #d0d6d0"></iframe>
+    </section>
+  </main>
+  <footer>株式会社吏央 · 社内資料</footer>
+</body>
+</html>
